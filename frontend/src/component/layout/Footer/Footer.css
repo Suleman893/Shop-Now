@@ -1,0 +1,73 @@
+footer {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: rgb(32, 33, 33);
+  color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+.leftFooter {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.leftFooter > h4 {
+  font-family: "Franklin Gothic Medium";
+  font-size: 30px;
+}
+
+.leftFooter > p {
+  text-align: center;
+  font-family: "Lucida Sans";
+  font-size: 2px;
+}
+
+.leftFooter > img {
+  width: 40%;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.midFooter {
+  width: 60%;
+  text-align: center;
+}
+
+.midFooter > h1 {
+  font-size: 30px;
+  font-family: "Franklin Gothic Medium";
+  color: crimson;
+}
+
+.midFooter > p {
+  max-width: 60%;
+  margin: 10px auto;
+}
+
+.rightFooter {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rightFooter > h4 {
+  font-family: "Franklin Gothic Medium";
+  font-size: 30px;
+}
+
+.rightFooter > a {
+  text-decoration: none;
+  font-size: 30px;
+  font-family: "Franklin Gothic Medium";
+  color: #fff;
+  margin: 10px;
+  transition: all 0.8s;
+}
+
+.rightFooter > a:hover {
+  color: red;
+}
