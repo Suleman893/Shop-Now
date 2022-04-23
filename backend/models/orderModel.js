@@ -42,6 +42,15 @@ const orderSchema = new mongoose.Schema({
         type: Number,
         required: [true, "Quantity"],
       },
+      image: {
+        type: String,
+        // required: true,
+      },
+      product: {
+        type: mongoose.Schema.ObjectId,
+        ref: "Product",
+        required: [true, "Product is required to make order"],
+      },
     },
   ],
 
