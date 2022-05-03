@@ -22,8 +22,8 @@ router.post(
   check("category", "Product Category roles cannot be empty").notEmpty(),
   check("stock", "Product Stock roles cannot be empty").notEmpty(),
   check("numOfReviews", "Number of Review cannot be empty").notEmpty(),
-  checkToken,
-  checkIsAdmin,
+  // checkToken,
+  // checkIsAdmin,
   CreateProduct
 );
 
