@@ -1,7 +1,8 @@
 import React from "react";
 import "./Cart.css";
 import buy1 from "../../images/product.jpg";
-
+import {Link} from "react-router-dom";
+import MetaData from "../../component/layout/MetaData";
 const Cart = () => {
   const ratingOptions = {
     edit: false,
@@ -14,6 +15,7 @@ const Cart = () => {
 
   return (
     <>
+    <MetaData title="Product Cart"/>
       <div className="small-container cart-page">
         <table>
           <tr>
@@ -29,22 +31,8 @@ const Cart = () => {
                   <p>Product name</p>
                   <small>Price: $100.00</small>
                   <br />
-                </div>
-              </div>
-            </td>
-            <td>
-              <input type="number" value="1" />
-            </td>
-            <td>$100.00</td>
-          </tr>
+                  <small>Remove</small>
 
-          <tr>
-            <td>
-              <div className="cart-info">
-                <img src={buy1} alt="cart" />
-                <div>
-                  <p>Product name</p>
-                  <small>Price: $100.00</small>
                   <br />
                 </div>
               </div>
@@ -62,6 +50,31 @@ const Cart = () => {
                 <div>
                   <p>Product name</p>
                   <small>Price: $100.00</small>
+                  <br />
+
+                  <small>Remove</small>
+
+                  <br />
+                </div>
+              </div>
+            </td>
+            <td>
+              <input type="number" value="1" />
+            </td>
+            <td>$100.00</td>
+          </tr>
+
+          <tr>
+            <td>
+              <div className="cart-info">
+                <img src={buy1} alt="cart" />
+                <div>
+                  <p>Product name</p>
+                  <small>Price: $100.00</small>
+                  <br />
+
+                  <small>Remove</small>
+
                   <br />
                 </div>
               </div>
@@ -89,6 +102,9 @@ const Cart = () => {
             </tr>
           </table>
         </div>
+        <Link to="/" className="btn">
+          Checkout &#8594;
+        </Link>
       </div>
     </>
   );

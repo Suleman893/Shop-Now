@@ -6,11 +6,17 @@ const {checkIsAdmin} = require("../middlewares/isAdmin");
 const {
   CreateProduct,
   GetAllProducts,
+  GetLatestProducts,
+  GetFeaturedProduct,
   GetAdminProduct,
   UpdateProduct,
   DeleteProduct,
   ProductDetails,
+  SearchProduct,
 } = require("../controllers/productController");
+
+//SearchProduct
+router.get("/searchProduct/:name", SearchProduct);
 
 //AdminCanCreateProduct
 router.post(
@@ -30,16 +36,22 @@ router.post(
 //GetAllProducts
 router.get("/products", GetAllProducts);
 
+//GetLatestProduct
+router.get("/latestProduct", GetLatestProducts);
+
+//GetFeaturedProduct
+router.get("/featuredProduct", GetFeaturedProduct);
+
 //GetAdminProduct
 // router.get("/getAdminProducts", checkToken, checkIsAdmin, GetAdminProduct);
 
 //AdminCanUpdateProduct
-router.put("/admin/product/:p_id", checkToken, checkIsAdmin, UpdateProduct);
+router.put("/admin/product/:id", checkToken, checkIsAdmin, UpdateProduct);
 
 //AdminCanDelete/RemoveProduct
-router.delete("/admin/product/:p_id", checkToken, checkIsAdmin, DeleteProduct);
+router.delete("/admin/product/:id", checkToken, checkIsAdmin, DeleteProduct);
 
 //GetSpecificProduct
-router.get("/product/:p_id", ProductDetails);
+router.get("/product/:id", ProductDetails);
 
 module.exports = router;

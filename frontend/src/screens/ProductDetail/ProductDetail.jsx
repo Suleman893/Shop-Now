@@ -1,10 +1,26 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./ProductDetail.css";
 import buy1 from "../../images/product.jpg";
 import ReactStars from "react-rating-stars-component";
-import {Link} from "react-router-dom";
-
+import {Link, useParams} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {getProductDetails} from "../../redux/actions/productAction";
+import Reviewcard from "../../component/ReviewCard/Reviewcard";
+import Loader from "../../component/layout/Loader/Loader";
 const ProductDetail = () => {
+  const param = useParams();
+  const dispatch = useDispatch();
+  // const {product, loading, error} = useSelector(
+  //   (state) => state.productDetail
+  // );
+
+  const {product, loading, error} = useSelector((state) => state.productDetail);
+
+  console.log("The product we got", product);
+  useEffect(() => {
+    dispatch(getProductDetails(param.id));
+  }, [dispatch]);
+
   const ratingOptions = {
     edit: false,
     color: "rgba(20,20,20,0.1)",
@@ -16,73 +32,63 @@ const ProductDetail = () => {
 
   return (
     <>
-      <div className="small-container single-product">
-        <div className="row">
-          <div className="col-2">
-            <img src={buy1} alt="productdetail" width="100%" />
-          </div>
-          <div className="col-2">
-            <p>Home / Cloths</p>
-            <h2>Red T-Shirt</h2>
-            <h4>$100.00 </h4>
-            <select>
-              <option>Select Size</option>
-              <option>Large</option>
-              <option>Small</option>
-            </select>
-            <input type="number " value="1" />
-            <Link to="/cart" className="btn">
-              Add to Cart
-            </Link>
-            <h3>Product Details</h3>
-            <br />
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi
-              tempore pariatur dolorem quasi. Cumque nulla, deserunt neque harum
-              voluptas distinctio!
-            </p>
-          </div>
-        </div>
-      </div>
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <h1>Error while fetching</h1>
+      ) : (
+        <>
+          <div className="small-container single-product">
+            <div className="row">
+              <div className="col-2">
+                <img src={buy1} alt="productdetail" width="100%" />
+              </div>
+              <div className="col-2">
+                <h2>{product.name}</h2>
+                <hr />
+                <ReactStars {...ratingOptions} />
+                <hr />
 
-      <div className="small-container">
-        <div className="row row-2">
-          <h2>Related Products</h2>
-          <p>View More</p>
-        </div>
-      </div>
+                <h4> {product.price} </h4>
+                <button>-</button>
+                <input type="number " value="1" />
+                <button>+</button>
+                <Link to="/cart" className="btn">
+                  Add to Cart
+                </Link>
+                <hr />
 
-      <div className="small-container">
-        <div className="row">
-          <div className="col-4">
-            <img src={buy1} alt="product" />
-            <h4> Red T-shirt for men </h4>
-            <ReactStars {...ratingOptions} />
-            <p>$ 100.0</p>
+                <h3 className={product.stock > 1 ? "green" : "red"}>
+                  {" "}
+                  {product.stock > 1
+                    ? `In stock : ${product.stock}`
+                    : "Not available"}
+                </h3>
+                <hr />
+
+                <h3>Product Description</h3>
+                <br />
+                <p>{product.description}</p>
+              </div>
+            </div>
           </div>
 
-          <div className="col-4">
-            <img src={buy1} alt="product" />
-            <h4> Red T-shirt for men </h4>
-            <ReactStars {...ratingOptions} />
-            <p>$ 100.0</p>
+          <div className="small-container">
+            <div className="row row-2">
+              <h2>Reviews</h2>
+            </div>
+            <p>What others says other this product</p>
           </div>
 
-          <div className="col-4">
-            <img src={buy1} alt="product" />
-            <h4> Red T-shirt for men </h4>
-            <ReactStars {...ratingOptions} />
-            <p>$ 100.0</p>
+          <div className="small-container">
+            <div className="row">
+              {product.reviews && product.reviews[0]
+                ? product.map((review) => <Reviewcard review={review} />)
+                : "No review yet"}
+            </div>
           </div>
-
-          <div className="col-4">
-            <img src={buy1} alt="product" />
-            <h4> Red T-shirt for men </h4>
-            <ReactStars {...ratingOptions} />
-            <p>$ 100.0</p>
-          </div>
-        </div>
-      </div>
+        </>
+      )}
     </>
   );
 };

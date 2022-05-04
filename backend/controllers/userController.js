@@ -39,7 +39,7 @@ const UserRegistration = async (req, res) => {
     }
   } catch (err) {
     return res.status(500).send({
-      message: "Service error",
+      message: err.message,
       error: err,
     });
   }
@@ -72,7 +72,8 @@ const UserLogin = async (req, res) => {
     });
   } catch (error) {
     return res.status(500).send({
-      message: "The server error",
+      message: err.message,
+      error: err,
     });
   }
 };
@@ -107,7 +108,8 @@ const UserDetails = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).send({
-      message: "Server Error",
+      message: err.message,
+      error: err,
     });
   }
 };
@@ -138,7 +140,8 @@ const UpdateDetails = async (req, res) => {
     });
   } catch (error) {
     return res.status(500).send({
-      message: "Server error",
+      message: err.message,
+      error: err,
     });
   }
 };
@@ -161,7 +164,8 @@ const GetAllUsers = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).send({
-      message: "Server Error",
+      message: err.message,
+      error: err,
     });
   }
 };
@@ -183,7 +187,8 @@ const GetUserById = async (req, res) => {
     });
   } catch (error) {
     return res.status(500).send({
-      message: "Error of server",
+      message: err.message,
+      error: err,
     });
   }
 };
@@ -204,7 +209,8 @@ const RemoveUserById = async (req, res) => {
     });
   } catch (error) {
     return res.status(500).send({
-      message: "Server Error",
+      message: err.message,
+      error: err,
     });
   }
 };
@@ -239,7 +245,8 @@ const UpdateUserById = async (req, res) => {
     });
   } catch (error) {
     return res.status(500).send({
-      message: "Server error",
+      message: err.message,
+      error: err,
     });
   }
 };

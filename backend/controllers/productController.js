@@ -32,7 +32,7 @@ const CreateProduct = async (req, res) => {
     }
   } catch (err) {
     return res.status(500).send({
-      message: "Service error",
+      message: err.message,
       error: err,
     });
   }
@@ -44,16 +44,67 @@ const GetAllProducts = async (req, res) => {
     if (allProducts.length < 0) {
       return res.status.send({
         message: "No Product Found",
-        data: [],
+        products: [],
       });
     }
     return res.status(200).send({
       message: "Product found successfully",
-      data: allProducts,
+      products: allProducts,
     });
   } catch (err) {
     return res.status(500).send({
-      message: "Server Error",
+      message: err.message,
+      error: err,
+    });
+  }
+};
+
+const GetLatestProducts = async (req, res) => {
+  const limitProduct = 4;
+  try {
+    let allLatestProducts = await productSchema
+      .find()
+      .sort({_id: -1})
+      .limit(limitProduct);
+    if (allLatestProducts.length < 0) {
+      return res.status.send({
+        message: "No Product Found",
+        latestProducts: [],
+      });
+    }
+    return res.status(200).send({
+      message: "Product found successfully",
+      latestProducts: allLatestProducts,
+    });
+  } catch (err) {
+    return res.status(500).send({
+      message: err.message,
+      error: err,
+    });
+  }
+};
+
+const GetFeaturedProduct = async (req, res) => {
+  const limitProduct = 4;
+  try {
+    let featuredProducts = await productSchema
+      .find({featured: true})
+      .sort({_id: -1})
+      .limit(limitProduct);
+    if (featuredProducts.length < 0) {
+      return res.status.send({
+        message: "No Product Found",
+        featuredProducts: [],
+      });
+    }
+    return res.status(200).send({
+      message: "Product found successfully",
+      featuredProducts: featuredProducts,
+    });
+  } catch (err) {
+    return res.status(500).send({
+      message: err.message,
+      error: err,
     });
   }
 };
@@ -73,7 +124,8 @@ const GetAdminProduct = async (req, res) => {
     });
   } catch (err) {
     return res.status(500).send({
-      message: "Server Error",
+      message: err.message,
+      error: err,
     });
   }
 };
@@ -81,7 +133,7 @@ const GetAdminProduct = async (req, res) => {
 const DeleteProduct = async (req, res) => {
   try {
     let product = await productSchema.findOneAndDelete({
-      _id: req.params.p_id,
+      _id: req.params.id,
     });
     if (!product) {
       return res.status(400).send({
@@ -94,7 +146,8 @@ const DeleteProduct = async (req, res) => {
     });
   } catch (error) {
     return res.status(500).send({
-      message: "Server Error",
+      message: err.message,
+      error: err,
     });
   }
 };
@@ -111,7 +164,7 @@ const UpdateProduct = async (req, res) => {
 
   try {
     let product = await productSchema.findOneAndUpdate(
-      {_id: req.params.p_id},
+      {_id: req.params.id},
       {
         ...req.body,
       }
@@ -129,14 +182,15 @@ const UpdateProduct = async (req, res) => {
     });
   } catch (error) {
     return res.status(500).send({
-      message: "Server error",
+      message: err.message,
+      error: err,
     });
   }
 };
 
 const ProductDetails = async (req, res) => {
   try {
-    let product = await productSchema.findOne({_id: req.params.p_id});
+    let product = await productSchema.findOne({_id: req.params.id});
     if (!product) {
       return res.send({
         status: "404",
@@ -147,19 +201,39 @@ const ProductDetails = async (req, res) => {
     return res.send({
       message: "Product found successfully",
       status: "200",
-      data: product,
+      product: product,
     });
   } catch (error) {
     return res.status(500).send({
-      status: "500",
-      message: "Error of server",
+      message: err.message,
+      error: err,
+    });
+  }
+};
+
+const SearchProduct = async (req, res) => {
+  try {
+    let searchedProduct = await productSchema.find({
+      $or: [{name: {$regex: req.params.name, $options: "i"}}],
+    });
+    return res.status(200).send({
+      searchedProduct: searchedProduct,
+      message: "The product searched",
+    });
+  } catch (err) {
+    return res.status(500).send({
+      message: err.message,
+      error: err,
     });
   }
 };
 
 module.exports = {
+  SearchProduct,
   CreateProduct,
   GetAllProducts,
+  GetLatestProducts,
+  GetFeaturedProduct,
   GetAdminProduct,
   UpdateProduct,
   DeleteProduct,

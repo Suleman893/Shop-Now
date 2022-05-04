@@ -75,6 +75,10 @@ const productSchema = mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  featured: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 module.exports = mongoose.model("Product", productSchema);

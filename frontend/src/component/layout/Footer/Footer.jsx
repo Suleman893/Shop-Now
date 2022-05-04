@@ -21,23 +21,12 @@ const Footer = () => {
             <p>Our purpose is to make things available to you easily</p>
           </div>
 
-          <div className="footer-col-3">
-            <h3>Useful links</h3>
-            <ul>
-              <li>About</li>
-              <li>Join us</li>
-              <li>Products</li>
-              <li>Return Policy</li>
-            </ul>
-          </div>
-
           <div className="footer-col-4">
-            <h3>Follow us</h3>
+            <h3>Follow us on</h3>
             <ul>
               <li>Facebook</li>
               <li>Twiter</li>
               <li>Instagram</li>
-              <li>Whatsapp</li>
             </ul>
           </div>
         </div>

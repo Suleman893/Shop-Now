@@ -1,9 +1,18 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./Products.css";
 import buy1 from "../../images/product.jpg";
 import ReactStars from "react-rating-stars-component";
-
+import {getProduct} from "../../redux/actions/productAction";
+import {useSelector, useDispatch} from "react-redux";
+import {Link} from "react-router-dom";
 const Products = () => {
+  const dispatch = useDispatch();
+
+  const {loading, error, products} = useSelector((state) => state.products);
+
+  useEffect(() => {
+    dispatch(getProduct());
+  }, [dispatch]);
   const ratingOptions = {
     edit: false,
     color: "rgba(20,20,20,0.1)",
@@ -12,10 +21,12 @@ const Products = () => {
     value: 5,
     isHalf: true,
   };
+
   return (
-    <div className="small-container">
+    // <div className="small-container">
+    <>
       <div className="row row-2">
-        <h2>All Products</h2>
+        <h2 className="title">All Products</h2>
         <select>
           <options>Default Sorting</options>
           <options>Default Sorting</options>
@@ -26,61 +37,16 @@ const Products = () => {
         <input type="text" placeholder="Search" />
       </div>
       <div className="row">
-        <div className="col-4">
-          <img src={buy1} alt="product" />
-          <h4> Red T-shirt for men </h4>
-          <ReactStars {...ratingOptions} />
-          <p>$ 100.0</p>
-        </div>
-
-        <div className="col-4">
-          <img src={buy1} alt="product" />
-          <h4> Red T-shirt for men </h4>
-          <ReactStars {...ratingOptions} />
-          <p>$ 100.0</p>
-        </div>
-
-        <div className="col-4">
-          <img src={buy1} alt="product" />
-          <h4> Red T-shirt for men </h4>
-          <ReactStars {...ratingOptions} />
-          <p>$ 100.0</p>
-        </div>
-
-        <div className="col-4">
-          <img src={buy1} alt="product" />
-          <h4> Red T-shirt for men </h4>
-          <ReactStars {...ratingOptions} />
-          <p>$ 100.0</p>
-        </div>
-
-        <div className="col-4">
-          <img src={buy1} alt="product" />
-          <h4> Red T-shirt for men </h4>
-          <ReactStars {...ratingOptions} />
-          <p>$ 100.0</p>
-        </div>
-
-        <div className="col-4">
-          <img src={buy1} alt="product" />
-          <h4> Red T-shirt for men </h4>
-          <ReactStars {...ratingOptions} />
-          <p>$ 100.0</p>
-        </div>
-
-        <div className="col-4">
-          <img src={buy1} alt="product" />
-          <h4> Red T-shirt for men </h4>
-          <ReactStars {...ratingOptions} />
-          <p>$ 100.0</p>
-        </div>
-
-        <div className="col-4">
-          <img src={buy1} alt="product" />
-          <h4> Red T-shirt for men </h4>
-          <ReactStars {...ratingOptions} />
-          <p>$ 100.0</p>
-        </div>
+        {products.map((product) => (
+          <div className="col-4">
+            <Link to={`/productdetail/${product._id}`}>
+              <img src={buy1} alt="product" />
+              <h4> {product.name} </h4>
+              <ReactStars {...ratingOptions} />
+              <p> ${product.price}</p>
+            </Link>
+          </div>
+        ))}
       </div>
 
       <div className="page-btn">
@@ -90,7 +56,8 @@ const Products = () => {
         <span>4</span>
         <span>&#8594;</span>
       </div>
-    </div>
+    </>
+    // </div>
   );
 };
 
