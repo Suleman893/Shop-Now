@@ -5,9 +5,22 @@
   padding-right: 25px;
 }
 
+.row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
 .col-2 {
   flex-basis: 50%;
   min-width: 300px;
+}
+
+.col-2 h1 {
+  font-size: 50px;
+  line-height: 60px;
+  margin: 25px 0;
 }
 
 .col-4 {
@@ -66,7 +79,30 @@ input:focus {
 .red {
   color: red;
 }
+
+.btn {
+  display: inline-block;
+  background: #43c6ac;
+  color: #fff;
+  padding: 8px 30px;
+  margin: 30px 0;
+  border-radius: 30px;
+  transition: background 0.5s;
+}
+
+.btn:hover {
+  background: #563434;
+}
+
 @media only screen and (max-width: 600px) {
+  .row {
+    text-align: center;
+  }
+  .col-2,
+  .col-4 {
+    flex-basis: 100%;
+  }
+
   .single-product .row {
     text-align: left;
   }
@@ -75,7 +111,7 @@ input:focus {
     padding: 20px 0;
   }
 
-  .single-product h2 {
+  .single-product h1 {
     font-size: 26px;
     line-height: 22px;
   }

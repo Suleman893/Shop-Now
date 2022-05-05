@@ -2,6 +2,7 @@ import React from "react";
 import ReactStars from "react-rating-stars-component";
 import "./HomeProduct.css";
 import buy1 from "../../images/product.jpg";
+
 const HomeProducts = ({latestProducts, featuredProduct}) => {
   const ratingOptions = {
     edit: false,
@@ -23,6 +24,7 @@ const HomeProducts = ({latestProducts, featuredProduct}) => {
             <h4> {featuredProduct.name}</h4>
             <ReactStars {...ratingOptions} />
             <p>$ {featuredProduct.price}</p>
+            <p> {featuredProduct.description}</p>
           </div>
         ))}
       </div>

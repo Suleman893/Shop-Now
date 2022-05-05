@@ -22,7 +22,7 @@ router.post(
   check("email", "Email cannot be empty").notEmpty(),
   check("password", "Password cannot be empty").notEmpty(),
   check("confirmPassword", "Confirm password cannot be empty").notEmpty(),
-  check("role", "User roles cannot be empty").notEmpty(),
+  // check("role", "User roles cannot be empty").notEmpty(),
   UserRegistration
 );
 
@@ -38,7 +38,7 @@ router.post(
 router.post("/logout", UserLogout);
 
 //GetLoggedInUser
-router.get("userInfo", checkToken, UserDetails);
+router.get("/userInfo", checkToken, UserDetails);
 
 //UpdateLoggedInUser
 router.put("/userInfo/update", checkToken, UpdateDetails);

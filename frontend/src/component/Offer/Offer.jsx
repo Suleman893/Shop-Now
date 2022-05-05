@@ -1,13 +1,13 @@
 import React from "react";
 import {Link} from "react-router-dom";
-
+import mobile from "../../images/mobile.png";
 const Offer = () => {
   return (
     <div className="offer">
       <div className="small-container">
         <div className="row">
           <div className="col-2">
-            <img src="images" alt="offer_img" />
+            <img src={mobile} alt="offer_img" />
           </div>
           <div className="col-2">
             <p> Exclusively Available </p>
@@ -19,7 +19,7 @@ const Offer = () => {
               laboriosam. Ab enim harum qui reprehenderit assumenda voluptatum
               et, alias eveniet modi! Tenetur, saepe?
             </small>
-            <Link to="/cart" className="btn">
+            <Link to="/" className="btn">
               Buy Now &#8594;
             </Link>
           </div>

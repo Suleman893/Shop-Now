@@ -10,6 +10,7 @@ import ProductDetail from "./screens/ProductDetail/ProductDetail";
 import Cart from "./screens/Cart/Cart";
 import Signin from "./screens/Signin/Signin";
 import Signup from "./screens/Signup/Signup";
+
 function App() {
   useEffect(() => {
     webfontloader.load({
@@ -25,16 +26,16 @@ function App() {
         <div className="container">
           <Header />
           <Routes>
-            <Route exact path="/" element={<Home />} />
             <Route exact path="/products" element={<Products />} />
             <Route
               exact
               path="/productdetail/:id"
               element={<ProductDetail />}
             />
-            <Route exact path="/cart" element={<Cart />} />
+            <Route exact path="/cart/:id" element={<Cart />} />
             <Route exact path="/signin" element={<Signin />} />
             <Route exact path="/signup" element={<Signup />} />
+            <Route exact path="/" element={<Home />} />
           </Routes>
         </div>
         <Footer />

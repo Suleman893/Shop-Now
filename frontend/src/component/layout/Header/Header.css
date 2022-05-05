@@ -17,12 +17,29 @@ nav ul {
 nav ul li {
   display: inline-block;
   margin-right: 20px;
+  transition: 3s ease-in-out;
+}
+
+nav ul li:hover {
+  border-bottom: 5px solid red;
+}
+
+.logo {
+  font-size: 28px;
+  letter-spacing: 12px;
 }
 
 .header {
-  /* background: radial-gradient(#3494e6, #ec6ead); */
+  background-image: linear-gradient( #ffffff);
+
 }
 
 .header .row {
   margin-top: 70px;
+}
+
+.menu-icon {
+  width: 28px;
+  margin-left: 20px;
+  display: none;
 }

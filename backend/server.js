@@ -5,7 +5,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const userRoute = require("./routes/userRoute");
 const productRoute = require("./routes/productRoute");
-const orderRoute = require("./routes/orderRoute");
+// const orderRoute = require("./routes/orderRoute");
 dotenv.config();
 app.use(cors());
 app.use(express.json());
@@ -20,6 +20,6 @@ app.listen(process.env.PORT || 4000, () => {
 
 app.use("/api", userRoute);
 app.use("/api", productRoute);
-app.use("/api", orderRoute);
+// app.use("/api", orderRoute);
 
 module.exports = app;

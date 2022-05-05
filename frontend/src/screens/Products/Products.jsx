@@ -5,6 +5,7 @@ import ReactStars from "react-rating-stars-component";
 import {getProduct} from "../../redux/actions/productAction";
 import {useSelector, useDispatch} from "react-redux";
 import {Link} from "react-router-dom";
+
 const Products = () => {
   const dispatch = useDispatch();
 
@@ -25,28 +26,27 @@ const Products = () => {
   return (
     // <div className="small-container">
     <>
-      <div className="row row-2">
-        <h2 className="title">All Products</h2>
-        <select>
-          <options>Default Sorting</options>
-          <options>Default Sorting</options>
-          <options>Default Sorting</options>
-          <options>Default Sorting</options>
-          <options>Default Sorting</options>
-        </select>
-        <input type="text" placeholder="Search" />
-      </div>
-      <div className="row">
-        {products.map((product) => (
-          <div className="col-4">
-            <Link to={`/productdetail/${product._id}`}>
-              <img src={buy1} alt="product" />
-              <h4> {product.name} </h4>
-              <ReactStars {...ratingOptions} />
-              <p> ${product.price}</p>
-            </Link>
-          </div>
-        ))}
+      <div className="small-container">
+        <div className="row row-2">
+          <h2>All Products</h2>
+          <select>
+            <option>Default sorting</option>
+            <option>Sort by price</option>
+            <option>Sort by rating</option>
+          </select>
+        </div>
+        <div className="row">
+          {products.map((product) => (
+            <div className="col-4">
+              <Link to={`/productdetail/${product._id}`}>
+                <img src={buy1} alt="product" />
+                <h4> {product.name} </h4>
+                <ReactStars {...ratingOptions} />
+                <p> ${product.price}</p>
+              </Link>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="page-btn">

@@ -21,7 +21,7 @@ export const productReducer = (state = {products: []}, action) => {
     case ALL_PRODUCT_SUCCESS:
       return {
         loading: false,
-        products: action.payload.products,
+        products: action.payload,
         // productsCount: action.payload.productsCount,
       };
     case ALL_PRODUCT_FAIL:
@@ -46,7 +46,7 @@ export const latestProductReducer = (state = {latestProducts: []}, action) => {
     case LATEST_PRODUCT_SUCCESS:
       return {
         loading: false,
-        latestProducts: action.payload.latestProducts,
+        latestProducts: action.payload,
         // productsCount: action.payload.productsCount,
       };
     case LATEST_PRODUCT_FAIL:
@@ -64,21 +64,6 @@ export const latestProductReducer = (state = {latestProducts: []}, action) => {
   }
 };
 
-export const productDetailReducer = (state = {product: {}}, action) => {
-  switch (action.type) {
-    case PRODUCT_DETAIL_REQUEST:
-      return {loading: true, ...state};
-    case PRODUCT_DETAIL_SUCCESS:
-      return {loading: false, product: action.payload.product};
-    case PRODUCT_DETAIL_FAIL:
-      return {loading: false, error: action.payload};
-    case CLEAR_ERRORS:
-      return {...state, error: null};
-    default:
-      return state;
-  }
-};
-
 export const featuredProductReducer = (
   state = {featuredProduct: []},
   action
@@ -87,7 +72,7 @@ export const featuredProductReducer = (
     case FEATURED_PRODUCT_REQUEST:
       return {loading: true, featuredProduct: []};
     case FEATURED_PRODUCT_SUCCESS:
-      return {loading: false, featuredProduct: action.payload.featuredProducts};
+      return {loading: false, featuredProduct: action.payload};
     case FEATURED_PRODUCT_FAIL:
       return {loading: false, error: action.payload};
     case CLEAR_ERRORS:
@@ -97,5 +82,17 @@ export const featuredProductReducer = (
   }
 };
 
-
-
+export const productDetailReducer = (state = {product: {}}, action) => {
+  switch (action.type) {
+    case PRODUCT_DETAIL_REQUEST:
+      return {loading: true, ...state};
+    case PRODUCT_DETAIL_SUCCESS:
+      return {loading: false, product: action.payload};
+    case PRODUCT_DETAIL_FAIL:
+      return {loading: false, error: action.payload};
+    case CLEAR_ERRORS:
+      return {...state, error: null};
+    default:
+      return state;
+  }
+};

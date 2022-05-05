@@ -1,6 +1,6 @@
 .account-page {
   padding: 50px 0;
-  background-color: aquamarine;
+  background-image: linear-gradient(#f857a6, #ff5858);
 }
 
 .form-container {
@@ -13,7 +13,6 @@
   margin: auto;
   box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.1);
 }
-
 .form-container span {
   font-weight: bold;
   padding: 0 10px;
@@ -31,7 +30,8 @@
   max-width: 300px;
   padding: 0 20px;
   position: absolute;
-  top: 130px;
+  /* top: 130px; */
+  top: 90px;
 }
 
 form input {
@@ -56,7 +56,7 @@ form .btn:focus {
 #indicator {
   width: 100px;
   border: none;
-  background: #ff523b;
+  background: #43c6ac;
   height: 3px;
   margin-top: 8px;
   /* transform: translateX(100px); */

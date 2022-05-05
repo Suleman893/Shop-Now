@@ -42,6 +42,9 @@ router.get("/latestProduct", GetLatestProducts);
 //GetFeaturedProduct
 router.get("/featuredProduct", GetFeaturedProduct);
 
+//GetSpecificProduct
+router.get("/product/:id", ProductDetails);
+
 //GetAdminProduct
 // router.get("/getAdminProducts", checkToken, checkIsAdmin, GetAdminProduct);
 
@@ -51,7 +54,6 @@ router.put("/admin/product/:id", checkToken, checkIsAdmin, UpdateProduct);
 //AdminCanDelete/RemoveProduct
 router.delete("/admin/product/:id", checkToken, checkIsAdmin, DeleteProduct);
 
-//GetSpecificProduct
-router.get("/product/:id", ProductDetails);
+
 
 module.exports = router;

@@ -17,7 +17,10 @@ const Footer = () => {
           </div>
 
           <div className="footer-col-2">
-            <img src="image/" alt="footerimg" />
+            
+          <div className="logo">
+          Shop now
+          </div>
             <p>Our purpose is to make things available to you easily</p>
           </div>
 

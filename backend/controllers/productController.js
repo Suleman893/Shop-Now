@@ -13,27 +13,27 @@ const CreateProduct = async (req, res) => {
     });
   }
   try {
-    let productExist;
-    productExist = await productSchema.findOne({
-      name: name,
+    // let productExist;
+    // productExist = await productSchema.findOne({
+    //   name: name,
+    // });
+    // if (productExist) {
+    //   return res.status(409).send({
+    //     message: "This product already exist",
+    //   });
+    // } else {
+    const newProduct = await productSchema.create({
+      ...req.body,
     });
-    if (productExist) {
-      return res.status(409).send({
-        message: "This product already exist",
-      });
-    } else {
-      const newProduct = await productSchema.create({
-        ...req.body,
-      });
-      return res.status(200).send({
-        message: "New product created successfully",
-        data: newProduct,
-      });
-    }
-  } catch (err) {
+    return res.status(200).send({
+      message: "New product created successfully",
+      data: newProduct,
+    });
+    // }
+  } catch (error) {
     return res.status(500).send({
       message: err.message,
-      error: err,
+      error,
     });
   }
 };
@@ -51,16 +51,16 @@ const GetAllProducts = async (req, res) => {
       message: "Product found successfully",
       products: allProducts,
     });
-  } catch (err) {
+  } catch (error) {
     return res.status(500).send({
-      message: err.message,
-      error: err,
+      message: error.message,
+      error,
     });
   }
 };
 
 const GetLatestProducts = async (req, res) => {
-  const limitProduct = 4;
+  const limitProduct = 8;
   try {
     let allLatestProducts = await productSchema
       .find()
@@ -76,10 +76,10 @@ const GetLatestProducts = async (req, res) => {
       message: "Product found successfully",
       latestProducts: allLatestProducts,
     });
-  } catch (err) {
+  } catch (error) {
     return res.status(500).send({
-      message: err.message,
-      error: err,
+      message: error.message,
+      error,
     });
   }
 };
@@ -101,10 +101,10 @@ const GetFeaturedProduct = async (req, res) => {
       message: "Product found successfully",
       featuredProducts: featuredProducts,
     });
-  } catch (err) {
+  } catch (error) {
     return res.status(500).send({
-      message: err.message,
-      error: err,
+      message: error.message,
+      error,
     });
   }
 };
@@ -122,10 +122,10 @@ const GetAdminProduct = async (req, res) => {
       message: "Product found successfully",
       data: allProducts,
     });
-  } catch (err) {
+  } catch (error) {
     return res.status(500).send({
-      message: err.message,
-      error: err,
+      message: error.message,
+      error,
     });
   }
 };
@@ -146,8 +146,8 @@ const DeleteProduct = async (req, res) => {
     });
   } catch (error) {
     return res.status(500).send({
-      message: err.message,
-      error: err,
+      message: error.message,
+      error,
     });
   }
 };
@@ -182,8 +182,8 @@ const UpdateProduct = async (req, res) => {
     });
   } catch (error) {
     return res.status(500).send({
-      message: err.message,
-      error: err,
+      message: error.message,
+      error,
     });
   }
 };
@@ -205,8 +205,8 @@ const ProductDetails = async (req, res) => {
     });
   } catch (error) {
     return res.status(500).send({
-      message: err.message,
-      error: err,
+      message: error.message,
+      error,
     });
   }
 };
@@ -220,10 +220,10 @@ const SearchProduct = async (req, res) => {
       searchedProduct: searchedProduct,
       message: "The product searched",
     });
-  } catch (err) {
+  } catch (error) {
     return res.status(500).send({
       message: err.message,
-      error: err,
+      error,
     });
   }
 };

@@ -14,7 +14,6 @@ import {
   FEATURED_PRODUCT_SUCCESS,
   FEATURED_PRODUCT_FAIL,
 } from "../constants/productConstants";
-
 import {
   getAllProducts,
   getlatestProducts,
@@ -27,12 +26,11 @@ export const getProduct = () => async (dispatch) => {
     dispatch({
       type: ALL_PRODUCT_REQUEST,
     });
-
     const {data} = await axios.get(getAllProducts);
-    console.log("the data", data);
+    console.log("the data",data);
     dispatch({
       type: ALL_PRODUCT_SUCCESS,
-      payload: data,
+      payload: data.products,
     });
   } catch (error) {
     dispatch({
@@ -53,7 +51,7 @@ export const getLatestProduct = () => async (dispatch) => {
     console.log("the latestProducts", data);
     dispatch({
       type: LATEST_PRODUCT_SUCCESS,
-      payload: data,
+      payload: data.latestProducts,
     });
   } catch (error) {
     dispatch({
@@ -69,12 +67,11 @@ export const getFeaturedProduct = () => async (dispatch) => {
     dispatch({
       type: FEATURED_PRODUCT_REQUEST,
     });
-
     const {data} = await axios.get(getFeaturedProductApi);
     console.log("the repsonse from ", data);
     dispatch({
       type: FEATURED_PRODUCT_SUCCESS,
-      payload: data,
+      payload: data.featuredProducts,
     });
   } catch (error) {
     dispatch({
@@ -90,8 +87,7 @@ export const getProductDetails = (id) => async (dispatch) => {
     dispatch({type: PRODUCT_DETAIL_REQUEST});
 
     const {data} = await axios.get(`${getProductDetail}/${id}`);
-
-    dispatch({type: PRODUCT_DETAIL_SUCCESS, payload: data});
+    dispatch({type: PRODUCT_DETAIL_SUCCESS, payload: data.product});
   } catch (error) {
     dispatch({
       type: PRODUCT_DETAIL_FAIL,

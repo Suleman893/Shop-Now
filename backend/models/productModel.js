@@ -4,7 +4,7 @@ const productSchema = mongoose.Schema({
   name: {
     type: String,
     required: [true, "Please enter product name"],
-    trime: true,
+    trim: true,
   },
   description: {
     type: String,
@@ -19,20 +19,21 @@ const productSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
-  images: [
-    {
-      public_id: {
-        type: String,
-        // required: true,
-      },
-      url: {
-        type: String,
-        // required: true,
-      },
-    },
-  ],
+  // images: [
+  //   {
+  //     public_id: {
+  //       type: String,
+  //       required: true,
+  //     },
+  //     url: {
+  //       type: String,
+  //       required: true,
+  //     },
+  //   },
+  // ],
   category: {
     type: String,
+    enum:["Mens Fashion","Women Fashion","Electronic Devices", "Home & Lifestyle", "Sports & Outdoor","Automotive & Motorbike"],
     required: [true, "Please enter product category"],
   },
   stock: {
@@ -44,6 +45,10 @@ const productSchema = mongoose.Schema({
   numOfReviews: {
     type: Number,
     default: 0,
+  },
+  featured: {
+    type: Boolean,
+    default: false,
   },
   reviews: [
     {
@@ -75,10 +80,7 @@ const productSchema = mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  featured: {
-    type: Boolean,
-    default: false,
-  },
+  
 });
 
 module.exports = mongoose.model("Product", productSchema);

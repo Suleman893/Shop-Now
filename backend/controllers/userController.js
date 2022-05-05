@@ -16,6 +16,7 @@ const UserRegistration = async (req, res) => {
     emailExist = await userSchema.findOne({
       email: email,
     });
+
     if (emailExist) {
       return res.status(409).send({
         message: "Email already exist",
@@ -34,13 +35,13 @@ const UserRegistration = async (req, res) => {
       });
       return res.status(200).send({
         message: "User registered successfully",
-        data: user,
+        user,
       });
     }
-  } catch (err) {
+  } catch (error) {
     return res.status(500).send({
-      message: err.message,
-      error: err,
+      message: error.message,
+      error,
     });
   }
 };
@@ -48,13 +49,11 @@ const UserRegistration = async (req, res) => {
 const UserLogin = async (req, res) => {
   const {email, password} = req.body;
   try {
-    let user;
-    user = await userSchema.findOne({
+    const user = await userSchema.findOne({
       email: email,
     });
-
     if (!user) {
-      return res.status(204).send({
+      return res.status(204).json({
         message: "Invalid Email",
       });
     }
@@ -65,15 +64,15 @@ const UserLogin = async (req, res) => {
       });
     }
     const token = jwtHelper.issue({id: user._id, role: user.role});
-    return res.status(200).cookie("token", token).send({
+    return res.status(200).send({
       message: "Login successfull",
       token,
-      data: user,
+      user,
     });
   } catch (error) {
     return res.status(500).send({
-      message: err.message,
-      error: err,
+      message: error.message,
+      error,
     });
   }
 };
@@ -87,6 +86,7 @@ const UserLogout = async (req, res) => {
   } catch (error) {
     return res.status(500).send({
       message: "The server error",
+      error,
     });
   }
 };
@@ -98,7 +98,7 @@ const UserDetails = async (req, res) => {
     if (SpecificUserInfo.length < 0) {
       return res.status.send({
         message: "No user info found",
-        data: [],
+        specificUser: [],
       });
     }
     return res.status(200).send({
@@ -106,10 +106,10 @@ const UserDetails = async (req, res) => {
       data: SpecificUserInfo,
       specficUser,
     });
-  } catch (err) {
+  } catch (error) {
     return res.status(500).send({
-      message: err.message,
-      error: err,
+      message: error.message,
+      error,
     });
   }
 };
@@ -136,12 +136,12 @@ const UpdateDetails = async (req, res) => {
     );
     return res.status(200).send({
       message: "user updated successfully",
-      data: user,
+      user,
     });
   } catch (error) {
     return res.status(500).send({
-      message: err.message,
-      error: err,
+      message: error.message,
+      error,
     });
   }
 };
@@ -162,16 +162,15 @@ const GetAllUsers = async (req, res) => {
       data: allUsers,
       foundedUser,
     });
-  } catch (err) {
+  } catch (error) {
     return res.status(500).send({
-      message: err.message,
-      error: err,
+      message: error.message,
+      error,
     });
   }
 };
 
 const GetUserById = async (req, res) => {
-  console.log("id", req.params.u_id);
   try {
     let user = await userSchema
       .findOne({_id: req.params.u_id})
@@ -187,8 +186,8 @@ const GetUserById = async (req, res) => {
     });
   } catch (error) {
     return res.status(500).send({
-      message: err.message,
-      error: err,
+      message: error.message,
+      error,
     });
   }
 };
@@ -205,12 +204,12 @@ const RemoveUserById = async (req, res) => {
     }
     return res.status(200).send({
       message: "User deleted successfully",
-      data: user,
+      user,
     });
   } catch (error) {
     return res.status(500).send({
-      message: err.message,
-      error: err,
+      message: error.message,
+      error,
     });
   }
 };
@@ -241,12 +240,12 @@ const UpdateUserById = async (req, res) => {
     }
     return res.status(200).send({
       message: "user updated successfully",
-      data: user,
+      user,
     });
   } catch (error) {
     return res.status(500).send({
-      message: err.message,
-      error: err,
+      message: error.message,
+      error,
     });
   }
 };

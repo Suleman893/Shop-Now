@@ -1,68 +1,69 @@
 import React, {useState, useEffect} from "react";
 import "./Signin.css";
 import Loader from "../../component/layout/Loader/Loader";
-
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {clearErrors, login} from "../../redux/actions/userActions";
-const Signin = () => {
-  // useEffect(()=>
-  // {
-  //   if (isAuthenticated) {
-  //   navigate("/account");
-  // }
-  // })
+import {loginUser} from "../../redux/actions/userActions";
+import account from "../../images/account.png";
 
+const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
-  const {error, loading, isAuthenticated} = useSelector((state) => state.user);
-  const submitHandler = (e) => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (localStorage.getItem("currentUser")) {
+      navigate("/");
+    }
+  }, []);
+
+  const loginHandler = (e) => {
     e.preventDefault();
-    dispatch(login(email, password));
+    const user = {email, password};
+    dispatch(loginUser(user));
   };
   return (
     <>
-      {loading ? (
-        <Loader />
-      ) : (
-        <>
-          <div className="account-page">
-            <div className="container">
-              <div className="row">
-                <div className="col-2">
-                  <img src="" alt="accountimg" />
+      <div className="account-page">
+        <div className="container">
+          <div className="row">
+            <div className="col-2">
+              <img src={account} alt="accountimg" />
+            </div>
+            <div className="col-2">
+              <div className="form-container">
+                <div className="form-btn">
+                  <span>Login</span>
+                  <hr id="indicator" />
                 </div>
+                <form>
+                  <input
+                    type="text"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
 
-                <div className="col-2">
-                  <div className="form-container">
-                    <div className="form-btn">
-                      <span>Login</span>
-                      <hr id="indicator" />
-                    </div>
-
-                    <form>
-                      <input type="text" placeholder="Username" />
-                      <input type="password" placeholder="Password" />
-
-                      <button
-                        type="submit"
-                        className="btn"
-                        onClick={submitHandler}
-                      >
-                        Login
-                      </button>
-                      <a href="">Forgot password</a>
-                      <Link to="/signup">Register now </Link>
-                    </form>
-                  </div>
-                </div>
+                  <button className="btn" onClick={loginHandler}>
+                    Login
+                  </button>
+                  <Link to="/signup">
+                    {" "}
+                    <span>New? Register now</span>{" "}
+                  </Link>
+                </form>
               </div>
             </div>
           </div>
-        </>
-      )}
+        </div>
+      </div>
     </>
   );
 };

@@ -29,10 +29,10 @@ const CreateOrder = async (req, res) => {
       message: "New order made successfully",
       data: newOrder,
     });
-  } catch (err) {
+  } catch (error) {
     return res.status(500).send({
-      message: "Service error",
-      error: err,
+      message: error.message,
+      error,
     });
   }
 };
@@ -71,9 +71,10 @@ const MyOrders = async (req, res) => {
       message: "Orders found successfully",
       data: myOrders,
     });
-  } catch (err) {
+  } catch (error) {
     return res.status(500).send({
-      message: "Server Error",
+      message: error.message,
+      error
     });
   }
 };
@@ -91,9 +92,10 @@ const GetAllOrders = async (req, res) => {
       message: "Order found successfully",
       data: allOrders,
     });
-  } catch (err) {
+  } catch (error) {
     return res.status(500).send({
-      message: "Server Error",
+      message: error.message,
+      error
     });
   }
 };

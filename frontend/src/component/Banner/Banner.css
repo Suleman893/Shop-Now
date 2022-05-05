@@ -21,16 +21,16 @@
   margin: 25px 0;
 }
 
-.btn:hover {
-  background: #563434;
-}
-
 .btn {
   display: inline-block;
-  background: #ff523b;
+  background: #43c6ac;
   color: #fff;
   padding: 8px 30px;
   margin: 30px 0;
   border-radius: 30px;
   transition: background 0.5s;
+}
+
+.btn:hover {
+  background: #563434;
 }

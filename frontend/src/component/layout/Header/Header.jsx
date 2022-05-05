@@ -1,8 +1,18 @@
 import React from "react";
 import "./Header.css";
+import {Link, useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {logoutUser} from "../../../redux/actions/userActions";
+import menu from "../../../images/menu.png";
 import cart from "../../../images/cart.png";
-import {Link} from "react-router-dom";
 const Header = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const userState = useSelector((state) => state.loginUser);
+  const {currentUser} = userState;
+  const cart = useSelector((state) => state.cart);
+  const {cartItems} = cart;
+
   return (
     <>
       <div className="navbar">
@@ -20,17 +30,31 @@ const Header = () => {
             <li>
               <Link to="/about">About</Link>
             </li>
-            <li>
-              <Link to="/contact">Contact</Link>
-            </li>
-            <li>
-              <Link to="/signin">Account</Link>
-            </li>
+            {currentUser ? (
+              <>
+                <li> {currentUser.name}</li>
+                <li
+                  onClick={() => {
+                    dispatch(logoutUser());
+                    navigate("/signin");
+                  }}
+                >
+                  Logout
+                </li>
+                <li>Order</li>
+              </>
+            ) : (
+              <li>
+                <Link to="/signup">Account</Link>
+              </li>
+            )}
           </ul>
         </nav>
-        <Link to="/cart">
+        <Link to="/">
           {" "}
-          <img src={cart} alt="cart" width="25px" height="30px" />
+          <i className="fas fa-shopping-cart">
+            <span>{cartItems.reduce((acc, item) => acc + item.qty, 0)}</span>{" "}
+          </i>
         </Link>
       </div>
     </>
