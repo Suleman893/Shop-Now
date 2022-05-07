@@ -41,8 +41,12 @@ const Header = () => {
                 >
                   Logout
                 </li>
-                <li>Order</li>
-              </>
+                <li>
+                <Link to="/orders">
+                Order
+                </Link>
+                </li>
+                </>
             ) : (
               <li>
                 <Link to="/signup">Account</Link>

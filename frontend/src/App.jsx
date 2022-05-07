@@ -10,7 +10,12 @@ import ProductDetail from "./screens/ProductDetail/ProductDetail";
 import Cart from "./screens/Cart/Cart";
 import Signin from "./screens/Signin/Signin";
 import Signup from "./screens/Signup/Signup";
-
+import OrderScreen from "./screens/Order/Order";
+import UserList from "./component/AdminPanel/UsersList";
+import ProductsList from "./component/AdminPanel/ProductsList";
+import OrdersList from "./component/AdminPanel/OrdersList";
+import AddProduct from "./component/AdminPanel/AddProduct";
+import AdminScreen from "./screens/AdminPanel/AdminScreen";
 function App() {
   useEffect(() => {
     webfontloader.load({
@@ -25,17 +30,23 @@ function App() {
       <div className="header">
         <div className="container">
           <Header />
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/signin" element={<Signin />} />
+          <Route exact path="/signup" element={<Signup />} />
+          <Route exact path="/products" element={<Products />} />
+          <Route exact path="/productdetail/:id" element={<ProductDetail />} />
+          <Route exact path="/cart/:id" element={<Cart />} />
           <Routes>
-            <Route exact path="/products" element={<Products />} />
+            <Route exact path="/orders" element={<OrderScreen />} />
+            <Route exact path="/admin" element={<AdminScreen />} />
+            <Route path="/admin/userList" element={<UserList />} exact />
             <Route
+              path="/admin/productsList"
+              element={<ProductsList />}
               exact
-              path="/productdetail/:id"
-              element={<ProductDetail />}
             />
-            <Route exact path="/cart/:id" element={<Cart />} />
-            <Route exact path="/signin" element={<Signin />} />
-            <Route exact path="/signup" element={<Signup />} />
-            <Route exact path="/" element={<Home />} />
+            <Route path="/admin/ordersList" element={<OrdersList />} exact />
+            <Route path="/admin/addNewProduct" element={<AddProduct />} exact />
           </Routes>
         </div>
         <Footer />

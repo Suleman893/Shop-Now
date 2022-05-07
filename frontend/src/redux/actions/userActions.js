@@ -14,7 +14,7 @@ export const registerUser = (user) => async (dispatch) => {
   dispatch({type: USER_REGISTER_REQUEST});
   try {
     const {data} = await axios.post(registerUserApi, user);
-   
+
     dispatch({type: USER_REGISTER_SUCCESS, payload: data.user});
   } catch (error) {
     dispatch({type: USER_REGISTER_FAIL, payload: error});

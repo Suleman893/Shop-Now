@@ -5,7 +5,7 @@ import {addToCart, removeFromCart} from "../../redux/actions/cartActions";
 import {Link, Navigate, useParams, useSearchParams} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
 import MetaData from "../../component/layout/MetaData";
-
+import Checkout from "../../component/Checkout/Checkout";
 const Cart = () => {
   const param = useParams();
 
@@ -59,7 +59,7 @@ const Cart = () => {
           ) : (
             cartItems.map((item) => (
               <>
-                <tr>
+                <tr >
                   <td>
                     <div className="cart-info">
                       <img src={buy1} alt="cart" />
@@ -136,7 +136,12 @@ const Cart = () => {
           onClick={checkoutHandler}
           disabled={cartItems.length === 0}
         >
-          Checkout &#8594;
+          <Checkout
+            subTotal={cartItems
+              .reduce((acc, item) => acc + item.qty * item.price, 0)
+              .toFixed(2)}
+          />
+          &#8594;
         </button>
       </div>
     </>

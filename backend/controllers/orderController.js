@@ -2,6 +2,10 @@ const orderSchema = require("../models/orderModel");
 const {validationResult} = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwtHelper = require("../middlewares/jwt");
+const stripe = require("stripe")(
+  "hereprivatekey"
+);
+const {v4: uuidv4} = require("uuid");
 
 const CreateOrder = async (req, res) => {
   const {
@@ -74,7 +78,7 @@ const MyOrders = async (req, res) => {
   } catch (error) {
     return res.status(500).send({
       message: error.message,
-      error
+      error,
     });
   }
 };
@@ -95,7 +99,7 @@ const GetAllOrders = async (req, res) => {
   } catch (error) {
     return res.status(500).send({
       message: error.message,
-      error
+      error,
     });
   }
 };
@@ -161,6 +165,71 @@ const UpdateOrderById = async (req, res) => {
   }
 };
 
+//New
+const PlaceOrder = async (req, res) => {
+  const {token, subTotal, currentUser, cartItems} = req.body;
+  try {
+    const customer = await stripe.customers.create({
+      email: token.email,
+      source: token.id,
+    });
+
+    const payment = await stripe.charges.create(
+      {
+        amount: subTotal * 100,
+        currency: "aed",
+        customer: customer.id,
+        receipt_email: token.email,
+      },
+
+      {
+        idempotencyKey: uuidv4(),
+      }
+    );
+    if (payment) {
+      console.log("first");
+      const newOrder = new orderSchema({
+        name: currentUser.name,
+        email: currentUser.email,
+        userId: currentUser._id,
+        orderItems: cartItems,
+        orderAmount: subTotal,
+        shippingAddress: {
+          street: token.card.address_line1,
+          city: token.card.address_city,
+          country: token.card.address_country,
+          pincode: token.card.address_zip,
+        },
+        transactionId: payment.source.id,
+      });
+      newOrder.save();
+      res.status(200).send({message: "Payment successful"});
+    } else {
+      res.status(500).send({message: "Payment unsuccessful"});
+    }
+  } catch (error) {
+    res.status(500).send({
+      message: "Something went wrong",
+      error: error,
+    });
+  }
+};
+
+const GetOrders = async (req, res) => {
+  const {userId} = req.body;
+
+  try {
+    const orders = await orderSchema.find({userId}).sort({_id: "-1"});
+    res.status(200).send({
+      orders: orders,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: "Something went wrong",
+      error: error,
+    });
+  }
+};
 module.exports = {
   CreateOrder,
   GetSingleOrderDetail,
@@ -168,4 +237,6 @@ module.exports = {
   GetAllOrders,
   DeleteOrderById,
   UpdateOrderById,
+  PlaceOrder,
+  GetOrders,
 };
