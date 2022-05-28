@@ -1,23 +1,23 @@
-import React, {useEffect, useState} from "react";
-import "./ProductDetail.css";
+import React, { useEffect, useState } from "react";
 import buy1 from "../../images/product.jpg";
+import user from "../../images/user.png";
 import ReactStars from "react-rating-stars-component";
-import {useNavigate, useParams} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {getProductDetails} from "../../redux/actions/productAction";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getProductDetails } from "../../redux/actions/productAction";
 import Reviewcard from "../../component/ReviewCard/Reviewcard";
 import Loader from "../../component/layout/Loader/Loader";
-import {addToCart} from "../../redux/actions/cartActions";
-
+import { addToCart } from "../../redux/actions/cartActions";
+import "./ProductDetail.css";
 const ProductDetail = () => {
   const param = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const {product, loading, error} = useSelector(
-  //   (state) => state.productDetail
-  // );
+
   const [qty, setQty] = useState(1);
-  const {product, loading, error} = useSelector((state) => state.productDetail);
+  const { product, loading, error } = useSelector(
+    (state) => state.productDetail
+  );
 
   useEffect(() => {
     dispatch(getProductDetails(param.id));
@@ -37,65 +37,69 @@ const ProductDetail = () => {
   };
 
   return (
-    <>
-      {loading ? (
-        <Loader />
-      ) : error ? (
-        <h1>Error while fetching</h1>
-      ) : (
-        <>
-          <div className="small-container single-product">
-            <div className="row">
-              <div className="col-2">
-                <img src={buy1} alt="productdetail" width="100%" />
+    <div>
+      <div className="product-detail-container">
+        <h2 className="page-title ">{product.name}</h2>
+        <div className="product-detail-row">
+          <div className="product-detail-left">
+            <div className="product-detail-img">
+              <img src={buy1} alt="product-detail-img" />
+            </div>
+          </div>
+          <div className="product-detail-right">
+            <div className="product-detail-content">
+              <h1 className="mx-10" style={{ textTransform: "capitalize" }}>
+                {product.name}
+              </h1>
+              <hr />
+              <p className="mx-10">Rating stars</p>
+              <hr />
+              <p className="mx-10">Rs: {product.price}</p>
+              <div className="product-add-to-cart">
+                <button>+</button>
+                <p className="mx-10">Value</p>
+                <button>-</button>
               </div>
-              <div className="col-2">
-                <p>Home / Mens Fashion</p>
-                <h1>{product.name}</h1>
-                <h4> $ {product.price} </h4>
-                <select value={qty} onChange={(e) => setQty(e.target.value)}>
-                  {[...Array(product.stock).keys()].map((x) => (
-                    <option key={x + 1} value={x + 1}>
-                      {x + 1}
-                    </option>
-                  ))}
-                </select>
-
-                <ReactStars {...ratingOptions} />
-
-                <h3 className={product.stock > 0 ? "green" : "red"}>
-                  {" "}
-                  {product.stock > 0
-                    ? `In stock : ${product.stock}`
-                    : "Not available"}
-                </h3>
-                <h3>Product Description</h3>
-                <br />
-                <p>{product.description}</p>
-
-                <button className="btn" onClick={addToCartHandler}>
-                  Add to cart
-                </button>
-              </div>
+              <button className="add-to-cart mx-10">Add to cart</button>
+              <hr />
+              <h3 className={product.stock > 0 ? "green" : "red" && "mx-10"}>
+                {" "}
+                {product.stock > 0 ? `In stock ` : "Not available"}
+              </h3>
+              <p className="mx-10">
+                Description: Lorem ipsum dolor sit amet consectetur adipisicing
+                elit. Ut distinctio vitae reprehenderit officiis ullam. Ea culpa
+                sed blanditiis rem odio praesentium quae sequi dignissimos ullam
+                alias, enim distinctio dolor. Laudantium?
+              </p>
             </div>
           </div>
+        </div>
+      </div>
 
-          <div className="small-container">
-            <div className="row row-2">
-              <h2>What others says other this product</h2>
-            </div>
+      <div className="product-detail-container">
+        <h2 className="page-title">Reviews</h2>
+        <div className="reviews-row ">
+          <div className="review-card">
+            <img src={user} alt="user" />
+            <h5 className="mx-10">Name</h5>
+            <p className="mx-10">Lorem ipsum dolor sit amet consectetur.</p>
           </div>
 
-          <div className="small-container">
-            <div className="row">
-              {product.reviews && product.reviews[0]
-                ? product.map((review) => <Reviewcard review={review} />)
-                : "No review "}
-            </div>
+          <div className="review-card">
+            <img src={user} alt="user" />
+
+            <h5 className="mx-10">Name</h5>
+            <p className="mx-10">Lorem ipsum dolor sit amet consectetur.</p>
           </div>
-        </>
-      )}
-    </>
+          <div className="review-card">
+            <img src={user} alt="user" />
+            <h5 className="mx-10">Name</h5>
+            <p className="mx-10">Lorem ipsum dolor sit amet consectetur.</p>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

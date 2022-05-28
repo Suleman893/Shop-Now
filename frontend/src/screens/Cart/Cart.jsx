@@ -1,11 +1,11 @@
-import React, {useEffect} from "react";
-import "./Cart.css";
+import React, { useEffect } from "react";
 import buy1 from "../../images/product.jpg";
-import {addToCart, removeFromCart} from "../../redux/actions/cartActions";
-import {Link, Navigate, useParams, useSearchParams} from "react-router-dom";
-import {useSelector, useDispatch} from "react-redux";
+import { addToCart, removeFromCart } from "../../redux/actions/cartActions";
+import { Link, Navigate, useParams, useSearchParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import MetaData from "../../component/layout/MetaData";
 import Checkout from "../../component/Checkout/Checkout";
+import "../Cart/Cart.css";
 const Cart = () => {
   const param = useParams();
 
@@ -22,7 +22,7 @@ const Cart = () => {
   }, [dispatch, productId, qty]);
 
   const cart = useSelector((state) => state.cart);
-  const {cartItems} = cart;
+  const { cartItems } = cart;
 
   console.log("the cartitem", cartItems);
   const ratingOptions = {
@@ -44,7 +44,8 @@ const Cart = () => {
   return (
     <>
       <MetaData title="Product Cart" />
-      <div className="small-container cart-page">
+      <div className="cart-container">
+        <h2 className="page-title">Your Cart</h2>
         <table>
           <tr>
             <th>Product</th>
@@ -59,7 +60,7 @@ const Cart = () => {
           ) : (
             cartItems.map((item) => (
               <>
-                <tr >
+                <tr>
                   <td>
                     <div className="cart-info">
                       <img src={buy1} alt="cart" />
@@ -77,7 +78,7 @@ const Cart = () => {
                           <li
                             className="fa fa-trash text-danger"
                             aria-hidden="true"
-                            style={{cursor: "pointer"}}
+                            style={{ cursor: "pointer" }}
                           ></li>
                         </small>
                         <br />

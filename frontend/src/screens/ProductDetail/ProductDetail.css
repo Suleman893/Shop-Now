@@ -1,118 +1,67 @@
-.small-container {
-  max-width: 1080px;
+.product-detail-row {
+  display: flex;
+}
+
+.product-detail-container {
+  max-width: 1300px;
+  width: 90%;
   margin: auto;
   padding-left: 25px;
   padding-right: 25px;
 }
 
-.row {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-
-.col-2 {
+.product-detail-left {
   flex-basis: 50%;
-  min-width: 300px;
 }
 
-.col-2 h1 {
-  font-size: 50px;
-  line-height: 60px;
-  margin: 25px 0;
+.product-detail-left img {
+  width: 60%;
 }
 
-.col-4 {
-  flex-basis: 25%;
-  padding: 10px;
-  min-width: 200px;
-  margin-bottom: 50px;
-  transition: transform 0.5s;
+.product-detail-right {
+  flex-basis: 50%;
 }
 
-.col-4 img {
-  width: 100%;
+.product-add-to-cart {
+  display: flex;
 }
 
-.single-product {
-  margin-top: 80px;
-}
-
-.single-product .col-2 {
-  padding: 20px;
-}
-
-.single-product .col-2 img {
-  padding: 0px;
-}
-
-.single-product h4 {
-  margin: 20px 0;
-  font-size: 22px;
-  font-weight: bold;
-}
-
-.single-product select {
-  display: block;
-  padding: 10px;
-  margin-top: 20px;
-}
-
-.single-product input {
-  width: 50px;
-  height: 40px;
-  padding-left: 10px;
-  font-size: 20px;
-  margin-right: 10px;
-  border: 1px solid #ff513b;
-}
-
-input:focus {
-  outline: none;
-}
-
-.green {
-  color: green;
-}
-
-.red {
-  color: red;
-}
-
-.btn {
-  display: inline-block;
-  background: #43c6ac;
+.product-add-to-cart button {
+  padding: 4px;
+  background: #000;
   color: #fff;
-  padding: 8px 30px;
-  margin: 30px 0;
-  border-radius: 30px;
-  transition: background 0.5s;
 }
 
-.btn:hover {
-  background: #563434;
+.add-to-cart {
+  width: 125px;
+  height: 39px;
+  background: #ff7f50;
+  color: white;
+  border: 1px solid #ff7f50;
+  padding: 10px;
+  border-radius: 20px;
 }
 
-@media only screen and (max-width: 600px) {
-  .row {
-    text-align: center;
-  }
-  .col-2,
-  .col-4 {
-    flex-basis: 100%;
-  }
+.review-card {
+  flex-direction: column;
+  display: flex;
+  width: 30%;
+  align-items: center;
+  height: 178px;
+  justify-content: center;
+  box-shadow: 5px 5px 5px gainsboro;
+}
 
-  .single-product .row {
-    text-align: left;
-  }
+.reviews-row {
+  display: flex;
+  justify-content: space-between;
+}
 
-  .single-product .col-2 {
-    padding: 20px 0;
-  }
+.mx-10 {
+  margin: 10px 0;
+}
 
-  .single-product h1 {
-    font-size: 26px;
-    line-height: 22px;
-  }
+.review-card img {
+  width: 25%;
+  border-radius: 50%;
 }

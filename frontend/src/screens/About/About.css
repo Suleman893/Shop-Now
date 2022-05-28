@@ -1,0 +1,50 @@
+.about-background {
+  display: flex;
+  align-items: center;
+}
+
+.about-box {
+  width: 80%;
+  margin: 20px auto;
+  box-shadow: 5px 5px 5px gainsboro;
+  background-color: gainsboro;
+  height: 60vh;
+}
+
+.about-box-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.about-left {
+  flex-basis: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.about-right {
+  flex-basis: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.about-card-img img {
+  max-width: 65%;
+  border-radius: 50%;
+}
+
+.about-social-links {
+  display: flex;
+  flex-direction: column;
+}
+
+.vl {
+  height: 300px;
+  border-left: 1px solid black;
+}

@@ -1,26 +1,27 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "../../../redux/actions/userActions";
+import logo from "../../../images/logo.png";
 import "./Header.css";
-import {Link, useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {logoutUser} from "../../../redux/actions/userActions";
-import menu from "../../../images/menu.png";
-import cart from "../../../images/cart.png";
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userState = useSelector((state) => state.loginUser);
-  const {currentUser} = userState;
+  const { currentUser } = userState;
   const cart = useSelector((state) => state.cart);
-  const {cartItems} = cart;
+  const { cartItems } = cart;
 
   return (
-    <>
-      <div className="navbar">
+    <header>
+      <div className="header-container">
         <div className="logo">
-          <Link to="/">Shop Now</Link>
+          <Link to="/">
+            <img src={logo} alt="logo" />
+          </Link>
         </div>
         <nav>
-          <ul>
+          <ul className="nav">
             <li>
               <Link to="/">Home</Link>
             </li>
@@ -28,10 +29,10 @@ const Header = () => {
               <Link to="/products">Products</Link>
             </li>
             <li>
-              <Link to="/about">About</Link>
+              <Link to="/about">About Us</Link>
             </li>
             {currentUser ? (
-              <>
+              <div>
                 <li> {currentUser.name}</li>
                 <li
                   onClick={() => {
@@ -42,11 +43,9 @@ const Header = () => {
                   Logout
                 </li>
                 <li>
-                <Link to="/orders">
-                Order
-                </Link>
+                  <Link to="/orders">Order</Link>
                 </li>
-                </>
+              </div>
             ) : (
               <li>
                 <Link to="/signup">Account</Link>
@@ -54,14 +53,13 @@ const Header = () => {
             )}
           </ul>
         </nav>
-        <Link to="/">
-          {" "}
+        <div className="header-btns">
           <i className="fas fa-shopping-cart">
             <span>{cartItems.reduce((acc, item) => acc + item.qty, 0)}</span>{" "}
           </i>
-        </Link>
+        </div>
       </div>
-    </>
+    </header>
   );
 };
 

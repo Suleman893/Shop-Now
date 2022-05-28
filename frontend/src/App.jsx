@@ -16,6 +16,7 @@ import ProductsList from "./component/AdminPanel/ProductsList";
 import OrdersList from "./component/AdminPanel/OrdersList";
 import AddProduct from "./component/AdminPanel/AddProduct";
 import AdminScreen from "./screens/AdminPanel/AdminScreen";
+import About from "./screens/About/About";
 function App() {
   useEffect(() => {
     webfontloader.load({
@@ -27,34 +28,22 @@ function App() {
 
   return (
     <Router>
-      <div className="header">
-        <div className="container">
-          <Header />
-          <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route exact path="/signin" element={<Signin />} />
-            <Route exact path="/signup" element={<Signup />} />
-            <Route exact path="/products" element={<Products />} />
-            <Route
-              exact
-              path="/productdetail/:id"
-              element={<ProductDetail />}
-            />
-            <Route exact path="/cart/:id" element={<Cart />} />
-            <Route exact path="/orders" element={<OrderScreen />} />
-            <Route exact path="/admin" element={<AdminScreen />} />
-            <Route path="/admin/userList" element={<UserList />} exact />
-            <Route
-              path="/admin/productsList"
-              element={<ProductsList />}
-              exact
-            />
-            <Route path="/admin/ordersList" element={<OrdersList />} exact />
-            <Route path="/admin/addNewProduct" element={<AddProduct />} exact />
-          </Routes>
-        </div>
-        <Footer />
-      </div>
+      <Header />
+      <Routes>
+        <Route exact path="/signin" element={<Signin />} />
+        <Route exact path="/signup" element={<Signup />} />
+        <Route exact path="/about" element={<About />} />
+        <Route exact path="/products" element={<Products />} />
+        <Route exact path="/productdetail/:id" element={<ProductDetail />} />
+        <Route exact path="/cart/:id" element={<Cart />} />
+        <Route exact path="/orders" element={<OrderScreen />} />
+        <Route exact path="/admin" element={<AdminScreen />} />
+        <Route path="/admin/userList" element={<UserList />} exact />
+        <Route path="/admin/productsList" element={<ProductsList />} exact />
+        <Route path="/admin/ordersList" element={<OrdersList />} exact />
+        <Route path="/admin/addNewProduct" element={<AddProduct />} exact />
+      </Routes>
+      <Footer />
     </Router>
   );
 }

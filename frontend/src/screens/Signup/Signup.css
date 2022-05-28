@@ -1,11 +1,11 @@
-.signin-row {
+.signup-row {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
 
-.signin-box {
+.signup-box {
   flex-direction: column;
   width: 50%;
   margin: auto;
@@ -15,7 +15,7 @@
   border-radius: 10px;
 }
 
-.signin-row input {
+.signup-row input {
   padding: 10px;
   border-radius: 10px;
   border: none;

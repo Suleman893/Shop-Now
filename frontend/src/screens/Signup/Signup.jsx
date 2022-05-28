@@ -1,9 +1,9 @@
-import React, {useState} from "react";
-import "../Signin/Signin.css";
+import React, { useState } from "react";
+import "./Signup.css";
 import banner from "../../images/banner.png";
-import {Link} from "react-router-dom";
-import { useDispatch} from "react-redux";
-import {registerUser} from "../../redux/actions/userActions";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { registerUser } from "../../redux/actions/userActions";
 
 const Signup = () => {
   const dispatch = useDispatch();
@@ -16,61 +16,52 @@ const Signup = () => {
     e.preventDefault();
     if (password !== confirmPassword) {
     } else {
-      const user = {name, email, password, confirmPassword};
+      const user = { name, email, password, confirmPassword };
       console.log("The user is", user);
       dispatch(registerUser(user));
     }
   };
   return (
-    <div className="account-page">
-      <div className="container">
-        <div className="row">
-          <div className="col-2">
-            <img src={banner} alt="accountimg" />
-          </div>
+    <div className="container">
+      <div className="signup-box">
+        <h2 className="page-title ">Signup</h2>
 
-          <div className="col-2">
-            <div className="form-container">
-              <div className="form-btn">
-                <span>Register</span>
-                <hr id="indicator" />
-              </div>
+        <div className="signup-row">
+          <input
+            type="text"
+            placeholder="Name"
+            value={name}
+            className="mx-10"
+            onChange={(e) => setName(e.target.value)}
+          />
+          <input
+            type="email"
+            placeholder="Password"
+            value={email}
+            className="mx-10"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            className="mx-10"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            className="mx-10"
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+          <button className="btn mx-10" onClick={signupHandler}>
+            Signup
+          </button>
 
-              <form>
-                <input
-                  type="text"
-                  placeholder="Name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-                <input
-                  type="email"
-                  placeholder="Password"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <input
-                  type="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <input
-                  type="password"
-                  placeholder="Confirm Password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-                <button className="btn" onClick={signupHandler}>
-                  Signup
-                </button>
-
-                <Link to="/signin">
-                  <span>New? Register now</span>{" "}
-                </Link>
-              </form>
-            </div>
-          </div>
+          <Link to="/signin">
+            <span>New? Register now</span>{" "}
+          </Link>
         </div>
       </div>
     </div>

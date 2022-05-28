@@ -2,38 +2,56 @@ import React from "react";
 import playStore from "../../../images/playStore.png";
 import appStore from "../../../images/appStore.png";
 import "./Footer.css";
+import logo from "../../../images/logo.png";
 const Footer = () => {
   return (
-    <div className="footer">
+    <footer>
       <div className="footer-container ">
-        <div className="row">
+        <div className="footer-row">
           <div className="footer-col-1">
             <h3> Download Our App</h3>
             <p> Download App for Android & Ios devices</p>
             <div className="app-logo">
-              <img src={playStore} alt="playstore" />
-              <img src={appStore} alt="appStore" />
+              <a href="#">
+                <img src={playStore} alt="playstore" />{" "}
+              </a>
+              <a href="#">
+                <img src={appStore} alt="app-store" />
+              </a>
             </div>
           </div>
 
           <div className="footer-col-2">
-            <div className="logo">Shop now</div>
-            <p>Our purpose is to make things available to you easily</p>
+            <div className="logo">
+              <a href="#">
+                <img src={logo} alt="logo" />
+              </a>
+            </div>
+            <p>Our purpose is to make products available to you easily</p>
           </div>
 
-          <div className="footer-col-4">
+          <div className="footer-col-3">
             <h3>Follow us on</h3>
             <ul>
-              <li>Facebook</li>
-              <li>Twiter</li>
-              <li>Instagram</li>
+              <li>
+                <a href="#">Facebook</a>
+              </li>
+              <li>
+                <a href="#">Twiter</a>
+              </li>
+              <li>
+                <a href="#">Instagram</a>
+              </li>
             </ul>
           </div>
         </div>
         <hr />
-        <p className="copyright">Copy right - suleman</p>
+        <p className="copyright">
+          {" "}
+          <b> © Copy right </b>- suleman ahmad
+        </p>
       </div>
-    </div>
+    </footer>
   );
 };
 
