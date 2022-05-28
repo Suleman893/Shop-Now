@@ -1,10 +1,10 @@
 const productSchema = require("../models/productModel");
-const {validationResult} = require("express-validator");
+const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwtHelper = require("../middlewares/jwt");
 
 const CreateProduct = async (req, res) => {
-  const {name, description, price, ratings, category, stock, numOfReviews} =
+  const { name, description, price, ratings, category, stock, numOfReviews } =
     req.body;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -64,7 +64,7 @@ const GetLatestProducts = async (req, res) => {
   try {
     let allLatestProducts = await productSchema
       .find()
-      .sort({_id: -1})
+      .sort({ _id: -1 })
       .limit(limitProduct);
     if (allLatestProducts.length < 0) {
       return res.status.send({
@@ -88,8 +88,8 @@ const GetFeaturedProduct = async (req, res) => {
   const limitProduct = 4;
   try {
     let featuredProducts = await productSchema
-      .find({featured: true})
-      .sort({_id: -1})
+      .find({ featured: true })
+      .sort({ _id: -1 })
       .limit(limitProduct);
     if (featuredProducts.length < 0) {
       return res.status.send({
@@ -153,7 +153,7 @@ const DeleteProduct = async (req, res) => {
 };
 
 const UpdateProduct = async (req, res) => {
-  const {name, description, price, ratings, category, stock, numOfReviews} =
+  const { name, description, price, ratings, category, stock, numOfReviews } =
     req.body;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -164,7 +164,7 @@ const UpdateProduct = async (req, res) => {
 
   try {
     let product = await productSchema.findOneAndUpdate(
-      {_id: req.params.id},
+      { _id: req.params.id },
       {
         ...req.body,
       }
@@ -190,7 +190,7 @@ const UpdateProduct = async (req, res) => {
 
 const ProductDetails = async (req, res) => {
   try {
-    let product = await productSchema.findOne({_id: req.params.id});
+    let product = await productSchema.findOne({ _id: req.params.id });
     if (!product) {
       return res.send({
         status: "404",
@@ -214,7 +214,7 @@ const ProductDetails = async (req, res) => {
 const SearchProduct = async (req, res) => {
   try {
     let searchedProduct = await productSchema.find({
-      $or: [{name: {$regex: req.params.name, $options: "i"}}],
+      $or: [{ name: { $regex: req.params.name, $options: "i" } }],
     });
     return res.status(200).send({
       searchedProduct: searchedProduct,

@@ -17,10 +17,7 @@ const Footer = () => {
           </div>
 
           <div className="footer-col-2">
-            
-          <div className="logo">
-          Shop now
-          </div>
+            <div className="logo">Shop now</div>
             <p>Our purpose is to make things available to you easily</p>
           </div>
 

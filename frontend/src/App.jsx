@@ -1,9 +1,9 @@
 import "./App.css";
 import Header from "./component/layout/Header/Header";
 import webfontloader from "webfontloader";
-import {useEffect} from "react";
+import { useEffect } from "react";
 import Footer from "./component/layout/Footer/Footer";
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./screens/Home/Home";
 import Products from "./screens/Products/Products";
 import ProductDetail from "./screens/ProductDetail/ProductDetail";
@@ -30,13 +30,17 @@ function App() {
       <div className="header">
         <div className="container">
           <Header />
-          <Route exact path="/" element={<Home />} />
-          <Route exact path="/signin" element={<Signin />} />
-          <Route exact path="/signup" element={<Signup />} />
-          <Route exact path="/products" element={<Products />} />
-          <Route exact path="/productdetail/:id" element={<ProductDetail />} />
-          <Route exact path="/cart/:id" element={<Cart />} />
           <Routes>
+            <Route exact path="/" element={<Home />} />
+            <Route exact path="/signin" element={<Signin />} />
+            <Route exact path="/signup" element={<Signup />} />
+            <Route exact path="/products" element={<Products />} />
+            <Route
+              exact
+              path="/productdetail/:id"
+              element={<ProductDetail />}
+            />
+            <Route exact path="/cart/:id" element={<Cart />} />
             <Route exact path="/orders" element={<OrderScreen />} />
             <Route exact path="/admin" element={<AdminScreen />} />
             <Route path="/admin/userList" element={<UserList />} exact />

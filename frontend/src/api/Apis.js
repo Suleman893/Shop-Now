@@ -11,4 +11,4 @@ export const loginUserApi = "http://localhost:2000/api/login";
 
 //Order Api's
 export const placeOrder = "http://localhost:2000/api/order/placeOrder";
-export const getOrders = "http://localhost:2000/api/order/getUserOrder"
+export const getOrders = "http://localhost:2000/api/order/getUserOrder";
