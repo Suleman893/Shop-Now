@@ -85,3 +85,27 @@
   background: #000;
   color: #fff;
 }
+
+@media screen and (max-width: 778px) {
+  .row {
+    flex-wrap: wrap;
+  }
+
+  .left {
+    flex-basis: 100%;
+  }
+
+  .filter-section {
+    margin: 10px 38%;
+  }
+
+  .right {
+    flex-basis: 100%;
+  }
+}
+
+@media screen and (max-width: 448px) {
+  .product-card {
+    width: 100%;
+  }
+}

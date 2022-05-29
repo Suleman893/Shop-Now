@@ -17,7 +17,7 @@ table {
 }
 
 .cart-info img {
-  width: 8%;
+  width: 10%;
   object-fit: cover;
   object-position: center;
   height: auto;
@@ -47,8 +47,6 @@ td a {
 }
 
 td img {
-  width: 80px;
-  height: 80px;
   margin-right: 10px;
 }
 
@@ -69,4 +67,28 @@ td:last-child {
 
 th:last-child {
   text-align: right;
+}
+
+@media screen and (max-width: 1000px) {
+  .cart-info img {
+    width: 12%;
+  }
+}
+
+@media screen and (max-width: 778px) {
+  .cart-info img {
+    width: 16%;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .cart-info img {
+    width: 30%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .cart-info img {
+    width: 80%;
+  }
 }
