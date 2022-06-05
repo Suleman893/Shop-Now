@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const {check} = require("express-validator");
-const {checkToken} = require("../middlewares/tokenAuth");
-const {checkIsAdmin} = require("../middlewares/isAdmin");
+const { check } = require("express-validator");
+const { checkToken } = require("../middlewares/tokenAuth");
+const { checkIsAdmin } = require("../middlewares/isAdmin");
 const {
   CreateOrder,
   GetSingleOrderDetail,
@@ -12,20 +12,19 @@ const {
   UpdateOrderById,
   PlaceOrder,
   GetOrders,
+  adminGetAllOrders,
 } = require("../controllers/orderController");
-const {v4: uuidv4} = require("uuid");
-const stripe = require("stripe")(
-  "hereprivatekey"
-);
+const { v4: uuidv4 } = require("uuid");
+const stripe = require("stripe")("hereprivatekey");
 
-router.post("/order/placeOrder", PlaceOrder);
+router.post("/placeOrder", PlaceOrder);
 
-router.post("/order/getUserOrder", GetOrders);
+router.post("/getUserOrder", GetOrders);
 
 //Old
 //OrderTheProduct
 router.post(
-  "/order/new",
+  "/new",
   check("shippingInfo", "Name cannot be empty").notEmpty(),
   check("orderItems", "Description cannot be empty").notEmpty(),
   check("paymentInfo", "Price cannot be empty").notEmpty(),
@@ -37,10 +36,10 @@ router.post(
 );
 
 //GetSpecificOrder
-router.get("/order/my/:o_id", GetSingleOrderDetail);
+router.get("/my/:o_id", GetSingleOrderDetail);
 
 //GetAllOrders
-router.get("/order/my", MyOrders);
+router.get("/my", MyOrders);
 
 //GetAllProduct
 router.get("/admin/orders", GetAllOrders);
@@ -56,5 +55,8 @@ router.get(
 
   UpdateOrderById
 );
+
+//Admin get all order
+router.get("/admin/adminGetAllOrders", adminGetAllOrders);
 
 module.exports = router;

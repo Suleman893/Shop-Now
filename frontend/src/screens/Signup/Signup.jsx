@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Signup.css";
 import banner from "../../images/banner.png";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { registerUser } from "../../redux/actions/userActions";
 
 const Signup = () => {
@@ -15,6 +15,7 @@ const Signup = () => {
   const signupHandler = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
+      alert("Password dont match");
     } else {
       const user = { name, email, password, confirmPassword };
       console.log("The user is", user);
@@ -60,7 +61,7 @@ const Signup = () => {
           </button>
 
           <Link to="/signin">
-            <span>New? Register now</span>{" "}
+            <span>Already have an account?Signin now</span>{" "}
           </Link>
         </div>
       </div>

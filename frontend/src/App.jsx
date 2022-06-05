@@ -10,13 +10,14 @@ import ProductDetail from "./screens/ProductDetail/ProductDetail";
 import Cart from "./screens/Cart/Cart";
 import Signin from "./screens/Signin/Signin";
 import Signup from "./screens/Signup/Signup";
-import OrderScreen from "./screens/Order/Order";
-import UserList from "./component/AdminPanel/UsersList";
-import ProductsList from "./component/AdminPanel/ProductsList";
-import OrdersList from "./component/AdminPanel/OrdersList";
-import AddProduct from "./component/AdminPanel/AddProduct";
+import MyProfile from "./screens/Profile/Profile";
+// import UserList from "./component/AdminPanel/UsersList";
+// import ProductsList from "./component/AdminPanel/ProductsList";
+// import OrdersList from "./component/AdminPanel/OrdersList";
+// import AddProduct from "./component/AdminPanel/AddProduct";
 import AdminScreen from "./screens/AdminPanel/AdminScreen";
 import About from "./screens/About/About";
+import AddProduct from "./component/AdminPanel/AddProduct";
 function App() {
   useEffect(() => {
     webfontloader.load({
@@ -36,12 +37,9 @@ function App() {
         <Route exact path="/products" element={<Products />} />
         <Route exact path="/productdetail/:id" element={<ProductDetail />} />
         <Route exact path="/cart/:id" element={<Cart />} />
-        <Route exact path="/orders" element={<OrderScreen />} />
-        <Route exact path="/admin" element={<AdminScreen />} />
-        <Route path="/admin/userList" element={<UserList />} exact />
-        <Route path="/admin/productsList" element={<ProductsList />} exact />
-        <Route path="/admin/ordersList" element={<OrdersList />} exact />
-        <Route path="/admin/addNewProduct" element={<AddProduct />} exact />
+        <Route exact path="/myProfile" element={<MyProfile />} />
+        <Route path="/admin" element={<AdminScreen />} />
+        <Route path="/admin/admin/addProduct" element={<AddProduct />} />
       </Routes>
       <Footer />
     </Router>

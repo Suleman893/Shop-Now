@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const {check} = require("express-validator");
-const {checkToken} = require("../middlewares/tokenAuth");
-const {checkIsAdmin} = require("../middlewares/isAdmin");
+const { check } = require("express-validator");
+const { checkToken } = require("../middlewares/tokenAuth");
+const { checkIsAdmin } = require("../middlewares/isAdmin");
 const {
   UserRegistration,
   UserLogin,
@@ -44,11 +44,11 @@ router.get("/userInfo", checkToken, UserDetails);
 router.put("/userInfo/update", checkToken, UpdateDetails);
 
 //AdminCanGetAllUsers
-router.get("/admin/users", checkToken, checkIsAdmin, GetAllUsers);
+router.get("/admin/users", GetAllUsers);
 
 //AdminCanPerformTheseOperationsById
 router.get("/admin/getUser/:u_id", checkToken, checkIsAdmin, GetUserById);
 router.put("/admin/updateUser/:u_id", checkToken, checkIsAdmin, UpdateUserById);
-router.delete("/deleteUser/:u_id", RemoveUserById);
+router.delete("/admin/deleteUser", RemoveUserById);
 
 module.exports = router;

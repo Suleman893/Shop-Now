@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Products.css";
 import buy1 from "../../images/product.jpg";
 import ReactStars from "react-rating-stars-component";
@@ -7,13 +7,20 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Products = () => {
+  const [page, setPage] = useState(0);
+  const [numberOfPages, setNumberOfPages] = useState(0);
   const dispatch = useDispatch();
 
-  const { loading, error, products } = useSelector((state) => state.products);
+  const { loading, error, products, totalPages } = useSelector(
+    (state) => state.products
+  );
 
+  const pages = new Array(numberOfPages).fill(null).map((v, i) => i);
   useEffect(() => {
-    dispatch(getProduct());
-  }, [dispatch]);
+    dispatch(getProduct(page));
+    setNumberOfPages(totalPages);
+  }, [dispatch, page]);
+
   const ratingOptions = {
     edit: false,
     color: "rgba(20,20,20,0.1)",
@@ -23,10 +30,22 @@ const Products = () => {
     isHalf: true,
   };
 
+  const goToPrevious = () => {
+    setPage(Math.max(0, page - 1));
+  };
+
+  const goToNext = () => {
+    setPage(Math.min(numberOfPages, page + 1));
+  };
+
   return (
     <div className="container">
       <div className="product-top">
         <h2 className="page-title">Products</h2>
+        <p>Page of{page + 1}</p>
+        <p> {pages}</p>
+        <p>Total no of{totalPages}</p>
+
         <input
           type="text"
           name="searchbar"
@@ -39,10 +58,14 @@ const Products = () => {
           <div className="filter-section">
             <h5>Categories</h5>
             <ul>
-              <li>Garments</li>
-              <li>Electronic</li>
-              <li>Bakery</li>
-              <li>Mobiles</li>
+              <li>Mens Fashion</li>
+              <li>Women Fashion</li>
+              <li>Electronic Devices</li>
+              <li>Home & Lifestyle</li>
+              <li>Sports & Outdoor</li>
+              <li>Automotive & Motorbike</li>
+              <li>Groceries & Pets</li>
+              <li>Health & Beauty</li>
             </ul>
           </div>
         </div>
@@ -55,7 +78,7 @@ const Products = () => {
                   <img src={buy1} alt="product-card" />
                 </div>
                 <div className="product-card-content">
-                  <h1>{product.name}</h1>
+                  <h1>{product.productName}</h1>
                   <p>{product.description}</p>
                   <p>{product.price}</p>
                   <p>{product.stock}</p>
@@ -69,11 +92,13 @@ const Products = () => {
       </div>
 
       <div className="page-btn">
-        <span>1</span>
-        <span>2</span>
-        <span>3</span>
-        <span>4</span>
-        <span>&#8594;</span>
+        <button onClick={goToPrevious}>Previous</button>
+        {pages.map((pageIndex) => (
+          <button key={pageIndex} onClick={() => setPage(pageIndex)}>
+            {pageIndex + 1}
+          </button>
+        ))}
+        <button onClick={goToNext}>Next &#8594;</button>
       </div>
     </div>
   );

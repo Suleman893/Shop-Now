@@ -1,11 +1,9 @@
 const orderSchema = require("../models/orderModel");
-const {validationResult} = require("express-validator");
+const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwtHelper = require("../middlewares/jwt");
-const stripe = require("stripe")(
-  "hereprivatekey"
-);
-const {v4: uuidv4} = require("uuid");
+const stripe = require("stripe")("hereprivatekey");
+const { v4: uuidv4 } = require("uuid");
 
 const CreateOrder = async (req, res) => {
   const {
@@ -44,7 +42,7 @@ const CreateOrder = async (req, res) => {
 const GetSingleOrderDetail = async (req, res) => {
   try {
     let order = await orderSchema
-      .findOne({_id: req.params.o_id})
+      .findOne({ _id: req.params.o_id })
       .poulate("user", "name email");
     if (!order) {
       return res.status(404).send({
@@ -64,7 +62,7 @@ const GetSingleOrderDetail = async (req, res) => {
 
 const MyOrders = async (req, res) => {
   try {
-    const myOrders = await orderSchema.find({user: req.user._id});
+    const myOrders = await orderSchema.find({ user: req.user._id });
     if (myOrders.length < 0) {
       return res.status.send({
         message: "No Orders Found",
@@ -124,6 +122,28 @@ const DeleteOrderById = async (req, res) => {
   }
 };
 
+//admin get all orders
+const adminGetAllOrders = async (req, res) => {
+  try {
+    let allOrders = await orderSchema.find().countDocuments();
+    if (allOrders.length < 0) {
+      return res.status.send({
+        message: "No Order Found",
+        data: [],
+      });
+    }
+    return res.status(200).send({
+      message: "Order found successfully",
+      data: allOrders,
+    });
+  } catch (error) {
+    return res.status(500).send({
+      message: error.message,
+      error,
+    });
+  }
+};
+
 const UpdateOrderById = async (req, res) => {
   const {
     shippingInfo,
@@ -143,7 +163,7 @@ const UpdateOrderById = async (req, res) => {
   }
   try {
     let order = await orderSchema.findOneAndUpdate(
-      {_id: req.params.o_id},
+      { _id: req.params.o_id },
       {
         ...req.body,
       }
@@ -167,7 +187,7 @@ const UpdateOrderById = async (req, res) => {
 
 //New
 const PlaceOrder = async (req, res) => {
-  const {token, subTotal, currentUser, cartItems} = req.body;
+  const { token, subTotal, currentUser, cartItems } = req.body;
   try {
     const customer = await stripe.customers.create({
       email: token.email,
@@ -181,7 +201,6 @@ const PlaceOrder = async (req, res) => {
         customer: customer.id,
         receipt_email: token.email,
       },
-
       {
         idempotencyKey: uuidv4(),
       }
@@ -203,9 +222,9 @@ const PlaceOrder = async (req, res) => {
         transactionId: payment.source.id,
       });
       newOrder.save();
-      res.status(200).send({message: "Payment successful"});
+      res.status(200).send({ message: "Payment successful" });
     } else {
-      res.status(500).send({message: "Payment unsuccessful"});
+      res.status(500).send({ message: "Payment unsuccessful" });
     }
   } catch (error) {
     res.status(500).send({
@@ -216,10 +235,10 @@ const PlaceOrder = async (req, res) => {
 };
 
 const GetOrders = async (req, res) => {
-  const {userId} = req.body;
+  const { userId } = req.body;
 
   try {
-    const orders = await orderSchema.find({userId}).sort({_id: "-1"});
+    const orders = await orderSchema.find({ userId }).sort({ _id: "-1" });
     res.status(200).send({
       orders: orders,
     });
@@ -239,4 +258,7 @@ module.exports = {
   UpdateOrderById,
   PlaceOrder,
   GetOrders,
+
+  //
+  adminGetAllOrders,
 };

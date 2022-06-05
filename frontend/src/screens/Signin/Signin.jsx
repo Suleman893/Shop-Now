@@ -5,7 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../redux/actions/userActions";
 import account from "../../images/account.png";
 import "./Signin.css";
+
 const Signin = () => {
+  console.log("I am in sigin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -13,7 +15,7 @@ const Signin = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (localStorage.getItem("currentUser")) {
-      navigate("/");
+      navigate("/products");
     }
   }, []);
 
@@ -23,7 +25,7 @@ const Signin = () => {
     dispatch(loginUser(user));
   };
   return (
-    <>
+    <div>
       <div className="container">
         <div className="signin-box">
           <h2 className="page-title ">Sign in</h2>
@@ -53,7 +55,7 @@ const Signin = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

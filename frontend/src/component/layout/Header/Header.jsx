@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../../redux/actions/userActions";
 import logo from "../../../images/logo.png";
@@ -26,7 +26,7 @@ const Header = () => {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/products">Products</Link>
+              <Link to={`/products`}>Products</Link>
             </li>
             <li>
               <Link to="/about">About Us</Link>
@@ -43,12 +43,12 @@ const Header = () => {
                   Logout
                 </li>
                 <li>
-                  <Link to="/orders">Order</Link>
+                  <Link to="/myProfile">Profile</Link>
                 </li>
               </div>
             ) : (
               <li>
-                <Link to="/signup">Account</Link>
+                <Link to="/signup">Signup</Link>
               </li>
             )}
           </ul>

@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const {check} = require("express-validator");
-const {checkToken} = require("../middlewares/tokenAuth");
-const {checkIsAdmin} = require("../middlewares/isAdmin");
+const { check } = require("express-validator");
+const { checkToken } = require("../middlewares/tokenAuth");
+const { checkIsAdmin } = require("../middlewares/isAdmin");
 const {
   CreateProduct,
   GetAllProducts,
+  AdminGetAllProducts,
   GetLatestProducts,
   GetFeaturedProduct,
   GetAdminProduct,
@@ -21,7 +22,7 @@ router.get("/searchProduct/:name", SearchProduct);
 //AdminCanCreateProduct
 router.post(
   "/admin/product/new",
-  check("name", "Name cannot be empty").notEmpty(),
+  check("productName", "Name cannot be empty").notEmpty(),
   check("description", "Description cannot be empty").notEmpty(),
   check("price", "Price cannot be empty").notEmpty(),
   check("ratings", "Ratings cannot be empty").notEmpty(),
@@ -35,6 +36,9 @@ router.post(
 
 //GetAllProducts
 router.get("/products", GetAllProducts);
+
+//AdminGetAllProducts
+router.get("/adminproducts", AdminGetAllProducts);
 
 //GetLatestProduct
 router.get("/latestProduct", GetLatestProducts);
@@ -53,7 +57,5 @@ router.put("/admin/product/:id", checkToken, checkIsAdmin, UpdateProduct);
 
 //AdminCanDelete/RemoveProduct
 router.delete("/admin/product/:id", checkToken, checkIsAdmin, DeleteProduct);
-
-
 
 module.exports = router;

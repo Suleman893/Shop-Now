@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 
 const orderSchema = mongoose.Schema(
   {
+    userId: {
+      type: String,
+    },
     name: {
       type: String,
       required: [true, "Order name is required"],
@@ -9,9 +12,6 @@ const orderSchema = mongoose.Schema(
     email: {
       type: String,
       required: [true, "Email is required"],
-    },
-    userId: {
-      type: String,
     },
     orderItems: [],
     shippingAddress: {
@@ -145,4 +145,3 @@ module.exports = mongoose.model("Order", orderSchema);
 // });
 
 // module.exports = mongoose.model("Order", orderSchema);
-

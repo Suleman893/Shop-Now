@@ -1,5 +1,5 @@
-import {createStore, combineReducers, applyMiddleware} from "redux";
-import {composeWithDevTools} from "redux-devtools-extension";
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 //Importing all reducers
 import {
@@ -7,20 +7,36 @@ import {
   productDetailReducer,
   latestProductReducer,
   featuredProductReducer,
+  adminProductReducer,
+  adminAddPizzaReducer,
 } from "./reducers/productReducer";
-import {registerUserReducer, loginUserReducer} from "./reducers/userReducer";
-import {cartReducer} from "./reducers/cartReducer";
-import {placeOrderReducer, getUserOrdersReducer} from "./reducers/orderReducer";
+import {
+  registerUserReducer,
+  loginUserReducer,
+  getAllUsersReducers,
+} from "./reducers/userReducer";
+import { cartReducer } from "./reducers/cartReducer";
+import {
+  placeOrderReducer,
+  getUserOrdersReducer,
+} from "./reducers/orderReducer";
 
-//combineReducers
-const reducer = combineReducers({
-  cart: cartReducer,
+//Combine Reducers
+const rootReducer = combineReducers({
+  //Users
+  registerUser: registerUserReducer,
+  loginUser: loginUserReducer,
+  getAllUsersReducers: getAllUsersReducers,
+  //Product
   products: productReducer,
   productDetail: productDetailReducer,
   latestProducts: latestProductReducer,
   featuredProducts: featuredProductReducer,
-  registerUser: registerUserReducer,
-  loginUser: loginUserReducer,
+  adminPanelProducts: adminProductReducer,
+  adminAddPizzaReducer: adminAddPizzaReducer,
+  //Cart
+  cart: cartReducer,
+  //Order
   placeOrderReducer: placeOrderReducer,
   getUserOrdersReducer: getUserOrdersReducer,
 });
@@ -44,7 +60,7 @@ let initialState = {
 
 const middleware = [thunk];
 const store = createStore(
-  reducer,
+  rootReducer,
   initialState,
   composeWithDevTools(applyMiddleware(...middleware))
 );
