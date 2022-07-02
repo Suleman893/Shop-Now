@@ -65,7 +65,11 @@ const UserLogin = async (req, res) => {
         message: "Invalid Credientials",
       });
     }
-    const token = jwtHelper.issue({ id: user._id, role: user.role });
+    const token = jwtHelper.issue({
+      id: user._id,
+      name: user.name,
+      role: user.role,
+    });
     return res.status(200).send({
       message: "Login successfull",
       token,

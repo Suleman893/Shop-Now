@@ -6,6 +6,7 @@ import Footer from "./component/layout/Footer/Footer";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./screens/Home/Home";
 import Products from "./screens/Products/Products";
+import ProductsCategory from "./screens/Products/ProductCategory";
 import ProductDetail from "./screens/ProductDetail/ProductDetail";
 import Cart from "./screens/Cart/Cart";
 import Signin from "./screens/Signin/Signin";
@@ -35,6 +36,7 @@ function App() {
         <Route exact path="/signup" element={<Signup />} />
         <Route exact path="/about" element={<About />} />
         <Route exact path="/products" element={<Products />} />
+        <Route exact path="/productscategory" element={<ProductsCategory />} />
         <Route exact path="/productdetail/:id" element={<ProductDetail />} />
         <Route exact path="/cart/:id" element={<Cart />} />
         <Route exact path="/myProfile" element={<MyProfile />} />

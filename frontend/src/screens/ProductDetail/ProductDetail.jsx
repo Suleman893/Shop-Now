@@ -4,13 +4,15 @@ import user from "../../images/user.png";
 import ReactStars from "react-rating-stars-component";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductDetails } from "../../redux/actions/productAction";
-import Reviewcard from "../../component/ReviewCard/Reviewcard";
-import Loader from "../../component/layout/Loader/Loader";
+import { getProductDetails , addReviews} from "../../redux/actions/productAction";
 import { addToCart } from "../../redux/actions/cartActions";
 import ImageGallery from "react-image-gallery";
 import "./ProductDetail.css";
+import { animateScroll as scroll } from "react-scroll"
+import HeadShake from 'react-reveal/HeadShake';
+import { Rating } from "@material-ui/lab";
 const ProductDetail = () => {
+
   const param = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,24 +21,27 @@ const ProductDetail = () => {
   const { product, loading, error } = useSelector(
     (state) => state.productDetail
   );
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState("");
+  console.log('The rating',rating)
+  const toSend={rating,comment,productID:product._id}
+  const submitReview = (e)=>
+  {
+    e.preventDefault();
+    dispatch(addReviews(toSend));
+  }
 
   useEffect(() => {
     dispatch(getProductDetails(param.id));
+    scroll.scrollTo(1)
   }, [dispatch]);
 
   const addToCartHandler = () => {
     navigate(`/cart/${param.id}?qty=${qty}`);
     dispatch(addToCart(product._id, qty));
   };
-  const ratingOptions = {
-    edit: false,
-    color: "rgba(20,20,20,0.1)",
-    activeColor: "tomato",
-    size: window.innerWidth < 600 ? 20 : 25,
-    value: 5,
-    isHalf: true,
-  };
 
+  console.log("The ,product.ratings",product.ratings , product.productName)
   const images = [
     {
       original: buy1,
@@ -51,7 +56,6 @@ const ProductDetail = () => {
       thumbnail: buy1,
     },
   ];
-
   return (
     <div>
       <div className="product-detail-container">
@@ -69,7 +73,18 @@ const ProductDetail = () => {
                 {product.name}
               </h1>
               <hr />
-              <p className="mx-10">Rating stars</p>
+              <div>
+              <ReactStars 
+                      edit={false}
+                      color="rgba(20,20,20,0.1)"
+                      activeColor="#ffd700"
+                      size={window.innerWidth < 600 ? 20 : 25}
+                      value={product.ratings }
+                      isHalf={true}
+                  />
+                  {product.numOfReviews}
+              </div>
+             
               <hr />
               <p className="mx-10 product-card-price">Rs: {product.price}</p>
               <div className="product-add-to-cart">
@@ -79,49 +94,56 @@ const ProductDetail = () => {
               </div>
               <button className="add-to-cart mx-10">Add to cart</button>
               <hr />
-              <h3 className={product.stock > 0 ? "green" : "red" && "mx-10"}>
-                {" "}
+              <h3 className={"mx-10" && product.stock > 0 ? "green" : "red"}>
                 {product.stock > 0 ? `In stock ` : "Not available"}
               </h3>
               <p className="mx-10">
-                <b>Description:</b> Lorem ipsum dolor sit amet consectetur
-                adipisicing elit. Ut distinctio vitae reprehenderit officiis
-                ullam. Ea culpa sed blanditiis rem odio praesentium quae sequi
-                dignissimos ullam alias, enim distinctio dolor. Laudantium?
+                <b>Description:</b> {product.description}
               </p>
             </div>
           </div>
         </div>
       </div>
       <div className="product-detail-container">
-        <h2 className="page-title">What Others Say About:</h2>
-        <div className="review-card mx-10">
-          <div className="review-card-info">
-            <img src={user} alt="user" />
-            <h5 className="mx-10">John Kelly</h5>
+        <h4 className="page-title-small">What others say's about {product.productName} </h4>
+        {product.reviews && product.reviews.map((curr)=>  ( 
+          <HeadShake>
+
+        <div className="review-card mx-10">    
+          <div className="review-card-info">     
+           <img src={user} alt="user" />      
+           <h5 className="mx-10">{curr.name}</h5>    
+          </div>    
+          <div>
+          <ReactStars 
+          edit={false}
+          color="rgba(20,20,20,0.1)"
+          activeColor="#ffd700"
+          size={window.innerWidth < 600 ? 20 : 25}
+          value={curr.rating}
+          isHalf={true}
+      />
           </div>
-          <p className="mx-10">Lorem ipsum dolor sit amet consectetur.</p>
-        </div> 
-        <div className="review-card mx-10">
-          <div className="review-card-info">
-            <img src={user} alt="user" />
-            <h5 className="mx-10">Ahmad Ali</h5>
-          </div>
-          <p className="mx-10">Lorem ipsum dolor sit amet consectetur.</p>
+           <p className="mx-10">{curr.comment}</p>  
         </div>
-        <div className="review-card mx-10">
-          <div className="review-card-info">
-            <img src={user} alt="user" />
-            <h5 className="mx-10">Hp buyer</h5>
-          </div>
-          <p className="mx-10">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse animi
-            totam ipsa voluptas maxime neque facilis labore voluptatibus. Quo,
-            blanditiis.
-          </p>
-        </div>
+        </HeadShake>
+
+        ))}
+
         <div className="leave-comment mx-20">
-          <input placeholder="Leave a comment..." />
+        <Rating
+        onChange={(e) => setRating(e.target.value)}
+        value={rating}
+        size="large"
+      />
+        <textarea
+        cols="30"
+        rows="5"
+        placeholder="Leave a comment..." 
+        value={comment}
+        onChange={(e) => setComment(e.target.value)}
+        />
+        <button onClick={submitReview}></button>
         </div>
       </div>
     </div>

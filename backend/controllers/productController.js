@@ -1,6 +1,5 @@
 const productSchema = require("../models/productModel");
 const { validationResult } = require("express-validator");
-
 const CreateProduct = async (req, res) => {
   const {
     productName,
@@ -44,12 +43,13 @@ const CreateProduct = async (req, res) => {
 };
 
 const GetAllProducts = async (req, res) => {
-  const pageSize = 21;
+  const pageSize = 15;
   const page = parseInt(req.query.page) || "0";
   try {
-    const total = await productSchema.countDocuments();
+    console.log("The page", page);
+    const total = await productSchema.countDocuments({});
     let allProducts = await productSchema
-      .find()
+      .find({})
       .limit(pageSize)
       .skip(pageSize * page);
 
@@ -71,6 +71,7 @@ const GetAllProducts = async (req, res) => {
     });
   }
 };
+
 const AdminGetAllProducts = async (req, res) => {
   try {
     let allProducts = await productSchema.find();
@@ -252,8 +253,8 @@ const ProductDetails = async (req, res) => {
 const SearchProduct = async (req, res) => {
   try {
     let searchedProduct = await productSchema.find({
-      // $or: [{ name: { $regex: req.params.name, $options: "i" } }],
-      // $or: [{ productName: { $regex: req.params.name, $options: "i" } }],
+      $or: [{ productName: { $regex: req.params.productName, $options: "i" } }],
+      $or: [{ productName: { $regex: req.params.productName, $options: "i" } }],
     });
     return res.status(200).send({
       searchedProduct: searchedProduct,
@@ -267,6 +268,80 @@ const SearchProduct = async (req, res) => {
   }
 };
 
+const GetProductByCategory = async (req, res) => {
+  const { category } = req.params;
+  try {
+    let query = productSchema.find({ category: category }).sort({ _id: -1 });
+    const page = parseInt(req.query.page) || 1;
+    const pageSize = 16;
+    const skip = (page - 1) * pageSize;
+    const total = await productSchema.countDocuments();
+    const pages = Math.ceil(total / pageSize);
+    query = query.skip(skip).limit(pageSize);
+    if (page > pages) {
+      return res.status(404).json({
+        status: "fail",
+        message: "No page found",
+      });
+    }
+    const result = await query;
+    res.status(200).send({
+      status: "success",
+      count: result.length,
+      page,
+      pages,
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      message: "Server Error",
+    });
+  }
+};
+
+// Create New Review or Update the review
+const createProductReview = async (req, res) => {
+  const { rating, comment, productId } = req.body;
+
+  const review = {
+    user: req.userId,
+    name: req.name,
+    rating: Number(rating),
+    comment,
+  };
+  console.log("The req.name", review.name);
+  const product = await productSchema.findById(productId);
+
+  const isReviewed = product.reviews.find(
+    (rev) => rev.user.toString() === req.userId.toString()
+  );
+
+  if (isReviewed) {
+    product.reviews.forEach((rev) => {
+      if (rev.user.toString() === req.userId.toString())
+        (rev.rating = rating), (rev.comment = comment);
+    });
+  } else {
+    product.reviews.push(review);
+    product.numOfReviews = product.reviews.length;
+  }
+
+  let avg = 0;
+
+  product.reviews.forEach((rev) => {
+    avg += rev.rating;
+  });
+
+  product.ratings = avg / product.reviews.length;
+
+  await product.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    success: true,
+  });
+};
+
 module.exports = {
   SearchProduct,
   CreateProduct,
@@ -278,4 +353,6 @@ module.exports = {
   UpdateProduct,
   DeleteProduct,
   ProductDetails,
+  GetProductByCategory,
+  createProductReview,
 };

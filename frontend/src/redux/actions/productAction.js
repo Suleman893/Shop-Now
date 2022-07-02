@@ -19,6 +19,15 @@ import {
   ADMIN_CREATE_PRODUCT_REQUEST,
   ADMIN_CREATE_PRODUCT_FAIL,
   ADMIN_CREATE_PRODUCT_SUCCESS,
+  SEARCH_PRODUCT_REQUEST,
+  SEARCH_PRODUCT_SUCCESS,
+  SEARCH_PRODUCT_FAIL,
+  PRODUCT_CATEGORY_REQUEST,
+  PRODUCT_CATEGORY_SUCCESS,
+  PRODUCT_CATEGORY_FAIL,
+  ADD_REVIEWS_REQUEST,
+  ADD_REVIEWS_SUCCESS,
+  ADD_REVIEWS_FAIL,
 } from "../constants/productConstants";
 
 import {
@@ -26,14 +35,17 @@ import {
   getlatestProducts,
   getProductDetail,
   getFeaturedProductApi,
+  searchProductApi,
+  getProductByCategoryApi,
+  putReviews,
 } from "../../api/Apis";
 
 export const getProduct = (page) => async (dispatch) => {
+  console.log("The page", Number(page));
   try {
     dispatch({
       type: ALL_PRODUCT_REQUEST,
     });
-
     const res = await axios.get(
       `http://localhost:2000/api/product/products?page=${page}`
     );
@@ -105,6 +117,48 @@ export const getProductDetails = (id) => async (dispatch) => {
   }
 };
 
+export const searchProduct = (setTheCategory) => async (dispatch) => {
+  try {
+    dispatch({ type: SEARCH_PRODUCT_REQUEST });
+    const { data } = await axios.get(`${searchProductApi}/${setTheCategory}`);
+    dispatch({ type: SEARCH_PRODUCT_SUCCESS, payload: data.searchedProduct });
+  } catch (error) {
+    dispatch({
+      type: SEARCH_PRODUCT_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const productByCategoryAction =
+  (theCategoryToSearch) => async (dispatch) => {
+    try {
+      dispatch({ type: PRODUCT_CATEGORY_REQUEST });
+      const res = await axios.get(
+        `${getProductByCategoryApi}/${theCategoryToSearch}`
+      );
+      dispatch({ type: PRODUCT_CATEGORY_SUCCESS, payload: res.data.data });
+    } catch (error) {
+      dispatch({
+        type: PRODUCT_CATEGORY_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+export const addReviews = (toSend) => async (dispatch) => {
+  console.log("to send", toSend);
+  try {
+    dispatch({ type: ADD_REVIEWS_REQUEST });
+    const res = await axios.put(`${putReviews}`);
+    console.log("The api res", res);
+    dispatch({ type: ADD_REVIEWS_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: ADD_REVIEWS_FAIL,
+    });
+  }
+};
 //Clearing Errors
 export const clearErrors = () => async (dispatch) => {
   dispatch({
@@ -142,11 +196,9 @@ export const getAdminProduct = () => async (dispatch) => {
     dispatch({
       type: ADMIN_PRODUCT_ALL_REQUEST,
     });
-
     const res = await axios.get(
       `http://localhost:2000/api/product/adminproducts`
     );
-
     const { data } = res;
     dispatch({
       type: ADMIN_PRODUCT_ALL_SUCCESS,

@@ -9,6 +9,9 @@ import {
   featuredProductReducer,
   adminProductReducer,
   adminAddProductReducer,
+  searchProductReducer,
+  productByCategory,
+  addReviewsReducer,
 } from "./reducers/productReducer";
 import {
   registerUserReducer,
@@ -39,6 +42,9 @@ const rootReducer = combineReducers({
   //Order
   placeOrderReducer: placeOrderReducer,
   getUserOrdersReducer: getUserOrdersReducer,
+  searchProductReducer: searchProductReducer,
+  productByCategory: productByCategory,
+  addReviewsReducer: addReviewsReducer,
 });
 
 //LocalStorage

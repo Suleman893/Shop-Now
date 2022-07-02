@@ -1,0 +1,122 @@
+import React, { useEffect, useState } from "react";
+import "./Products.css";
+import buy1 from "../../images/product.jpg";
+import ReactStars from "react-rating-stars-component";
+import { getProduct, searchProduct } from "../../redux/actions/productAction";
+import { useSelector, useDispatch } from "react-redux";
+import { Link , useSearchParams} from "react-router-dom";
+
+const ProductsCategory = () => {
+  const [page, setPage] = useState(0);
+  const [numberOfPages, setNumberOfPages] = useState(0);
+  const dispatch = useDispatch();
+  const [getTheCategory,setGetTheCategory] = useSearchParams();
+  getTheCategory.get("categorytype");
+  alert(getTheCategory);
+  const { loading, error, products, totalPages } = useSelector(
+    (state) => state.products
+  );
+  const { searchedProducts } = useSelector(
+    (state) => state.searchProductReducer
+  );
+console.log('In the product.jsx',searchedProducts);
+  const [currentProduct,setCurrentProduct]= useState([]);
+  const pages = new Array(numberOfPages).fill(null).map((v, i) => i);
+
+    
+const getProducts = ()=>
+{
+  dispatch(getProduct(page));
+  setNumberOfPages(totalPages);
+  setCurrentProduct(searchedProducts)
+  console.log('The currentproduct',currentProduct)
+}
+  useEffect(() => {
+    getProducts()
+  }, [page]);
+
+  const setProductSearchHandler = (e)=>
+  {
+    let productSearchName = e.target.value
+    dispatch(searchProduct(productSearchName))
+  }
+  const ratingOptions = {
+    edit: false,
+    color: "rgba(20,20,20,0.1)",
+    activeColor: "tomato",
+    size: window.innerWidth < 600 ? 20 : 25,
+    value: 5,
+    isHalf: true,
+  };
+
+  const goToPrevious = () => {
+    setPage(Math.max(0, page - 1));
+  };
+
+  const goToNext = () => {
+    setPage(Math.min(numberOfPages, page + 1));
+  };
+
+  return (
+    <div className="container">
+      <div className="product-top">
+        <h2 className="page-title">Products</h2>
+        <input
+          type="text"
+          name="searchbar"
+          placeholder="Search product..."
+          className="product-search"
+          onChange={setProductSearchHandler}
+        />
+      </div>
+      <div className="row">
+        <div className="left">
+          <div className="filter-section">
+            <h5>Categories</h5>
+            <ul>
+              <li>Mens Fashion</li>
+              <li>Women Fashion</li>
+              <li>Electronic Devices</li>
+              <li>Home & Lifestyle</li>
+              <li>Sports & Outdoor</li>
+              <li>Automotive & Motorbike</li>
+              <li>Groceries & Pets</li>
+              <li>Health & Beauty</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="right">
+          {currentProduct.map((product) => (
+            <div className="product-card">
+              <Link to={`/productdetail/${product._id}`}>
+                <div className="product-card-img">
+                  <img src={buy1} alt="product-card" />
+                </div>
+                <div className="product-card-content">
+                  <h1>{product.productName}</h1>
+                  <p>{product.description}</p>
+                  <p className="product-card-price">Rs. {product.price}</p>
+                  <p>{product.numOfReviews}</p>
+                  <p>{product.category}</p>
+                </div>
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="page-btn">
+        <button onClick={goToPrevious}>Pre</button>
+        {pages.map((pageIndex) => (
+          <button key={pageIndex} onClick={() => setPage(pageIndex)}>
+            {pageIndex + 1}
+          </button>
+        ))}
+        <button onClick={goToNext}>Next</button>
+      </div>
+    </div>
+  );
+};
+
+export default ProductsCategory;

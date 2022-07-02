@@ -1,18 +1,23 @@
 @import "~react-image-gallery/styles/css/image-gallery.css";
 
-.mx-20
-{
-  margin:10px 0px;
+.mx-20 {
+  margin: 10px 0px;
 }
-.mx-10
-{
-  margin:10px 0px;
+.mx-10 {
+  margin: 10px 0px;
 }
 
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
 .product-detail-row {
   flex-wrap: wrap;
   display: flex;
-  justify-content:space-between
+  justify-content: space-between;
 }
 
 .product-detail-container {
@@ -71,13 +76,13 @@
   align-items: center;
 }
 
-.leave-comment input {
+.leave-comment textarea {
   padding: 11px 20px;
-    border: none;
-    border-radius: 2px;
-    width:50%;
-    outline: none;
-    background: #f1f3f4;
+  border: none;
+  border-radius: 2px;
+  width: 50%;
+  outline: none;
+  background: #f1f3f4;
 }
 
 .review-card-info h5 {
@@ -91,7 +96,7 @@
 }
 
 .review-card-info {
-  margin:auto;
+  margin: auto;
   display: flex;
   justify-content: flex-start;
 }

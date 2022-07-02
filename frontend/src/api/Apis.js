@@ -12,6 +12,12 @@ export const getlatestProducts =
 export const getProductDetail = "http://localhost:2000/api/product/product";
 export const getFeaturedProductApi =
   "http://localhost:2000/api/featuredProduct";
+export const searchProductApi =
+  "http://localhost:2000/api/product/searchProduct";
+  export const getProductByCategoryApi =
+  "http://localhost:2000/api/product/productbycategory";
+  export const putReviews =
+  "http://localhost:2000/api/product/productreview";
 
 //Order Api's
 export const placeOrder = "http://localhost:2000/api/order/placeOrder";

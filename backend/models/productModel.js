@@ -21,7 +21,7 @@ const productSchema = mongoose.Schema(
     category: {
       type: String,
       enum: [
-        "Mens Fashion",
+        "Men Fashion",
         "Women Fashion",
         "Electronic Devices",
         "Home & Lifestyle",
@@ -42,11 +42,11 @@ const productSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    numOfReviews: {
+    ratings: {
       type: Number,
       default: 0,
     },
-    ratings: {
+    numOfReviews: {
       type: Number,
       default: 0,
     },

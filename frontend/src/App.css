@@ -34,6 +34,15 @@ a {
   font-weight: 600;
 }
 
+.page-title-small {
+  text-align: center;
+  padding: 20px;
+  font-size: 1.4rem;
+  text-transform: capitalize;
+  color: #ff7f50;
+  font-weight: 600;
+}
+
 .btn {
   border: 1px solid #ff7f50;
   border-radius: 20px;

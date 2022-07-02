@@ -11,12 +11,21 @@ import {
   FEATURED_PRODUCT_REQUEST,
   FEATURED_PRODUCT_SUCCESS,
   FEATURED_PRODUCT_FAIL,
+  SEARCH_PRODUCT_REQUEST,
+  SEARCH_PRODUCT_SUCCESS,
+  SEARCH_PRODUCT_FAIL,
   ADMIN_PRODUCT_ALL_REQUEST,
   ADMIN_PRODUCT_ALL_SUCCESS,
   ADMIN_PRODUCT_ALL_FAIL,
   ADMIN_CREATE_PRODUCT_REQUEST,
   ADMIN_CREATE_PRODUCT_FAIL,
   ADMIN_CREATE_PRODUCT_SUCCESS,
+  PRODUCT_CATEGORY_REQUEST,
+  PRODUCT_CATEGORY_SUCCESS,
+  PRODUCT_CATEGORY_FAIL,
+  ADD_REVIEWS_REQUEST,
+  ADD_REVIEWS_SUCCESS,
+  ADD_REVIEWS_FAIL,
   CLEAR_ERRORS,
 } from "../constants/productConstants";
 
@@ -35,11 +44,6 @@ export const productReducer = (state = { products: [] }, action) => {
       return {
         loading: false,
         error: action.payload.error,
-      };
-    case CLEAR_ERRORS:
-      return {
-        ...state,
-        error: null,
       };
     default:
       return state;
@@ -102,6 +106,75 @@ export const featuredProductReducer = (
       return { loading: false, error: action.payload };
     case CLEAR_ERRORS:
       return { ...state, error: null };
+    default:
+      return state;
+  }
+};
+
+export const searchProductReducer = (
+  state = { searchedProducts: [] },
+  action
+) => {
+  switch (action.type) {
+    case SEARCH_PRODUCT_REQUEST:
+      return { loading: true, searchedProducts: [] };
+    case SEARCH_PRODUCT_SUCCESS:
+      return {
+        loading: false,
+        searchedProducts: action.payload,
+        // productsCount: action.payload.productsCount,
+      };
+    case SEARCH_PRODUCT_FAIL:
+      return {
+        loading: false,
+        error: action.payload.error,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const productByCategory = (state = { categoryProducts: [] }, action) => {
+  switch (action.type) {
+    case PRODUCT_CATEGORY_REQUEST:
+      return { loading: true, categoryProducts: [] };
+    case PRODUCT_CATEGORY_SUCCESS:
+      return {
+        loading: false,
+        categoryProducts: action.payload,
+      };
+    case PRODUCT_CATEGORY_FAIL:
+      return {
+        loading: false,
+        error: action.payload.error,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const addReviewsReducer = (state = { product: {} }, action) => {
+  switch (action.type) {
+    case PRODUCT_CATEGORY_REQUEST:
+      return { loading: true };
+    case PRODUCT_CATEGORY_SUCCESS:
+      return {
+        loading: false,
+      };
+    case PRODUCT_CATEGORY_FAIL:
+      return {
+        loading: false,
+      };
     default:
       return state;
   }

@@ -14,25 +14,12 @@ const {
   DeleteProduct,
   ProductDetails,
   SearchProduct,
+  GetProductByCategory,
+  createProductReview,
 } = require("../controllers/productController");
 
 //SearchProduct
-router.get("/searchProduct/:name", SearchProduct);
-
-//AdminCanCreateProduct
-router.post(
-  "/admin/product/new",
-  check("productName", "Name cannot be empty").notEmpty(),
-  check("description", "Description cannot be empty").notEmpty(),
-  check("price", "Price cannot be empty").notEmpty(),
-  check("ratings", "Ratings cannot be empty").notEmpty(),
-  check("category", "Product Category roles cannot be empty").notEmpty(),
-  check("stock", "Product Stock roles cannot be empty").notEmpty(),
-  check("numOfReviews", "Number of Review cannot be empty").notEmpty(),
-  // checkToken,
-  // checkIsAdmin,
-  CreateProduct
-);
+router.get("/searchProduct/:productName", SearchProduct);
 
 //GetAllProducts
 router.get("/products", GetAllProducts);
@@ -48,6 +35,26 @@ router.get("/featuredProduct", GetFeaturedProduct);
 
 //GetSpecificProduct
 router.get("/product/:id", ProductDetails);
+
+
+
+router.get("/productbycategory/:category", GetProductByCategory);
+// router.get("/getcommentsbyid/:id", GetCommentsById);
+
+router.put("/productreview", checkToken, createProductReview);
+
+//AdminCanCreateProduct
+router.post(
+  "/admin/product/new",
+  check("productName", "Name cannot be empty").notEmpty(),
+  check("description", "Description cannot be empty").notEmpty(),
+  check("price", "Price cannot be empty").notEmpty(),
+  check("category", "Product Category roles cannot be empty").notEmpty(),
+  check("stock", "Product Stock roles cannot be empty").notEmpty(),
+  // checkToken,
+  // checkIsAdmin,
+  CreateProduct
+);
 
 //GetAdminProduct
 // router.get("/getAdminProducts", checkToken, checkIsAdmin, GetAdminProduct);
