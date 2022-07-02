@@ -1,6 +1,6 @@
 import "./About.css";
 import MetaData from "../../component/layout/MetaData";
-import user from "../../images/user.png";
+import pic from "../../images/pic.jpg";
 
 const About = () => {
   return (
@@ -13,15 +13,10 @@ const About = () => {
             <div className="about-left">
               <div className="about-card">
                 <div className="about-card-img">
-                  <img src={user} />
+                  <img src={pic} style={{ objectPosition: "center" }} />
                 </div>
                 <h1>Suleman Ahmad</h1>
-                <p>
-                  Hey! I am software developer. I have expertise in web
-                  development technologies. <br />I love being a full stack
-                  developer, i gives me complete freedom to code knowing whats
-                  going on my web app frontend and backend
-                </p>
+                <p>E-commerce Store Project developed using MERN.</p>
               </div>
             </div>
             <div class="vl" />

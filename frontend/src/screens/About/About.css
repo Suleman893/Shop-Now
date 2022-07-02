@@ -6,10 +6,11 @@
 .about-box {
   width: 80%;
   margin: 20px auto;
-  box-shadow: 5px 5px 5px gainsboro;
-  background-color: gainsboro;
+  box-shadow: 5px 5px 5px #f1f3f4;
+  background-color: #f1f3f4;
   min-height: 60vh;
   height: auto;
+  padding: 30px 0px;
 }
 
 .about-box-wrapper {
@@ -24,6 +25,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+  padding: 0px 15px;
 }
 
 .about-right {

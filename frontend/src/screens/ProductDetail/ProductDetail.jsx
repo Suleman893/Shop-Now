@@ -8,6 +8,7 @@ import { getProductDetails } from "../../redux/actions/productAction";
 import Reviewcard from "../../component/ReviewCard/Reviewcard";
 import Loader from "../../component/layout/Loader/Loader";
 import { addToCart } from "../../redux/actions/cartActions";
+import ImageGallery from "react-image-gallery";
 import "./ProductDetail.css";
 const ProductDetail = () => {
   const param = useParams();
@@ -36,15 +37,31 @@ const ProductDetail = () => {
     isHalf: true,
   };
 
+  const images = [
+    {
+      original: buy1,
+      thumbnail: buy1,
+    },
+    {
+      original: buy1,
+      thumbnail: buy1,
+    },
+    {
+      original: buy1,
+      thumbnail: buy1,
+    },
+  ];
+
   return (
     <div>
       <div className="product-detail-container">
-        <h2 className="page-title ">{product.name}</h2>
+        <h2 className="page-title ">{product.productName}</h2>
         <div className="product-detail-row">
           <div className="product-detail-left">
-            <div className="product-detail-img">
+            {/*<div className="product-detail-img">
               <img src={buy1} alt="product-detail-img" />
-            </div>
+  </div> */}
+            <ImageGallery items={images} />
           </div>
           <div className="product-detail-right">
             <div className="product-detail-content">
@@ -54,7 +71,7 @@ const ProductDetail = () => {
               <hr />
               <p className="mx-10">Rating stars</p>
               <hr />
-              <p className="mx-10">Rs: {product.price}</p>
+              <p className="mx-10 product-card-price">Rs: {product.price}</p>
               <div className="product-add-to-cart">
                 <button>+</button>
                 <p className="mx-10">Value</p>
@@ -67,36 +84,44 @@ const ProductDetail = () => {
                 {product.stock > 0 ? `In stock ` : "Not available"}
               </h3>
               <p className="mx-10">
-                Description: Lorem ipsum dolor sit amet consectetur adipisicing
-                elit. Ut distinctio vitae reprehenderit officiis ullam. Ea culpa
-                sed blanditiis rem odio praesentium quae sequi dignissimos ullam
-                alias, enim distinctio dolor. Laudantium?
+                <b>Description:</b> Lorem ipsum dolor sit amet consectetur
+                adipisicing elit. Ut distinctio vitae reprehenderit officiis
+                ullam. Ea culpa sed blanditiis rem odio praesentium quae sequi
+                dignissimos ullam alias, enim distinctio dolor. Laudantium?
               </p>
             </div>
           </div>
         </div>
       </div>
-
       <div className="product-detail-container">
-        <h2 className="page-title">Reviews</h2>
-        <div className="reviews-row ">
-          <div className="review-card">
+        <h2 className="page-title">What Others Say About:</h2>
+        <div className="review-card mx-10">
+          <div className="review-card-info">
             <img src={user} alt="user" />
-            <h5 className="mx-10">Name</h5>
-            <p className="mx-10">Lorem ipsum dolor sit amet consectetur.</p>
+            <h5 className="mx-10">John Kelly</h5>
           </div>
-
-          <div className="review-card">
+          <p className="mx-10">Lorem ipsum dolor sit amet consectetur.</p>
+        </div> 
+        <div className="review-card mx-10">
+          <div className="review-card-info">
             <img src={user} alt="user" />
-
-            <h5 className="mx-10">Name</h5>
-            <p className="mx-10">Lorem ipsum dolor sit amet consectetur.</p>
+            <h5 className="mx-10">Ahmad Ali</h5>
           </div>
-          <div className="review-card">
+          <p className="mx-10">Lorem ipsum dolor sit amet consectetur.</p>
+        </div>
+        <div className="review-card mx-10">
+          <div className="review-card-info">
             <img src={user} alt="user" />
-            <h5 className="mx-10">Name</h5>
-            <p className="mx-10">Lorem ipsum dolor sit amet consectetur.</p>
+            <h5 className="mx-10">Hp buyer</h5>
           </div>
+          <p className="mx-10">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse animi
+            totam ipsa voluptas maxime neque facilis labore voluptatibus. Quo,
+            blanditiis.
+          </p>
+        </div>
+        <div className="leave-comment mx-20">
+          <input placeholder="Leave a comment..." />
         </div>
       </div>
     </div>

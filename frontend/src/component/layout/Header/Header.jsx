@@ -33,17 +33,9 @@ const Header = () => {
             </li>
             {currentUser ? (
               <div>
-                <li> {currentUser.name}</li>
-                <li
-                  onClick={() => {
-                    dispatch(logoutUser());
-                    navigate("/signin");
-                  }}
-                >
-                  Logout
-                </li>
-                <li>
-                  <Link to="/myProfile">Profile</Link>
+                <li style={{ textTransform: "capitalize" }}>
+                  {" "}
+                  {currentUser.name}
                 </li>
               </div>
             ) : (
@@ -54,9 +46,24 @@ const Header = () => {
           </ul>
         </nav>
         <div className="header-btns">
-          <i className="fas fa-shopping-cart">
+          <i className="fas fa-shopping-cart mr-8">
             <span>{cartItems.reduce((acc, item) => acc + item.qty, 0)}</span>{" "}
           </i>
+          {currentUser && (
+            <>
+              <Link to="/myProfile">
+                <i class="fa fa-user  mr-8"></i>
+              </Link>
+
+              <i
+                class="fa fa-sign-out "
+                onClick={() => {
+                  dispatch(logoutUser());
+                  navigate("/signin");
+                }}
+              ></i>
+            </>
+          )}
         </div>
       </div>
     </header>

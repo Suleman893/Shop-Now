@@ -17,10 +17,11 @@
   width: 30%;
   border-radius: 15px;
   margin: 20px 0px;
+  transition: all 0.5s;
 }
 
 .product-card:hover {
-  box-shadow: 0px 0px 12px #ff7f50;
+  box-shadow: 0px 0px 3px #808080;
 }
 
 .product-card-img img {
@@ -37,12 +38,20 @@
   /* text-align: center; */
 }
 
+.product-card-content h1 {
+  color: #108ee9;
+}
+
+.product-card-price {
+  color: #ff7f50;
+}
 .product-search {
-  padding: 8px 20px;
-  border: 1px solid;
-  border-radius: 5px;
+  padding: 11px 20px;
+  border: none;
+  border-radius: 2px;
   width: 40%;
-  box-shadow: inset 0px 0px 5px #ff7f50;
+  outline: none;
+  background: #f1f3f4;
 }
 
 .product-top {
@@ -57,10 +66,20 @@
 .filter-section h5 {
   font-size: 22px;
   text-decoration: underline;
+  color: #ff7f50;
 }
 
 .filter-section ul {
   padding: 0px;
+}
+
+.filter-section ul li {
+  padding: 4px 0px;
+  cursor: pointer;
+}
+
+.filter-section ul li:hover {
+  color: #ff7f50;
 }
 
 .page-btn {
@@ -69,7 +88,7 @@
   margin: 15px;
 }
 
-.page-btn span {
+.page-btn button {
   display: inline-block;
   border: 1px solid #ff7f50;
   margin-left: 10px;
@@ -79,11 +98,11 @@
   text-align: center;
   line-height: 40px;
   cursor: pointer;
+  font-size: 12px;
 }
 
-.page-btn span:hover {
-  background: #000;
-  color: #fff;
+.page-btn button:hover {
+  box-shadow: 0px 0px 3px #808080;
 }
 
 @media screen and (max-width: 778px) {

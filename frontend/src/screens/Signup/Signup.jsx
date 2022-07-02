@@ -4,6 +4,7 @@ import banner from "../../images/banner.png";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { registerUser } from "../../redux/actions/userActions";
+import signup from "../../images/signup.jpg";
 
 const Signup = () => {
   const dispatch = useDispatch();
@@ -23,49 +24,70 @@ const Signup = () => {
     }
   };
   return (
-    <div className="container">
-      <div className="signup-box">
-        <h2 className="page-title ">Signup</h2>
+    <section>
+      <div className="imgBx">
+        <img src={signup} />
+      </div>
+      <div className="contentBx">
+        <div className="formBx">
+          <h2>Login</h2>
+          <form>
+            <div className="inputBx">
+              <span>Name</span>
+              <input
+                type="text"
+                placeholder="Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <div className="inputBx">
+              <span>Email</span>
+              <input
+                type="email"
+                placeholder="Password"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
 
-        <div className="signup-row">
-          <input
-            type="text"
-            placeholder="Name"
-            value={name}
-            className="mx-10"
-            onChange={(e) => setName(e.target.value)}
-          />
-          <input
-            type="email"
-            placeholder="Password"
-            value={email}
-            className="mx-10"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            className="mx-10"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Confirm Password"
-            value={confirmPassword}
-            className="mx-10"
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-          <button className="btn mx-10" onClick={signupHandler}>
-            Signup
-          </button>
+            <div className="inputBx">
+              <span>Password</span>
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
 
-          <Link to="/signin">
-            <span>Already have an account?Signin now</span>{" "}
-          </Link>
+            <div className="inputBx">
+              <span>Confirm Password</span>
+              <input
+                type="password"
+                placeholder="Confirm Password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </div>
+
+            <div className="inputBx">
+              <input
+                type="submit"
+                value="Signin"
+                name="Signin"
+                onClick={signupHandler}
+              ></input>
+            </div>
+
+            <div className="inputBx">
+              <p>Already have account?</p>
+              <Link to="/signin">Sign In</Link>
+            </div>
+          </form>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -37,7 +37,7 @@ export const loginUser = (user) => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGIN_REQUEST });
     const { data } = await axios.post(loginUserApi, user);
-    console.log("The data from login api", data);
+
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data.user });
     localStorage.setItem("currentUser", JSON.stringify(data.token));
   } catch (error) {
@@ -45,7 +45,7 @@ export const loginUser = (user) => async (dispatch) => {
   }
 };
 
-export const logoutUser = () => (dispatch) => {
+export const logoutUser = () => () => {
   localStorage.removeItem("currentUser");
 };
 

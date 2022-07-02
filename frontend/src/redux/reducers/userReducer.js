@@ -17,7 +17,7 @@ import {
 export const registerUserReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_REGISTER_REQUEST:
-      // return {loading: true, user: {}};
+      // return { loading: true, user: {} };
       return { loading: true };
     case USER_REGISTER_SUCCESS:
       return {
@@ -89,15 +89,15 @@ export const getAllUsersReducers = (
 export const deleteSpecificUser = (state = {}, action) => {
   console.log("The currentuser", action.payload);
   switch (action.type) {
-    case USER_LOGIN_REQUEST:
+    case DELETE_USER_REQUEST:
       return { loading: true };
-    case USER_LOGIN_SUCCESS:
+    case DELETE_USER_SUCCESS:
       return {
         loading: false,
         success: true,
         currentUser: action.payload,
       };
-    case USER_LOGIN_FAIL:
+    case DELETE_USER_FAIL:
       return {
         loading: false,
         error: action.payload,

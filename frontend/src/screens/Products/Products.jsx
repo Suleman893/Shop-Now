@@ -42,14 +42,10 @@ const Products = () => {
     <div className="container">
       <div className="product-top">
         <h2 className="page-title">Products</h2>
-        <p>Page of{page + 1}</p>
-        <p> {pages}</p>
-        <p>Total no of{totalPages}</p>
-
         <input
           type="text"
           name="searchbar"
-          placeholder="search product..."
+          placeholder="Search product..."
           className="product-search"
         />
       </div>
@@ -80,8 +76,7 @@ const Products = () => {
                 <div className="product-card-content">
                   <h1>{product.productName}</h1>
                   <p>{product.description}</p>
-                  <p>{product.price}</p>
-                  <p>{product.stock}</p>
+                  <p className="product-card-price">Rs. {product.price}</p>
                   <p>{product.numOfReviews}</p>
                   <p>{product.category}</p>
                 </div>
@@ -92,13 +87,13 @@ const Products = () => {
       </div>
 
       <div className="page-btn">
-        <button onClick={goToPrevious}>Previous</button>
+        <button onClick={goToPrevious}>Pre</button>
         {pages.map((pageIndex) => (
           <button key={pageIndex} onClick={() => setPage(pageIndex)}>
             {pageIndex + 1}
           </button>
         ))}
-        <button onClick={goToNext}>Next &#8594;</button>
+        <button onClick={goToNext}>Next</button>
       </div>
     </div>
   );

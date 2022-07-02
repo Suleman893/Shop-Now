@@ -3,7 +3,7 @@ import { adminAddProduct } from "../../redux/actions/productAction";
 import { useDispatch, useSelector } from "react-redux";
 const AddProduct = () => {
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.adminAddPizzaReducer);
+  const { loading } = useSelector((state) => state.adminAddProductReducer);
 
   const addProductInitialValues = {
     productName: "",

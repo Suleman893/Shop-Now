@@ -13,9 +13,9 @@ import {
   FEATURED_PRODUCT_REQUEST,
   FEATURED_PRODUCT_SUCCESS,
   FEATURED_PRODUCT_FAIL,
-  ALL_ADMIN_PRODUCT_REQUEST,
-  ALL_ADMIN_PRODUCT_SUCCESS,
-  ALL_ADMIN_PRODUCT_FAIL,
+  ADMIN_PRODUCT_ALL_REQUEST,
+  ADMIN_PRODUCT_ALL_SUCCESS,
+  ADMIN_PRODUCT_ALL_FAIL,
   ADMIN_CREATE_PRODUCT_REQUEST,
   ADMIN_CREATE_PRODUCT_FAIL,
   ADMIN_CREATE_PRODUCT_SUCCESS,
@@ -140,7 +140,7 @@ export const adminAddProduct = (newProduct) => async (dispatch) => {
 export const getAdminProduct = () => async (dispatch) => {
   try {
     dispatch({
-      type: ALL_ADMIN_PRODUCT_REQUEST,
+      type: ADMIN_PRODUCT_ALL_REQUEST,
     });
 
     const res = await axios.get(
@@ -149,12 +149,12 @@ export const getAdminProduct = () => async (dispatch) => {
 
     const { data } = res;
     dispatch({
-      type: ALL_ADMIN_PRODUCT_SUCCESS,
+      type: ADMIN_PRODUCT_ALL_SUCCESS,
       payload: { products: data.products },
     });
   } catch (error) {
     dispatch({
-      type: ALL_ADMIN_PRODUCT_FAIL,
+      type: ADMIN_PRODUCT_ALL_FAIL,
       payload: error.response.data.message,
       //error.response.data.message means the api error message, like we sending from the backend error message
     });

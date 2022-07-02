@@ -8,7 +8,7 @@ import {
   latestProductReducer,
   featuredProductReducer,
   adminProductReducer,
-  adminAddPizzaReducer,
+  adminAddProductReducer,
 } from "./reducers/productReducer";
 import {
   registerUserReducer,
@@ -33,7 +33,7 @@ const rootReducer = combineReducers({
   latestProducts: latestProductReducer,
   featuredProducts: featuredProductReducer,
   adminPanelProducts: adminProductReducer,
-  adminAddPizzaReducer: adminAddPizzaReducer,
+  adminAddProductReducer: adminAddProductReducer,
   //Cart
   cart: cartReducer,
   //Order

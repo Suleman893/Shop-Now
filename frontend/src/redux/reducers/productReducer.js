@@ -11,9 +11,9 @@ import {
   FEATURED_PRODUCT_REQUEST,
   FEATURED_PRODUCT_SUCCESS,
   FEATURED_PRODUCT_FAIL,
-  ALL_ADMIN_PRODUCT_REQUEST,
-  ALL_ADMIN_PRODUCT_SUCCESS,
-  ALL_ADMIN_PRODUCT_FAIL,
+  ADMIN_PRODUCT_ALL_REQUEST,
+  ADMIN_PRODUCT_ALL_SUCCESS,
+  ADMIN_PRODUCT_ALL_FAIL,
   ADMIN_CREATE_PRODUCT_REQUEST,
   ADMIN_CREATE_PRODUCT_FAIL,
   ADMIN_CREATE_PRODUCT_SUCCESS,
@@ -109,7 +109,7 @@ export const featuredProductReducer = (
 
 ///Admins
 
-export const adminAddPizzaReducer = (state = {}, action) => {
+export const adminAddProductReducer = (state = {}, action) => {
   switch (action.type) {
     case ADMIN_CREATE_PRODUCT_REQUEST:
       return { loading: true, ...state };
@@ -136,15 +136,15 @@ export const adminAddPizzaReducer = (state = {}, action) => {
 
 export const adminProductReducer = (state = { products: [] }, action) => {
   switch (action.type) {
-    case ALL_ADMIN_PRODUCT_REQUEST:
+    case ADMIN_PRODUCT_ALL_REQUEST:
       return { loading: true, products: [] };
-    case ALL_ADMIN_PRODUCT_SUCCESS:
+    case ADMIN_PRODUCT_ALL_SUCCESS:
       return {
         loading: false,
         products: action.payload.products,
         // productsCount: action.payload.productsCount,
       };
-    case ALL_ADMIN_PRODUCT_FAIL:
+    case ADMIN_PRODUCT_ALL_FAIL:
       return {
         loading: false,
         error: action.payload.error,

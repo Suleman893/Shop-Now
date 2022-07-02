@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import HomeProducts from "./HomeProducts";
+
 import "./Home.css";
 import MetaData from "../../component/layout/MetaData";
 import {
@@ -8,7 +8,6 @@ import {
 } from "../../redux/actions/productAction";
 import { useSelector, useDispatch } from "react-redux";
 import Loader from "../../component/layout/Loader/Loader";
-import Offer from "../../component/Offer/Offer";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -24,26 +23,8 @@ const Home = () => {
     dispatch(getFeaturedProduct());
   }, [dispatch]);
 
-  console.log("The products in home page", latestProducts);
   return (
-    <>
-      <MetaData title="Shop Now" />
-      {loading ? (
-        <Loader />
-      ) : (
-        <>
-          <div className="container" id="container">
-            {latestProducts && (
-              <HomeProducts
-                latestProducts={latestProducts}
-                featuredProduct={featuredProduct}
-              />
-            )}
-          </div>
-          <Offer />
-        </>
-      )}
-    </>
+  <h1>home</h1>
   );
 };
 

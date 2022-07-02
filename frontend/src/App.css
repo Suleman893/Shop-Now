@@ -24,6 +24,7 @@ a {
 }
 
 .page-title {
+  letter-spacing: 2px;
   text-align: center;
   text-decoration: underline;
   padding: 20px;
@@ -42,4 +43,8 @@ a {
   font-weight: 600;
   color: #fff;
   cursor: pointer;
+}
+
+.mr-8 {
+  margin-right: 8px;
 }

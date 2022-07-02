@@ -3,7 +3,7 @@ import Loader from "../../component/layout/Loader/Loader";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../redux/actions/userActions";
-import account from "../../images/account.png";
+import signin from "../../images/signin.jpg";
 import "./Signin.css";
 
 const Signin = () => {
@@ -25,37 +25,49 @@ const Signin = () => {
     dispatch(loginUser(user));
   };
   return (
-    <div>
-      <div className="container">
-        <div className="signin-box">
-          <h2 className="page-title ">Sign in</h2>
-          <div className="signin-row">
-            <input
-              className="mx-10"
-              type="text"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
-              className="mx-10"
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+    <section>
+      <div className="imgBx">
+        <img src={signin} />
+      </div>
+      <div className="contentBx">
+        <div className="formBx">
+          <h2>Login</h2>
+          <form>
+            <div className="inputBx">
+              <span>Email</span>
+              <input
+                type="text"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="inputBx">
+              <span>Password</span>
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div className="inputBx">
+              <input
+                type="submit"
+                value="Signin"
+                name="Signin"
+                onClick={loginHandler}
+              ></input>
+            </div>
 
-            <button className="btn mx-10" onClick={loginHandler}>
-              Login
-            </button>
-            <Link to="/signup">
-              {" "}
-              <span>New? Register now</span>{" "}
-            </Link>
-          </div>
+            <div className="inputBx">
+              <p>Dont have account?</p>
+              <Link to="/signup">Sign up</Link>
+            </div>
+          </form>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

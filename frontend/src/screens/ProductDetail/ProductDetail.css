@@ -1,18 +1,30 @@
+@import "~react-image-gallery/styles/css/image-gallery.css";
+
+.mx-20
+{
+  margin:10px 0px;
+}
+.mx-10
+{
+  margin:10px 0px;
+}
+
 .product-detail-row {
   flex-wrap: wrap;
   display: flex;
+  justify-content:space-between
 }
 
 .product-detail-container {
   max-width: 1300px;
   width: 90%;
-  margin: auto;
+  margin: 10px auto;
   padding-left: 25px;
   padding-right: 25px;
 }
 
 .product-detail-left {
-  flex-basis: 50%;
+  flex-basis: 40%;
 }
 
 .product-detail-left img {
@@ -43,29 +55,49 @@
   border-radius: 20px;
 }
 
+.product-card-price {
+  color: #ff7f50;
+  font-size: 20px;
+}
+
 .review-card {
+  border-radius: 10px;
   flex-direction: column;
   display: flex;
-  width: 30%;
-  align-items: center;
-  min-height: 178px;
+  width: 50%;
+  min-height: 135px;
   justify-content: center;
-  box-shadow: 5px 5px 5px gainsboro;
+  box-shadow: 0px 0px 2px gainsboro;
+  align-items: center;
 }
 
-.reviews-row {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+.leave-comment input {
+  padding: 11px 20px;
+    border: none;
+    border-radius: 2px;
+    width:50%;
+    outline: none;
+    background: #f1f3f4;
 }
 
-.mx-10 {
-  margin: 10px 0;
+.review-card-info h5 {
+  color: #108ee9;
+  margin-left: 10px;
 }
 
 .review-card img {
   width: 25%;
   border-radius: 50%;
+}
+
+.review-card-info {
+  margin:auto;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.image-gallery-content .image-gallery-slide .image-gallery-image {
+  max-height: 50vh;
 }
 
 @media screen and (max-width: 778px) {
