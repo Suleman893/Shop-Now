@@ -25,7 +25,6 @@ const Products = () => {
     (state) => state.searchProductReducer
   );
 
-  
   useEffect(() => {
   dispatch(getProduct(pageNumber));
   setCurrentProduct(products);

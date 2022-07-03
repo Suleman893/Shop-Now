@@ -172,7 +172,6 @@ export const adminAddProduct = (newProduct) => async (dispatch) => {
     dispatch({
       type: ADMIN_CREATE_PRODUCT_REQUEST,
     });
-
     const res = await axios.get(
       "http://localhost:2000/api/product/adminproducts",
       newProduct

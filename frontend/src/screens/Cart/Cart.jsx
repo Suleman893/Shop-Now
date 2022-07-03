@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import MetaData from "../../component/layout/MetaData";
 import Checkout from "../../component/Checkout/Checkout";
 import "../Cart/Cart.css";
+
 const Cart = () => {
   const param = useParams();
 
@@ -25,15 +26,6 @@ const Cart = () => {
   const { cartItems } = cart;
 
   console.log("the cartitem", cartItems);
-  const ratingOptions = {
-    edit: false,
-    color: "rgba(20,20,20,0.1)",
-    activeColor: "tomato",
-    size: window.innerWidth < 600 ? 20 : 25,
-    value: 5,
-    isHalf: true,
-  };
-
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));
   };
@@ -57,17 +49,16 @@ const Cart = () => {
               <h1> Nothing added in cart </h1>
               <Link to="/products"> Buy some products</Link>
             </div>
-          ) : (
+          ) : 
             cartItems.map((item) => (
-              <>
                 <tr>
                   <td>
                     <div className="cart-info">
                       <img src={buy1} alt="cart" />
                       <div>
                         <Link to={`/productdetail/${item.product}`}>
-                          <h1>{item.name}</h1>
                         </Link>
+                        <h1>{item.name}</h1>
                         <small>$ {item.price}</small>
                         <br />
                         <small
@@ -103,33 +94,32 @@ const Cart = () => {
                   </td>
                   <td>{item.price}</td>
                 </tr>
-              </>
-            ))
+            )
           )}
         </table>
         <div className="total-price">
           <table>
             <tr>
               <td>Total Items </td>
-              <td>({cartItems.reduce((acc, item) => acc + item.qty, 0)})</td>
+              <td>({cartItems.reduce((qty, item) => Number(item.qty) + qty, 0)})</td>
             </tr>
             <tr>
               <td>Subtotal</td>
               <td>
                 $
                 {cartItems
-                  .reduce((acc, item) => acc + item.qty * item.price, 0)
+                  .reduce((price, item) => item.price * item.qty + price, 0)
                   .toFixed(2)}
               </td>
             </tr>
-            <tr>
+           {/*<tr>
               <td>Tax</td>
               <td>$10.00</td>
             </tr>
             <tr>
               <td>Total</td>
               <td>$210.00</td>
-            </tr>
+              </tr>  */}
           </table>
         </div>
         <button
@@ -139,7 +129,7 @@ const Cart = () => {
         >
           <Checkout
             subTotal={cartItems
-              .reduce((acc, item) => acc + item.qty * item.price, 0)
+              .reduce((qty, item) => qty + item.qty * item.price, 0)
               .toFixed(2)}
           />
           &#8594;

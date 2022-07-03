@@ -47,7 +47,7 @@ const Header = () => {
         </nav>
         <div className="header-btns">
           <i className="fas fa-shopping-cart mr-8">
-            <span>{cartItems.reduce((acc, item) => acc + item.qty, 0)}</span>{" "}
+            <span>{cartItems.reduce((qty, item) => qty + Number(item.qty), 0)}</span>
           </i>
           {currentUser && (
             <>

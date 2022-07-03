@@ -37,8 +37,17 @@ const ProductDetail = () => {
   }, [dispatch]);
 
   const addToCartHandler = () => {
-    navigate(`/cart/${param.id}?qty=${qty}`);
+    
+    if(product.stock>0) 
+    {
     dispatch(addToCart(product._id, qty));
+    navigate(`/cart/${param.id}?qty=${qty}`);
+    }
+    else 
+    {
+      alert("ptodut")
+    }
+
   };
 
   console.log("The ,product.ratings",product.ratings , product.productName)
@@ -88,14 +97,21 @@ const ProductDetail = () => {
               <hr />
               <p className="mx-10 product-card-price">Rs: {product.price}</p>
               <div className="product-add-to-cart">
-                <button>+</button>
-                <p className="mx-10">Value</p>
-                <button>-</button>
+               <select value={qty} onChange={(e)=>setQty(e.target.value)}>
+               {[...Array(product.stock).keys()].map((x) => (
+                        <option key={x + 1} value={x + 1}>
+                          {x + 1}
+                        </option>
+                      ))}
+               </select>
               </div>
-              <button className="add-to-cart mx-10">Add to cart</button>
+              <button className="add-to-cart mx-10"
+              onClick={addToCartHandler}
+             
+              >Add to cart</button>
               <hr />
               <h3 className={"mx-10" && product.stock > 0 ? "green" : "red"}>
-                {product.stock > 0 ? `In stock ` : "Not available"}
+                {product.stock > 0 ? `In stock ` : "Out of stock"}
               </h3>
               <p className="mx-10">
                 <b>Description:</b> {product.description}
