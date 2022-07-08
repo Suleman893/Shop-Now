@@ -36,8 +36,6 @@ router.get("/featuredProduct", GetFeaturedProduct);
 //GetSpecificProduct
 router.get("/product/:id", ProductDetails);
 
-
-
 router.get("/productbycategory/:category", GetProductByCategory);
 // router.get("/getcommentsbyid/:id", GetCommentsById);
 
@@ -51,8 +49,7 @@ router.post(
   check("price", "Price cannot be empty").notEmpty(),
   check("category", "Product Category roles cannot be empty").notEmpty(),
   check("stock", "Product Stock roles cannot be empty").notEmpty(),
-  // checkToken,
-  // checkIsAdmin,
+  checkIsAdmin,
   CreateProduct
 );
 
@@ -63,6 +60,6 @@ router.post(
 router.put("/admin/product/:id", checkToken, checkIsAdmin, UpdateProduct);
 
 //AdminCanDelete/RemoveProduct
-router.delete("/admin/product/:id", checkToken, checkIsAdmin, DeleteProduct);
+router.delete("/admin/product", checkIsAdmin, DeleteProduct);
 
 module.exports = router;

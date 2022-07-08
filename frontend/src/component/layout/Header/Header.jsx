@@ -7,8 +7,7 @@ import "./Header.css";
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userState = useSelector((state) => state.loginUser);
-  const { currentUser } = userState;
+  const {  loggedInUserInfo } = useSelector((state) => state.loginUser);
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
@@ -31,11 +30,11 @@ const Header = () => {
             <li>
               <Link to="/about">About Us</Link>
             </li>
-            {currentUser ? (
+            {loggedInUserInfo ? (
               <div>
                 <li style={{ textTransform: "capitalize" }}>
                   {" "}
-                  {currentUser.name}
+                  {loggedInUserInfo.name}
                 </li>
               </div>
             ) : (
@@ -49,14 +48,14 @@ const Header = () => {
           <i className="fas fa-shopping-cart mr-8">
             <span>{cartItems.reduce((qty, item) => qty + Number(item.qty), 0)}</span>
           </i>
-          {currentUser && (
+          {loggedInUserInfo && (
             <>
               <Link to="/myProfile">
-                <i class="fa fa-user  mr-8"></i>
+                <i className="fa fa-user  mr-8"></i>
               </Link>
 
               <i
-                class="fa fa-sign-out "
+                className="fa fa-sign-out "
                 onClick={() => {
                   dispatch(logoutUser());
                   navigate("/signin");

@@ -4,13 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 const AddProduct = () => {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.adminAddProductReducer);
+  const {  currentUser } = useSelector((state) => state.loginUser);
 
   const addProductInitialValues = {
-    productName: "",
-    productDescription: "",
-    productPrice: 0,
-    productCategory: "",
-    productStock: 20,
+    productName: "new",
+    description: "new",
+    price: 0,
+    category: "new",
+    stock: 0,
   };
 
   const [newProduct, setNewProduct] = useState(addProductInitialValues);
@@ -24,43 +25,66 @@ const AddProduct = () => {
   };
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(adminAddProduct(newProduct));
+    dispatch(adminAddProduct(newProduct,currentUser));
   };
   return (
-    <form onSubmit={submitHandler}>
-      <input
-        name="productName"
-        placeholder="productName"
-        value={newProduct.productName}
-        onChange={handleChange}
-      />
-      <input
-        name="productDescription"
-        placeholder="productDescription"
-        value={newProduct.productDescription}
-        onChange={handleChange}
-      />
-      <input
-        name="productPrice"
-        placeholder="productPrice"
-        value={newProduct.productPrice}
-        onChange={handleChange}
-      />
-      <input
-        name="productCategory"
-        placeholder="Choose Category"
-        value={newProduct.productCategory}
-        onChange={handleChange}
-      />
-      <input
-        name="productStock"
-        placeholder="Stock"
-        value={newProduct.productStock}
-        onChange={handleChange}
-      />
+    <div>
+    <div className="table-container">
+      <table className="table">
+        <thead>
+          <tr>
+            <th>ProductName</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Stock</th>
+            <th>Add</th>
+          </tr>
+        </thead>
+        <tbody>
+              <tr>
+                  <td data-label="ProductName">  <input
+                  name="productName"
+                  placeholder="Name"
+                  value={newProduct.productName}
+                  onChange={handleChange}
+                /></td>
+                  <td data-label="Description">  <input
+                  name="description"
+                  placeholder="Description"
+                  value={newProduct.description}
+                  onChange={handleChange}
+                /></td>
+                  <td data-label="Price"><input
+                  name="price"
+                  placeholder="Price"
+                  value={newProduct.price}
+                  onChange={handleChange}
+                /></td>
+                  <td data-label="Category"> <input
+                  name="category"
+                  placeholder="Choose Category"
+                  value={newProduct.category}
+                  onChange={handleChange}
+                /></td>
+                  <td data-label="Stock">
+                  <input
+                  name="stock"
+                  placeholder="Stock"
+                  value={newProduct.stock}
+                  onChange={handleChange}
+                />
+                  </td>
+                  <td data-label="Add">
+                  <button onClick={submitHandler}>Add the Product</button>
+                  </td>
+              </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-      <button type="submit">Add new Product</button>
-    </form>
+
   );
 };
 

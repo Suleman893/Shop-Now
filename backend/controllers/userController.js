@@ -16,6 +16,7 @@ const UserRegistration = async (req, res) => {
     emailExist = await userSchema.findOne({
       email,
     });
+
     if (emailExist) {
       return res.status(409).send({
         message: "Email already exist",
@@ -201,6 +202,7 @@ const GetUserById = async (req, res) => {
 };
 
 const RemoveUserById = async (req, res) => {
+  console.log("The del", req.body);
   try {
     let user = await userSchema.findOneAndDelete({
       _id: req.body.id,

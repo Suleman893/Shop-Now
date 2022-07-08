@@ -28,8 +28,10 @@ import {
   ADD_REVIEWS_REQUEST,
   ADD_REVIEWS_SUCCESS,
   ADD_REVIEWS_FAIL,
+  ADMIN_DELETE_PRODUCT_REQUEST,
+  ADMIN_DELETE_PRODUCT_FAIL,
+  ADMIN_DELETE_PRODUCT_SUCCESS,
 } from "../constants/productConstants";
-
 import {
   getAllProducts,
   getlatestProducts,
@@ -38,7 +40,9 @@ import {
   searchProductApi,
   getProductByCategoryApi,
   putReviews,
+  deleteProductApi,
 } from "../../api/Apis";
+import { useSelector, useDispatch } from "react-redux";
 
 export const getProduct = (page) => async (dispatch) => {
   console.log("The page", Number(page));
@@ -146,12 +150,12 @@ export const productByCategoryAction =
     }
   };
 
-export const addReviews = (toSend) => async (dispatch) => {
-  console.log("to send", toSend);
+export const addReviews = (toSend, currentUser) => async (dispatch) => {
   try {
+    const headers = { authorization: currentUser };
     dispatch({ type: ADD_REVIEWS_REQUEST });
-    const res = await axios.put(`${putReviews}`);
-    console.log("The api res", res);
+    const res = await axios.put(`${putReviews}`, toSend, { headers });
+    console.log("The api res of review", res);
     dispatch({ type: ADD_REVIEWS_SUCCESS });
   } catch (error) {
     dispatch({
@@ -167,28 +171,32 @@ export const clearErrors = () => async (dispatch) => {
 };
 
 //Admins
-export const adminAddProduct = (newProduct) => async (dispatch) => {
-  try {
-    dispatch({
-      type: ADMIN_CREATE_PRODUCT_REQUEST,
-    });
-    const res = await axios.get(
-      "http://localhost:2000/api/product/adminproducts",
-      newProduct
-    );
+export const adminAddProduct =
+  (newProduct, currentUser) => async (dispatch) => {
+    try {
+      const headers = { authorization: currentUser };
 
-    dispatch({
-      type: ADMIN_CREATE_PRODUCT_SUCCESS,
-      payload: { products: res.data },
-    });
-  } catch (error) {
-    dispatch({
-      type: ADMIN_CREATE_PRODUCT_FAIL,
-      payload: error.response.data.message,
-      //error.response.data.message means the api error message, like we sending from the backend error message
-    });
-  }
-};
+      dispatch({
+        type: ADMIN_CREATE_PRODUCT_REQUEST,
+      });
+      const res = await axios.post(
+        "http://localhost:2000/api/product/admin/product/new",
+        newProduct,
+        { headers }
+      );
+      console.log("The res", res);
+      dispatch({
+        type: ADMIN_CREATE_PRODUCT_SUCCESS,
+        payload: { products: res.data },
+      });
+    } catch (error) {
+      dispatch({
+        type: ADMIN_CREATE_PRODUCT_FAIL,
+        payload: error.response.data.message,
+        //error.response.data.message means the api error message, like we sending from the backend error message
+      });
+    }
+  };
 
 export const getAdminProduct = () => async (dispatch) => {
   try {
@@ -209,5 +217,21 @@ export const getAdminProduct = () => async (dispatch) => {
       payload: error.response.data.message,
       //error.response.data.message means the api error message, like we sending from the backend error message
     });
+  }
+};
+
+export const deleteProduct = (id, currentUser) => async (dispatch) => {
+  try {
+    const headers = { authorization: currentUser };
+    const data = {
+      id: id,
+    };
+    dispatch({ type: ADMIN_DELETE_PRODUCT_REQUEST });
+    console.log("The id in delete product", id, currentUser);
+    const res = await axios.delete(`${deleteProductApi}`, { headers, data });
+    console.log("The delete api res", res);
+    dispatch({ type: ADMIN_DELETE_PRODUCT_SUCCESS });
+  } catch (error) {
+    dispatch({ type: ADMIN_DELETE_PRODUCT_FAIL, payload: error });
   }
 };

@@ -11,6 +11,7 @@ import {
   adminAddProductReducer,
   searchProductReducer,
   productByCategory,
+  deleteSpecificProductReducer,
   addReviewsReducer,
 } from "./reducers/productReducer";
 import {
@@ -54,9 +55,13 @@ const currentUserFromStorage = localStorage.getItem("currentUser")
 const cartItemsFromStorage = localStorage.getItem("cartItems")
   ? JSON.parse(localStorage.getItem("cartItems"))
   : [];
+const currentUserInfoFromStorage = localStorage.getItem("loggedInUserInfo")
+  ? JSON.parse(localStorage.getItem("loggedInUserInfo"))
+  : null;
 
 let initialState = {
   loginUser: {
+    loggedInUserInfo: currentUserInfoFromStorage,
     currentUser: currentUserFromStorage,
   },
   cart: {

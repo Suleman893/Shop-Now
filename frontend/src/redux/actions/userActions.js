@@ -33,12 +33,15 @@ export const registerUser = (user) => async (dispatch) => {
   }
 };
 
-export const loginUser = (user) => async (dispatch) => {
+export const loginUser = (userinfo) => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGIN_REQUEST });
-    const { data } = await axios.post(loginUserApi, user);
-    dispatch({ type: USER_LOGIN_SUCCESS, payload: data.user });
+    const { data } = await axios.post(loginUserApi, userinfo);
+    console.log("The data", data);
+    localStorage.setItem("loggedInUserInfo", JSON.stringify(data.user));
     localStorage.setItem("currentUser", JSON.stringify(data.token));
+
+    dispatch({ type: USER_LOGIN_SUCCESS, payload: data.user });
   } catch (error) {
     dispatch({ type: USER_LOGIN_FAIL, payload: error });
   }
@@ -46,23 +49,31 @@ export const loginUser = (user) => async (dispatch) => {
 
 export const logoutUser = () => () => {
   localStorage.removeItem("currentUser");
+  localStorage.removeItem("loggedInUserInfo");
 };
 
 export const getAllUsers = () => async (dispatch) => {
+  
   try {
     dispatch({ type: GET_ALL_USERS_REQUEST });
     const { data } = await axios.get(getAllUsersApi);
-    console.log("the api dd", data);
     dispatch({ type: GET_ALL_USERS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: GET_ALL_USERS_FAIL, payload: error });
   }
 };
 
-export const deleteUser = (id) => async (dispatch) => {
+export const deleteUser = (id, currentUser) => async (dispatch) => {
   try {
+    const headers = { authorization: currentUser };
+    const data = {
+      id: id,
+    };
     dispatch({ type: DELETE_USER_REQUEST });
-    await axios.delete(deleteSpecificUser, id);
+    console.log("The id", id, currentUser);
+    const res = await axios.delete(`${deleteSpecificUser}`, { headers, data });
+    console.log("The delete api res", res);
+
     dispatch({ type: DELETE_USER_SUCCESS });
   } catch (error) {
     dispatch({ type: DELETE_USER_FAIL, payload: error });

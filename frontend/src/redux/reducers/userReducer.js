@@ -36,16 +36,15 @@ export const registerUserReducer = (state = {}, action) => {
   }
 };
 
-export const loginUserReducer = (state = {}, action) => {
+export const loginUserReducer = (state = { user: {} }, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
-      // return {loading: true, user: {}};
-      return { loading: true };
+      return { loading: true, user: {} };
     case USER_LOGIN_SUCCESS:
+      console.log("tHe action.payload", action.payload);
       return {
         loading: false,
-        success: true,
-        currentUser: action.payload,
+        user: action.payload,
       };
     case USER_LOGIN_FAIL:
       return {
@@ -87,7 +86,6 @@ export const getAllUsersReducers = (
 };
 
 export const deleteSpecificUser = (state = {}, action) => {
-  console.log("The currentuser", action.payload);
   switch (action.type) {
     case DELETE_USER_REQUEST:
       return { loading: true };
@@ -95,7 +93,6 @@ export const deleteSpecificUser = (state = {}, action) => {
       return {
         loading: false,
         success: true,
-        currentUser: action.payload,
       };
     case DELETE_USER_FAIL:
       return {
@@ -103,8 +100,8 @@ export const deleteSpecificUser = (state = {}, action) => {
         error: action.payload,
       };
     case CLEAR_ERRORS:
-      return { ...state, error: null };
+      return { error: null };
     default:
-      return state;
+      return;
   }
 };

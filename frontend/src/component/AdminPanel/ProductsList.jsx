@@ -1,10 +1,12 @@
 import "./AdminPanel.css";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAdminProduct } from "../../redux/actions/productAction";
+import { getAdminProduct,deleteProduct } from "../../redux/actions/productAction";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
 const ProductsList = () => {
+  const {  currentUser } = useSelector((state) => state.loginUser);
+
   const { products } = useSelector((state) => state.adminPanelProducts);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -28,7 +30,7 @@ const ProductsList = () => {
             {products &&
               products.map((current) => (
                 <tr>
-                  <div>
+                  
                     <td data-label="ProductId">{current._id}</td>
                     <td data-label="Name">{current.productName}</td>
                     <td data-label="Stock">{current.stock}</td>
@@ -39,9 +41,12 @@ const ProductsList = () => {
                       </Link>
                     </td>
                     <td data-label="Delete">
-                      <AiFillDelete />
+                      <AiFillDelete 
+                      onClick={()=>
+                        dispatch(deleteProduct(current._id,currentUser))
+                      }
+                      />
                     </td>
-                  </div>
                 </tr>
               ))}
           </tbody>

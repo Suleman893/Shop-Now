@@ -49,6 +49,6 @@ router.get("/admin/users", GetAllUsers);
 //AdminCanPerformTheseOperationsById
 router.get("/admin/getUser/:u_id", checkToken, checkIsAdmin, GetUserById);
 router.put("/admin/updateUser/:u_id", checkToken, checkIsAdmin, UpdateUserById);
-router.delete("/admin/deleteUser", RemoveUserById);
+router.delete("/admin/deleteUser", checkIsAdmin, RemoveUserById);
 
 module.exports = router;

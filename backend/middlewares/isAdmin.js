@@ -4,7 +4,9 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 let checkIsAdmin = (req, res, next) => {
-  let token = req.header("x-auth-token"); // in header token will be send in "x-auth-token" variable
+  let token = req.headers.authorization; // in header token will be send in "x-auth-token" variable
+  console.log("The token", token);
+
   if (token) {
     const isVerified = jwtHelper.verify(token);
     console.log("isVerified: ", isVerified);

@@ -27,6 +27,9 @@ import {
   ADD_REVIEWS_SUCCESS,
   ADD_REVIEWS_FAIL,
   CLEAR_ERRORS,
+  ADMIN_DELETE_PRODUCT_REQUEST,
+  ADMIN_DELETE_PRODUCT_FAIL,
+  ADMIN_DELETE_PRODUCT_SUCCESS,
 } from "../constants/productConstants";
 
 export const productReducer = (state = { products: [] }, action) => {
@@ -231,3 +234,5 @@ export const adminProductReducer = (state = { products: [] }, action) => {
       return state;
   }
 };
+
+export const deleteSpecificProductReducer = (state = {}, action) => {};

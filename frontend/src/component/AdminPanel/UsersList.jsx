@@ -4,6 +4,8 @@ import { getAllUsers, deleteUser } from "../../redux/actions/userActions";
 import "./AdminPanel.css";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 const UsersList = () => {
+
+  const {  currentUser } = useSelector((state) => state.loginUser);
   const { users, loading } = useSelector((state) => state.getAllUsersReducers);
   const dispatch = useDispatch();
 
@@ -38,9 +40,9 @@ const UsersList = () => {
                   </td>
                   <td data-label="Delete">
                     <AiFillDelete
-                      onClick={() => {
-                        deleteUser(curr._id);
-                      }}
+                      onClick={()=>
+                        dispatch(deleteUser(curr._id ,currentUser))
+                      }
                     />
                   </td>
                 </tr>

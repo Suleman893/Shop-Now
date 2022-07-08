@@ -33,6 +33,7 @@ const Products = () => {
     scroll.scrollTo(1)
   }, [pageNumber,setPageNumber]);
 
+  
   const theCategoryToSearch = setTheCategory.get("categorytype")
   
   const goToPrevious = () => {

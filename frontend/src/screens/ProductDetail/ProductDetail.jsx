@@ -12,7 +12,7 @@ import { animateScroll as scroll } from "react-scroll"
 import HeadShake from 'react-reveal/HeadShake';
 import { Rating } from "@material-ui/lab";
 const ProductDetail = () => {
-
+  const {  currentUser } = useSelector((state) => state.loginUser);
   const param = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -24,11 +24,12 @@ const ProductDetail = () => {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
   console.log('The rating',rating)
-  const toSend={rating,comment,productID:product._id}
+  const toSend={rating,comment,productId:product._id}
   const submitReview = (e)=>
   {
     e.preventDefault();
-    dispatch(addReviews(toSend));
+    console.log('i was lclickads')
+    dispatch(addReviews(toSend,currentUser));
   }
 
   useEffect(() => {

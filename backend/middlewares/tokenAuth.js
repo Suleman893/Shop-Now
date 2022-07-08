@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 let checkToken = (req, res, next) => {
-  let token = req.header("x-auth-token"); // in header token will be send in "x-auth-token" variable
+  let token = req.headers.authorization; // in header token will be send in "x-auth-token" variable
   if (token) {
     const isVerified = jwtHelper.verify(token);
     if (isVerified) {

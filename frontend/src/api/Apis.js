@@ -18,7 +18,7 @@ export const searchProductApi =
   "http://localhost:2000/api/product/productbycategory";
   export const putReviews =
   "http://localhost:2000/api/product/productreview";
-
+export const deleteProductApi = "http://localhost:2000/api/product/admin/product";
 //Order Api's
 export const placeOrder = "http://localhost:2000/api/order/placeOrder";
 export const getOrders = "http://localhost:2000/api/order/getUserOrder";

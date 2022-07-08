@@ -10,6 +10,7 @@ const CreateProduct = async (req, res) => {
     stock,
     numOfReviews,
   } = req.body;
+
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).send({
@@ -21,6 +22,7 @@ const CreateProduct = async (req, res) => {
     productExist = await productSchema.findOne({
       productName,
     });
+
     if (productExist) {
       return res.status(409).send({
         message: "This product already exist",
@@ -167,7 +169,7 @@ const GetAdminProduct = async (req, res) => {
 const DeleteProduct = async (req, res) => {
   try {
     let product = await productSchema.findOneAndDelete({
-      _id: req.params.id,
+      _id: req.body.id,
     });
     if (!product) {
       return res.status(400).send({
@@ -310,9 +312,9 @@ const createProductReview = async (req, res) => {
     rating: Number(rating),
     comment,
   };
-  console.log("The req.name", review.name);
+  console.log("The req.name", req.body);
   const product = await productSchema.findById(productId);
-
+  console.log("The product", product);
   const isReviewed = product.reviews.find(
     (rev) => rev.user.toString() === req.userId.toString()
   );

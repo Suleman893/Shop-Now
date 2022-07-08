@@ -49,16 +49,12 @@ const AdminScreen = () => {
                     Add Products
                   </button>
                 </li>
-                <li>
-                  <button onClick={() => navigate("/admin/editProduct/:id")}>
-                    Add Products
-                  </button>
-                </li>
+              
               </ul>
             </div>
           </div>
           <div className="admin-right">
-            <UsersList />
+            <AddProduct />
           </div>
         </div>
       </div>
