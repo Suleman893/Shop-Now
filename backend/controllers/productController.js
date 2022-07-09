@@ -1,15 +1,7 @@
 const productSchema = require("../models/productModel");
 const { validationResult } = require("express-validator");
 const CreateProduct = async (req, res) => {
-  const {
-    productName,
-    description,
-    price,
-    ratings,
-    category,
-    stock,
-    numOfReviews,
-  } = req.body;
+  const { productName } = req.body;
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -189,15 +181,9 @@ const DeleteProduct = async (req, res) => {
 };
 
 const UpdateProduct = async (req, res) => {
-  const {
-    productName,
-    description,
-    price,
-    ratings,
-    category,
-    stock,
-    numOfReviews,
-  } = req.body;
+  const { productId } = req.body;
+
+  console.log("The req.body", req.body);
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).send({
@@ -206,7 +192,7 @@ const UpdateProduct = async (req, res) => {
   }
   try {
     let product = await productSchema.findOneAndUpdate(
-      { _id: req.params.id },
+      { _id: productId },
       {
         ...req.body,
       }

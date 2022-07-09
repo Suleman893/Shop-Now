@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllUsers, deleteUser } from "../../redux/actions/userActions";
 import "./AdminPanel.css";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+import {AdminEditUserModal} from "../Modals/AdminEditUserModal";
+
 const UsersList = () => {
 
   const {  currentUser } = useSelector((state) => state.loginUser);
@@ -10,9 +12,16 @@ const UsersList = () => {
   const dispatch = useDispatch();
 
   const { data } = users;
+  console.log('tHe userlist',data);
   useEffect(() => {
-    dispatch(getAllUsers());
+    dispatch(getAllUsers(currentUser));
   }, [dispatch]);
+  const [open, setOpen] = React.useState(false);
+
+  const handleEditProfileModal = () => {
+    setOpen(!open);
+  };
+
   return (
     <div>
       <div className="table-container">
@@ -36,7 +45,7 @@ const UsersList = () => {
                   <td data-label="Name">{curr.name}</td>
                   <td data-label="Role">{curr.role}</td>
                   <td data-label="Edit">
-                    <AiFillEdit />
+                    <AdminEditUserModal setOpen={setOpen} open={open} userId={curr._id} userName={curr.name} userEmail={curr.email} userPassword={curr.password} userConfirmPassword={curr.confirmPassword}/>
                   </td>
                   <td data-label="Delete">
                     <AiFillDelete

@@ -48,12 +48,19 @@ const Header = () => {
           <i className="fas fa-shopping-cart mr-8">
             <span>{cartItems.reduce((qty, item) => qty + Number(item.qty), 0)}</span>
           </i>
-          {loggedInUserInfo && (
-            <>
+         
+          {loggedInUserInfo ? loggedInUserInfo.role==="admin" && (
+              <Link to="/admin">
+                <li className="fa fa-users">
+                </li>
+              </Link>
+            ): ' '}
+
               <Link to="/myProfile">
                 <i className="fa fa-user  mr-8"></i>
               </Link>
-
+              {loggedInUserInfo && (
+           
               <i
                 className="fa fa-sign-out "
                 onClick={() => {
@@ -61,7 +68,6 @@ const Header = () => {
                   navigate("/signin");
                 }}
               ></i>
-            </>
           )}
         </div>
       </div>

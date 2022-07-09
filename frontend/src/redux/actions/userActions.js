@@ -12,6 +12,9 @@ import {
   DELETE_USER_SUCCESS,
   DELETE_USER_FAIL,
   CLEAR_ERRORS,
+  EDIT_USER_PROFILE_REQUEST,
+  EDIT_USER_PROFILE_SUCCESS,
+  EDIT_USER_PROFILE_FAIL,
 } from "../constants/userConstant";
 
 import {
@@ -19,6 +22,7 @@ import {
   loginUserApi,
   getAllUsersApi,
   deleteSpecificUser,
+  updateUserApi,
 } from "../../api/Apis";
 import axios from "axios";
 // import { useNavigate } from "react-router-dom";
@@ -52,11 +56,11 @@ export const logoutUser = () => () => {
   localStorage.removeItem("loggedInUserInfo");
 };
 
-export const getAllUsers = () => async (dispatch) => {
-  
+export const getAllUsers = (currentUser) => async (dispatch) => {
   try {
+    const headers = { authorization: currentUser };
     dispatch({ type: GET_ALL_USERS_REQUEST });
-    const { data } = await axios.get(getAllUsersApi);
+    const { data } = await axios.get(getAllUsersApi, { headers });
     dispatch({ type: GET_ALL_USERS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: GET_ALL_USERS_FAIL, payload: error });
@@ -86,3 +90,18 @@ export const clearErrors = () => async (dispatch) => {
     type: CLEAR_ERRORS,
   });
 };
+
+export const editUserProfile =
+  (updatedUser, currentUser) => async (dispatch) => {
+    try {
+      const headers = { authorization: currentUser };
+      dispatch({ type: EDIT_USER_PROFILE_REQUEST });
+      const res = await axios.put(`${updateUserApi}`, updatedUser, { headers });
+      console.log("The update ress of review", res);
+      dispatch({ type: EDIT_USER_PROFILE_SUCCESS });
+    } catch (error) {
+      dispatch({
+        type: EDIT_USER_PROFILE_FAIL,
+      });
+    }
+  };

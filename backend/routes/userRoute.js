@@ -44,11 +44,11 @@ router.get("/userInfo", checkToken, UserDetails);
 router.put("/userInfo/update", checkToken, UpdateDetails);
 
 //AdminCanGetAllUsers
-router.get("/admin/users", GetAllUsers);
+router.get("/admin/users", checkIsAdmin,GetAllUsers);
 
 //AdminCanPerformTheseOperationsById
 router.get("/admin/getUser/:u_id", checkToken, checkIsAdmin, GetUserById);
-router.put("/admin/updateUser/:u_id", checkToken, checkIsAdmin, UpdateUserById);
+router.put("/admin/updateUser", checkToken, UpdateUserById);
 router.delete("/admin/deleteUser", checkIsAdmin, RemoveUserById);
 
 module.exports = router;

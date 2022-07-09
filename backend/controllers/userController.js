@@ -224,7 +224,8 @@ const RemoveUserById = async (req, res) => {
 };
 
 const UpdateUserById = async (req, res) => {
-  const { name, email, password, confirmPassword, role } = req.body;
+  console.log("The req.oby", req.body);
+  const { _id, name, email, password, confirmPassword, role } = req.body;
   let salt = await bcrypt.genSalt(10); //round 10 out of total 12 round
   let encryptedPassword = await bcrypt.hash(password, salt);
   const errors = validationResult(req);
@@ -235,7 +236,7 @@ const UpdateUserById = async (req, res) => {
   }
   try {
     let user = await userSchema.findByIdAndUpdate(
-      { _id: req.params.u_id },
+      { _id },
       {
         password: encryptedPassword,
         confirmPassword: encryptedPassword,

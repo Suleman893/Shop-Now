@@ -4,14 +4,22 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAdminProduct,deleteProduct } from "../../redux/actions/productAction";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import {AdminEditProductModal} from "../Modals/AdminEditProductModal";
+
 const ProductsList = () => {
   const {  currentUser } = useSelector((state) => state.loginUser);
 
   const { products } = useSelector((state) => state.adminPanelProducts);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAdminProduct());
+    dispatch(getAdminProduct(currentUser));
   }, [dispatch]);
+
+  const [open, setOpen] = React.useState(false);
+
+const handleEditProfileModal = () => {
+  setOpen(!open);
+};
   return (
     <div>
       <div className="table-container">
@@ -28,22 +36,23 @@ const ProductsList = () => {
           </thead>
           <tbody>
             {products &&
-              products.map((current) => (
+              products.map((curr) => (
                 <tr>
                   
-                    <td data-label="ProductId">{current._id}</td>
-                    <td data-label="Name">{current.productName}</td>
-                    <td data-label="Stock">{current.stock}</td>
-                    <td data-label="Price">{current.price}</td>
+                    <td data-label="ProductId">{curr._id}</td>
+                    <td data-label="Name">{curr.productName}</td>
+                    <td data-label="Stock">{curr.stock}</td>
+                    <td data-label="Price">{curr.price}</td>
                     <td data-label="Edit">
-                      <Link to={`/admin/editProduct/${current._id}`}>
-                        <AiFillEdit style={{ cursor: "pointer" }} />
-                      </Link>
+                    <AdminEditProductModal setOpen={setOpen} open={open} productId={curr._id} productName={curr.productName} 
+                    productDesc={curr.description}
+                    
+                    productStock={curr.stock} productPrice={curr.price} productRatings={curr.ratings} productCategory={curr.category}/>
                     </td>
                     <td data-label="Delete">
                       <AiFillDelete 
                       onClick={()=>
-                        dispatch(deleteProduct(current._id,currentUser))
+                        dispatch(deleteProduct(curr._id,currentUser))
                       }
                       />
                     </td>

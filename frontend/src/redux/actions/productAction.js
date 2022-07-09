@@ -31,6 +31,9 @@ import {
   ADMIN_DELETE_PRODUCT_REQUEST,
   ADMIN_DELETE_PRODUCT_FAIL,
   ADMIN_DELETE_PRODUCT_SUCCESS,
+  ADMIN_EDIT_PRODUCT_FAIL,
+  ADMIN_EDIT_PRODUCT_SUCCESS,
+  ADMIN_EDIT_PRODUCT_REQUEST,
 } from "../constants/productConstants";
 import {
   getAllProducts,
@@ -41,6 +44,7 @@ import {
   getProductByCategoryApi,
   putReviews,
   deleteProductApi,
+  updateProductApi,
 } from "../../api/Apis";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -198,13 +202,16 @@ export const adminAddProduct =
     }
   };
 
-export const getAdminProduct = () => async (dispatch) => {
+export const getAdminProduct = (currentUser) => async (dispatch) => {
   try {
+    const headers = { authorization: currentUser };
+
     dispatch({
       type: ADMIN_PRODUCT_ALL_REQUEST,
     });
     const res = await axios.get(
-      `http://localhost:2000/api/product/adminproducts`
+      `http://localhost:2000/api/product/adminproducts`,
+      { headers }
     );
     const { data } = res;
     dispatch({
@@ -233,5 +240,21 @@ export const deleteProduct = (id, currentUser) => async (dispatch) => {
     dispatch({ type: ADMIN_DELETE_PRODUCT_SUCCESS });
   } catch (error) {
     dispatch({ type: ADMIN_DELETE_PRODUCT_FAIL, payload: error });
+  }
+};
+
+export const editProduct = (updateProduct, currentUser) => async (dispatch) => {
+  try {
+    const headers = { authorization: currentUser };
+    dispatch({ type: ADMIN_EDIT_PRODUCT_REQUEST });
+    const res = await axios.put(`${updateProductApi}`, updateProduct, {
+      headers,
+    });
+    console.log("The update ress of review", res);
+    dispatch({ type: ADMIN_EDIT_PRODUCT_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: ADMIN_EDIT_PRODUCT_FAIL,
+    });
   }
 };

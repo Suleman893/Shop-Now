@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import "./Signup.css";
 import banner from "../../images/banner.png";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { registerUser } from "../../redux/actions/userActions";
 import signup from "../../images/signup.jpg";
 
 const Signup = () => {
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -21,6 +23,7 @@ const Signup = () => {
       const user = { name, email, password, confirmPassword };
       console.log("The user is", user);
       dispatch(registerUser(user));
+      navigate("/signin");
     }
   };
   return (

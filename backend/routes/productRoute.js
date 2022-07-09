@@ -24,9 +24,6 @@ router.get("/searchProduct/:productName", SearchProduct);
 //GetAllProducts
 router.get("/products", GetAllProducts);
 
-//AdminGetAllProducts
-router.get("/adminproducts", AdminGetAllProducts);
-
 //GetLatestProduct
 router.get("/latestProduct", GetLatestProducts);
 
@@ -40,6 +37,9 @@ router.get("/productbycategory/:category", GetProductByCategory);
 // router.get("/getcommentsbyid/:id", GetCommentsById);
 
 router.put("/productreview", checkToken, createProductReview);
+
+//AdminGetAllProducts
+router.get("/adminproducts", checkIsAdmin, AdminGetAllProducts);
 
 //AdminCanCreateProduct
 router.post(
@@ -57,7 +57,7 @@ router.post(
 // router.get("/getAdminProducts", checkToken, checkIsAdmin, GetAdminProduct);
 
 //AdminCanUpdateProduct
-router.put("/admin/product/:id", checkToken, checkIsAdmin, UpdateProduct);
+router.put("/admin/product", checkIsAdmin, UpdateProduct);
 
 //AdminCanDelete/RemoveProduct
 router.delete("/admin/product", checkIsAdmin, DeleteProduct);

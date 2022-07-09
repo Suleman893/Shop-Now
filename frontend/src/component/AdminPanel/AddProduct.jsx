@@ -7,11 +7,11 @@ const AddProduct = () => {
   const {  currentUser } = useSelector((state) => state.loginUser);
 
   const addProductInitialValues = {
-    productName: "new",
-    description: "new",
-    price: 0,
-    category: "new",
-    stock: 0,
+    productName: "",
+    description: "",
+    price: undefined,
+    category: "",
+    stock: undefined,
   };
 
   const [newProduct, setNewProduct] = useState(addProductInitialValues);

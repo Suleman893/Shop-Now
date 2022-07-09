@@ -19,6 +19,7 @@ import MyProfile from "./screens/Profile/Profile";
 import AdminScreen from "./screens/AdminPanel/AdminScreen";
 import About from "./screens/About/About";
 import AddProduct from "./component/AdminPanel/AddProduct";
+import ProtectedRoute from "./ProtectedRoute";
 function App() {
   useEffect(() => {
     webfontloader.load({
@@ -34,13 +35,22 @@ function App() {
       <Routes>
         <Route exact path="/signin" element={<Signin />} />
         <Route exact path="/signup" element={<Signup />} />
-        <Route exact path="/about" element={<About />} />
         <Route exact path="/products" element={<Products />} />
         <Route exact path="/productscategory" element={<ProductsCategory />} />
         <Route exact path="/productdetail/:id" element={<ProductDetail />} />
         <Route exact path="/cart/:id" element={<Cart />} />
-        <Route exact path="/myProfile" element={<MyProfile />} />
-        <Route path="/admin" element={<AdminScreen />} />
+        <Route exact path="/about" element={<About />} />
+        <Route exact path="/myProfile" element={
+          <ProtectedRoute>
+          <MyProfile />
+          </ProtectedRoute>
+          } />
+        <Route path="/admin" element={
+          <ProtectedRoute  
+          isAdmin={true}>
+          <AdminScreen />
+          </ProtectedRoute>
+        } />
         <Route path="/admin/admin/addProduct" element={<AddProduct />} />
       </Routes>
       <Footer />

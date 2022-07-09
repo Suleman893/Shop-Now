@@ -7,7 +7,6 @@ import AddProduct from "../../component/AdminPanel/AddProduct";
 
 import "./AdminScreen.css";
 import UsersList from "../../component/AdminPanel/UsersList";
-import EditProduct from "../../component/AdminPanel/EditProduct";
 const AdminScreen = () => {
   const navigate = useNavigate;
   const userState = useSelector((state) => state.loginUser);
@@ -54,7 +53,7 @@ const AdminScreen = () => {
             </div>
           </div>
           <div className="admin-right">
-            <AddProduct />
+            <UsersList />
           </div>
         </div>
       </div>
