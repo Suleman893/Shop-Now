@@ -28,10 +28,8 @@ export const placeOrder = (token, subTotal) => async (dispatch, getState) => {
     });
 
     dispatch({ type: PLACE_ORDER_SUCCESS });
-    console.log("The response order", res);
   } catch (error) {
     dispatch({ type: PLACE_ORDER_FAIL });
-    console.log("the error", error);
   }
 };
 

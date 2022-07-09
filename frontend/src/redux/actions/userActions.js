@@ -41,7 +41,6 @@ export const loginUser = (userinfo) => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGIN_REQUEST });
     const { data } = await axios.post(loginUserApi, userinfo);
-    console.log("The data", data);
     localStorage.setItem("loggedInUserInfo", JSON.stringify(data.user));
     localStorage.setItem("currentUser", JSON.stringify(data.token));
 
@@ -74,9 +73,7 @@ export const deleteUser = (id, currentUser) => async (dispatch) => {
       id: id,
     };
     dispatch({ type: DELETE_USER_REQUEST });
-    console.log("The id", id, currentUser);
     const res = await axios.delete(`${deleteSpecificUser}`, { headers, data });
-    console.log("The delete api res", res);
 
     dispatch({ type: DELETE_USER_SUCCESS });
   } catch (error) {
@@ -97,7 +94,6 @@ export const editUserProfile =
       const headers = { authorization: currentUser };
       dispatch({ type: EDIT_USER_PROFILE_REQUEST });
       const res = await axios.put(`${updateUserApi}`, updatedUser, { headers });
-      console.log("The update ress of review", res);
       dispatch({ type: EDIT_USER_PROFILE_SUCCESS });
     } catch (error) {
       dispatch({

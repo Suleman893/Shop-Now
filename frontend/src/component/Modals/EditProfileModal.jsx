@@ -33,7 +33,6 @@ const dispatch=useDispatch();
   };
 
   const submitHandler = (e) => {
-    console.log('The updateuser',updatedUser)
     e.preventDefault();
     dispatch(editUserProfile(updatedUser,currentUser));
     setOpen(false);

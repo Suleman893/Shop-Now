@@ -23,12 +23,10 @@ const ProductDetail = () => {
   );
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
-  console.log('The rating',rating)
   const toSend={rating,comment,productId:product._id}
   const submitReview = (e)=>
   {
     e.preventDefault();
-    console.log('i was lclickads')
     dispatch(addReviews(toSend,currentUser));
   }
 
@@ -51,7 +49,6 @@ const ProductDetail = () => {
 
   };
 
-  console.log("The ,product.ratings",product.ratings , product.productName)
   const images = [
     {
       original: buy1,

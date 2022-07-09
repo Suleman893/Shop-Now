@@ -9,7 +9,6 @@ let checkIsAdmin = (req, res, next) => {
 
   if (token) {
     const isVerified = jwtHelper.verify(token);
-    console.log("isVerified: ", isVerified);
     if (isVerified.role === "Admin" || isVerified.role === "admin") {
       next();
     } else {

@@ -206,7 +206,6 @@ const PlaceOrder = async (req, res) => {
       }
     );
     if (payment) {
-      console.log("first");
       const newOrder = new orderSchema({
         name: currentUser.name,
         email: currentUser.email,

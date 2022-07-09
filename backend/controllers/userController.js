@@ -53,7 +53,6 @@ const UserLogin = async (req, res) => {
     const user = await userSchema.findOne({
       email,
     });
-    console.log("THe user is", user);
     if (!user) {
       return res.status(204).json({
         message: "This email dont exist",
@@ -202,7 +201,6 @@ const GetUserById = async (req, res) => {
 };
 
 const RemoveUserById = async (req, res) => {
-  console.log("The del", req.body);
   try {
     let user = await userSchema.findOneAndDelete({
       _id: req.body.id,
@@ -224,7 +222,6 @@ const RemoveUserById = async (req, res) => {
 };
 
 const UpdateUserById = async (req, res) => {
-  console.log("The req.oby", req.body);
   const { _id, name, email, password, confirmPassword, role } = req.body;
   let salt = await bcrypt.genSalt(10); //round 10 out of total 12 round
   let encryptedPassword = await bcrypt.hash(password, salt);

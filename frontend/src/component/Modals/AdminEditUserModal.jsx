@@ -10,7 +10,6 @@ import { editUserProfile } from '../../redux/actions/userActions';
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 
 export const AdminEditUserModal = ({userId,userName,userEmail,userPassword,userConfirmPassword}) => {
-console.log("tHe user",userName, userEmail,userPassword,userConfirmPassword);
   const {  currentUser,loggedInUserInfo } = useSelector((state) => state.loginUser);
 const dispatch=useDispatch();
   const [open, setOpen] = useState(false);
@@ -41,7 +40,6 @@ const dispatch=useDispatch();
   };
 
   const submitHandler = (e) => {
-    console.log('The updateuser',updatedUser)
     e.preventDefault();
     dispatch(editUserProfile(updatedUser,currentUser));
     setOpen(false);

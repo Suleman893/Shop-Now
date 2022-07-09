@@ -41,7 +41,6 @@ export const loginUserReducer = (state = { user: {} }, action) => {
     case USER_LOGIN_REQUEST:
       return { loading: true, user: {} };
     case USER_LOGIN_SUCCESS:
-      console.log("tHe action.payload", action.payload);
       return {
         loading: false,
         user: action.payload,

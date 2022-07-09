@@ -40,7 +40,6 @@ const GetAllProducts = async (req, res) => {
   const pageSize = 15;
   const page = parseInt(req.query.page) || "0";
   try {
-    console.log("The page", page);
     const total = await productSchema.countDocuments({});
     let allProducts = await productSchema
       .find({})
@@ -183,7 +182,6 @@ const DeleteProduct = async (req, res) => {
 const UpdateProduct = async (req, res) => {
   const { productId } = req.body;
 
-  console.log("The req.body", req.body);
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).send({
@@ -298,9 +296,7 @@ const createProductReview = async (req, res) => {
     rating: Number(rating),
     comment,
   };
-  console.log("The req.name", req.body);
   const product = await productSchema.findById(productId);
-  console.log("The product", product);
   const isReviewed = product.reviews.find(
     (rev) => rev.user.toString() === req.userId.toString()
   );

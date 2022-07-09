@@ -49,7 +49,6 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 
 export const getProduct = (page) => async (dispatch) => {
-  console.log("The page", Number(page));
   try {
     dispatch({
       type: ALL_PRODUCT_REQUEST,
@@ -58,7 +57,6 @@ export const getProduct = (page) => async (dispatch) => {
       `http://localhost:2000/api/product/products?page=${page}`
     );
     const { data } = res;
-    console.log("The data", data);
     dispatch({
       type: ALL_PRODUCT_SUCCESS,
       payload: { products: data.products, totalPages: data.totalPages },
@@ -114,7 +112,6 @@ export const getFeaturedProduct = () => async (dispatch) => {
 export const getProductDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_DETAIL_REQUEST });
-    console.log("ads");
     const { data } = await axios.get(`${getProductDetail}/${id}`);
     dispatch({ type: PRODUCT_DETAIL_SUCCESS, payload: data.product });
   } catch (error) {
@@ -159,7 +156,6 @@ export const addReviews = (toSend, currentUser) => async (dispatch) => {
     const headers = { authorization: currentUser };
     dispatch({ type: ADD_REVIEWS_REQUEST });
     const res = await axios.put(`${putReviews}`, toSend, { headers });
-    console.log("The api res of review", res);
     dispatch({ type: ADD_REVIEWS_SUCCESS });
   } catch (error) {
     dispatch({
@@ -188,7 +184,6 @@ export const adminAddProduct =
         newProduct,
         { headers }
       );
-      console.log("The res", res);
       dispatch({
         type: ADMIN_CREATE_PRODUCT_SUCCESS,
         payload: { products: res.data },
@@ -234,9 +229,7 @@ export const deleteProduct = (id, currentUser) => async (dispatch) => {
       id: id,
     };
     dispatch({ type: ADMIN_DELETE_PRODUCT_REQUEST });
-    console.log("The id in delete product", id, currentUser);
     const res = await axios.delete(`${deleteProductApi}`, { headers, data });
-    console.log("The delete api res", res);
     dispatch({ type: ADMIN_DELETE_PRODUCT_SUCCESS });
   } catch (error) {
     dispatch({ type: ADMIN_DELETE_PRODUCT_FAIL, payload: error });
@@ -250,7 +243,6 @@ export const editProduct = (updateProduct, currentUser) => async (dispatch) => {
     const res = await axios.put(`${updateProductApi}`, updateProduct, {
       headers,
     });
-    console.log("The update ress of review", res);
     dispatch({ type: ADMIN_EDIT_PRODUCT_SUCCESS });
   } catch (error) {
     dispatch({

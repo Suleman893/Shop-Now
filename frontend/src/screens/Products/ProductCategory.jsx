@@ -19,7 +19,6 @@ const ProductsCategory = () => {
   const { searchedProducts } = useSelector(
     (state) => state.searchProductReducer
   );
-console.log('In the product.jsx',searchedProducts);
   const [currentProduct,setCurrentProduct]= useState([]);
   const pages = new Array(numberOfPages).fill(null).map((v, i) => i);
 
@@ -29,7 +28,6 @@ const getProducts = ()=>
   dispatch(getProduct(page));
   setNumberOfPages(totalPages);
   setCurrentProduct(searchedProducts)
-  console.log('The currentproduct',currentProduct)
 }
   useEffect(() => {
     getProducts()

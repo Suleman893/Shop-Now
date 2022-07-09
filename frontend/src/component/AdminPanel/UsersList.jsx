@@ -12,7 +12,6 @@ const UsersList = () => {
   const dispatch = useDispatch();
 
   const { data } = users;
-  console.log('tHe userlist',data);
   useEffect(() => {
     dispatch(getAllUsers(currentUser));
   }, [dispatch]);

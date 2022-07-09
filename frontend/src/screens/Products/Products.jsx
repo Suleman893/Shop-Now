@@ -28,7 +28,6 @@ const Products = () => {
   useEffect(() => {
   dispatch(getProduct(pageNumber));
   setCurrentProduct(products);
-    console.log('In useEffect, currentProduct',products)
     setNumberOfPages(totalPages);
     scroll.scrollTo(1)
   }, [pageNumber,setPageNumber]);

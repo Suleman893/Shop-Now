@@ -7,7 +7,6 @@ import signin from "../../images/signin.jpg";
 import "./Signin.css";
 
 const Signin = () => {
-  console.log("I am in sigin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

@@ -21,7 +21,6 @@ const Signup = () => {
       alert("Password dont match");
     } else {
       const user = { name, email, password, confirmPassword };
-      console.log("The user is", user);
       dispatch(registerUser(user));
       navigate("/signin");
     }

@@ -8,7 +8,6 @@ const ProtectedRoute = ({ isAdmin,children}) => {
 
     if(!currentUser)
     {
-        console.log('No :(');
      return <Navigate to={"/signin"}/>
     }
 
