@@ -18,6 +18,7 @@ import {
   registerUserReducer,
   loginUserReducer,
   getAllUsersReducers,
+  deleteSpecificUser
 } from "./reducers/userReducer";
 import { cartReducer } from "./reducers/cartReducer";
 import {
@@ -31,21 +32,25 @@ const rootReducer = combineReducers({
   registerUser: registerUserReducer,
   loginUser: loginUserReducer,
   getAllUsersReducers: getAllUsersReducers,
-  //Product
+
+  // deleteSpecificUser:deleteSpecificUser,
+  //Products
   products: productReducer,
   productDetail: productDetailReducer,
   latestProducts: latestProductReducer,
   featuredProducts: featuredProductReducer,
   adminPanelProducts: adminProductReducer,
   adminAddProductReducer: adminAddProductReducer,
+  searchProductReducer: searchProductReducer,
+  productByCategory: productByCategory,
+  addReviewsReducer: addReviewsReducer,
+  // deleteSpecificProductReducer:deleteSpecificProductReducer
   //Cart
   cart: cartReducer,
   //Order
   placeOrderReducer: placeOrderReducer,
   getUserOrdersReducer: getUserOrdersReducer,
-  searchProductReducer: searchProductReducer,
-  productByCategory: productByCategory,
-  addReviewsReducer: addReviewsReducer,
+
 });
 
 //LocalStorage

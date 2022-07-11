@@ -1,19 +1,28 @@
 import "./AdminPanel.css";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAdminProduct,deleteProduct } from "../../redux/actions/productAction";
+import { getAdminProduct,deleteProduct , clearErrors} from "../../redux/actions/productAction";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import {AdminEditProductModal} from "../Modals/AdminEditProductModal";
+import Loader from "../layout/Loader/Loader";
+import { useAlert } from "react-alert";
 
 const ProductsList = () => {
+  const alert = useAlert();
+
   const {  currentUser } = useSelector((state) => state.loginUser);
 
-  const { products } = useSelector((state) => state.adminPanelProducts);
+  const { products , loading, error} = useSelector((state) => state.adminPanelProducts);
   const dispatch = useDispatch();
   useEffect(() => {
+  
     dispatch(getAdminProduct(currentUser));
-  }, [dispatch]);
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+  }, [dispatch, error, alert]);
 
   const [open, setOpen] = React.useState(false);
 
@@ -23,7 +32,12 @@ const handleEditProfileModal = () => {
   return (
     <div>
       <div className="table-container">
-        <table className="table">
+      {
+        loading? 
+        <Loader/>
+        :
+        (
+          <table className="table">
           <thead>
             <tr>
               <th>ProductId</th>
@@ -60,6 +74,9 @@ const handleEditProfileModal = () => {
               ))}
           </tbody>
         </table>
+        )
+      }
+        
       </div>
     </div>
   );

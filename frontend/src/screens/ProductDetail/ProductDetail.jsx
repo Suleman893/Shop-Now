@@ -4,15 +4,22 @@ import user from "../../images/user.png";
 import ReactStars from "react-rating-stars-component";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductDetails , addReviews} from "../../redux/actions/productAction";
+import { getProductDetails , addReviews,clearErrors} from "../../redux/actions/productAction";
 import { addToCart } from "../../redux/actions/cartActions";
 import ImageGallery from "react-image-gallery";
 import "./ProductDetail.css";
 import { animateScroll as scroll } from "react-scroll"
 import HeadShake from 'react-reveal/HeadShake';
 import { Rating } from "@material-ui/lab";
+import Loader from "../../component/layout/Loader/Loader";
+import { useAlert } from "react-alert";
+
 const ProductDetail = () => {
+  const alert = useAlert();
+
   const {  currentUser } = useSelector((state) => state.loginUser);
+
+  const {success} = useSelector((state)=>state.addReviewsReducer);
   const param = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -31,9 +38,17 @@ const ProductDetail = () => {
   }
 
   useEffect(() => {
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+    if(success)
+    {
+      alert.success("Review added")
+    }
     dispatch(getProductDetails(param.id));
     scroll.scrollTo(1)
-  }, [dispatch]);
+  }, [dispatch,error,alert,success]);
 
   const addToCartHandler = () => {
     
@@ -65,7 +80,13 @@ const ProductDetail = () => {
   ];
   return (
     <div>
-      <div className="product-detail-container">
+    {
+      loading?
+      <Loader/>
+      :
+      (
+        <>
+        <div className="product-detail-container">
         <h2 className="page-title ">{product.productName}</h2>
         <div className="product-detail-row">
           <div className="product-detail-left">
@@ -160,6 +181,10 @@ const ProductDetail = () => {
         <button onClick={submitReview}></button>
         </div>
       </div>
+        </>
+      )
+    }
+     
     </div>
   );
 };

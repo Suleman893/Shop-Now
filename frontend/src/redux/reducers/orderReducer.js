@@ -1,27 +1,20 @@
-import {
-  PLACE_ORDER_REQUEST,
-  PLACE_ORDER_SUCCESS,
-  PLACE_ORDER_FAIL,
-  USER_ORDER_REQUEST,
-  USER_ORDER_SUCCESS,
-  USER_ORDER_FAIL,
-} from "../constants/orderConstants";
+import * as actionTypes from "../constants/orderConstants";
 
 export const placeOrderReducer = (state = {}, action) => {
   switch (action.type) {
-    case PLACE_ORDER_REQUEST:
+    case actionTypes.PLACE_ORDER_REQUEST:
       return {
         ...state,
         loading: true,
       };
 
-    case PLACE_ORDER_SUCCESS:
+    case actionTypes.PLACE_ORDER_SUCCESS:
       return {
         loading: false,
         success: true,
       };
 
-    case PLACE_ORDER_FAIL:
+    case actionTypes.PLACE_ORDER_FAIL:
       return {
         loading: false,
         error: action.payload,
@@ -33,17 +26,17 @@ export const placeOrderReducer = (state = {}, action) => {
 
 export const getUserOrdersReducer = (state = {orders: []}, action) => {
   switch (action.type) {
-    case USER_ORDER_REQUEST:
+    case actionTypes.USER_ORDER_REQUEST:
       return {
         loading: true,
       };
-    case USER_ORDER_SUCCESS:
+    case actionTypes.USER_ORDER_SUCCESS:
       return {
         loading: false,
         success: true,
         orders: action.payload,
       };
-    case USER_ORDER_FAIL:
+    case actionTypes.USER_ORDER_FAIL:
       return {
         loading: false,
         error: action.payload,

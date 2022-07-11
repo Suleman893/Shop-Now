@@ -2,13 +2,17 @@ import React, { useEffect, useState } from "react";
 import "./Products.css";
 import buy1 from "../../images/product.jpg";
 import ReactStars from "react-rating-stars-component";
-import { getProduct, searchProduct, productByCategoryAction} from "../../redux/actions/productAction";
+import { clearErrors,getProduct, searchProduct, productByCategoryAction} from "../../redux/actions/productAction";
 import { useSelector, useDispatch } from "react-redux";
 import { Link,useSearchParams } from "react-router-dom";
 import HeadShake from 'react-reveal/HeadShake';
 import { animateScroll as scroll } from "react-scroll"
+import Loader from "../../component/layout/Loader/Loader";
+import { useAlert } from "react-alert";
 
 const Products = () => {
+  const alert = useAlert();
+
   const [pageNumber, setPageNumber] = useState(0);
   const [numberOfPages, setNumberOfPages] = useState(0);
   const [currentProduct,setCurrentProduct]= useState([]);
@@ -26,11 +30,15 @@ const Products = () => {
   );
 
   useEffect(() => {
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
   dispatch(getProduct(pageNumber));
   setCurrentProduct(products);
     setNumberOfPages(totalPages);
     scroll.scrollTo(1)
-  }, [pageNumber,setPageNumber]);
+  }, [pageNumber,setPageNumber, error, alert]);
 
   
   const theCategoryToSearch = setTheCategory.get("categorytype")
@@ -146,7 +154,13 @@ const categoryHandlerEight = ()=>
         </div>
 
         <div className="right">
-          {products.map((product) => (
+
+        {
+          loading?
+          <Loader/>
+          : 
+          
+          products.map((product) => (
             <HeadShake>
             <div className="product-card">
               <Link to={`/productdetail/${product._id}`}>
@@ -172,7 +186,10 @@ const categoryHandlerEight = ()=>
               </Link>
               </div>
               </HeadShake>
-          ))}
+          ))
+          
+        }
+          
         </div>
       </div>
 

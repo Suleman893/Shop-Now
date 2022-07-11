@@ -54,7 +54,7 @@ const UserLogin = async (req, res) => {
       email,
     });
     if (!user) {
-      return res.status(204).json({
+      return res.status(401).send({
         message: "This email dont exist",
       });
     }

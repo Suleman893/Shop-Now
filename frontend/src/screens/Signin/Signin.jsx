@@ -2,33 +2,57 @@ import React, { useState, useEffect } from "react";
 import Loader from "../../component/layout/Loader/Loader";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../redux/actions/userActions";
+import { loginUser,clearErrors } from "../../redux/actions/userActions";
 import signin from "../../images/signin.jpg";
 import "./Signin.css";
+import { Validate } from "../../validation/SignInValidation";
+import { useAlert } from "react-alert";
 
 const Signin = () => {
+  const alert = useAlert();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+const {loading,error,success} = useSelector((state)=>state.loginUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  useEffect(() => {
-    if (localStorage.getItem("currentUser")) {
-      navigate("/products");
-    }
-  }, []);
 
+  const [formErrors, setFormErrors] = useState({})
   const loginHandler = (e) => {
     e.preventDefault();
     const user = { email, password };
+    const errorsCount = Validate(user);
+    setFormErrors(errorsCount)
+    if (Object.keys(errorsCount).length === 0) {
     dispatch(loginUser(user));
+    }
   };
+
+  useEffect(() => {
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+    if(success)
+    {
+      alert.success("Login successfully");
+    }
+    if (localStorage.getItem("currentUser")) {
+      navigate("/myProfile");
+    }
+  }, [error, alert, success]);
+ 
   return (
     <section>
       <div className="imgBx">
         <img src={signin} />
       </div>
-      <div className="contentBx">
+      {
+        loading ? 
+        (<h1>loading</h1>)
+        :
+(
+  <>
+  <div className="contentBx">
         <div className="formBx">
           <h2>Login</h2>
           <form>
@@ -41,6 +65,7 @@ const Signin = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
+            <p>{formErrors.email ? formErrors.email : " "}</p>
             <div className="inputBx">
               <span>Password</span>
               <input
@@ -50,6 +75,7 @@ const Signin = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
+            <p>{formErrors.password ? formErrors.password : " "}</p>
             <div className="inputBx">
               <input
                 type="submit"
@@ -66,6 +92,10 @@ const Signin = () => {
           </form>
         </div>
       </div>
+  </>
+)
+      }
+      
     </section>
   );
 };

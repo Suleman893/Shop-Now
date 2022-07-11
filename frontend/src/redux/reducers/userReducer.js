@@ -1,35 +1,21 @@
-import {
-  USER_LOGIN_REQUEST,
-  USER_LOGIN_SUCCESS,
-  USER_LOGIN_FAIL,
-  USER_REGISTER_REQUEST,
-  USER_REGISTER_SUCCESS,
-  USER_REGISTER_FAIL,
-  CLEAR_ERRORS,
-  GET_ALL_USERS_REQUEST,
-  GET_ALL_USERS_SUCCESS,
-  GET_ALL_USERS_FAIL,
-  DELETE_USER_REQUEST,
-  DELETE_USER_SUCCESS,
-  DELETE_USER_FAIL,
-} from "../constants/userConstant";
+import * as actionTypes from "../constants/userConstant";
 
 export const registerUserReducer = (state = {}, action) => {
   switch (action.type) {
-    case USER_REGISTER_REQUEST:
+    case actionTypes.USER_REGISTER_REQUEST:
       // return { loading: true, user: {} };
       return { loading: true };
-    case USER_REGISTER_SUCCESS:
+    case actionTypes.USER_REGISTER_SUCCESS:
       return {
         loading: false,
         success: true,
       };
-    case USER_REGISTER_FAIL:
+    case actionTypes.USER_REGISTER_FAIL:
       return {
         loading: false,
         error: action.payload,
       };
-    case CLEAR_ERRORS:
+    case actionTypes.CLEAR_ERRORS:
       return { ...state, error: null };
     default:
       return state;
@@ -37,20 +23,22 @@ export const registerUserReducer = (state = {}, action) => {
 };
 
 export const loginUserReducer = (state = { user: {} }, action) => {
+  console.log("The action.payload", action.payload);
   switch (action.type) {
-    case USER_LOGIN_REQUEST:
+    case actionTypes.USER_LOGIN_REQUEST:
       return { loading: true, user: {} };
-    case USER_LOGIN_SUCCESS:
+    case actionTypes.USER_LOGIN_SUCCESS:
       return {
-        loading: false,
         user: action.payload,
+        loading: false,
+        success: true,
       };
-    case USER_LOGIN_FAIL:
+    case actionTypes.USER_LOGIN_FAIL:
       return {
         loading: false,
         error: action.payload,
       };
-    case CLEAR_ERRORS:
+    case actionTypes.CLEAR_ERRORS:
       return { ...state, error: null };
     default:
       return state;
@@ -64,17 +52,17 @@ export const getAllUsersReducers = (
   action
 ) => {
   switch (action.type) {
-    case GET_ALL_USERS_REQUEST:
+    case actionTypes.GET_ALL_USERS_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case GET_ALL_USERS_SUCCESS:
+    case actionTypes.GET_ALL_USERS_SUCCESS:
       return {
         users: action.payload,
         loading: false,
       };
-    case GET_ALL_USERS_FAIL:
+    case actionTypes.GET_ALL_USERS_FAIL:
       return {
         error: action.payload,
         loading: false,
@@ -84,22 +72,23 @@ export const getAllUsersReducers = (
   }
 };
 
-export const deleteSpecificUser = (state = {}, action) => {
+export const deleteSpecificUser = (state = {user:{}}, action) => {
   switch (action.type) {
-    case DELETE_USER_REQUEST:
-      return { loading: true };
-    case DELETE_USER_SUCCESS:
+    case actionTypes.DELETE_USER_REQUEST:
+      return { delLoading: true };
+    case actionTypes.DELETE_USER_SUCCESS:
       return {
-        loading: false,
-        success: true,
+        delLoading: false,
+        user:{},
+        delSuccess: true,
       };
-    case DELETE_USER_FAIL:
+    case actionTypes.DELETE_USER_FAIL:
       return {
-        loading: false,
-        error: action.payload,
+        delLoading: false,
+        delError: action.payload,
       };
-    case CLEAR_ERRORS:
-      return { error: null };
+    case actionTypes.CLEAR_ERRORS:
+      return { delError: null };
     default:
       return;
   }

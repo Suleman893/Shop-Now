@@ -1,20 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUsers, deleteUser } from "../../redux/actions/userActions";
+import { getAllUsers, deleteUser ,clearErrors} from "../../redux/actions/userActions";
 import "./AdminPanel.css";
-import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+import { AiFillDelete } from "react-icons/ai";
 import {AdminEditUserModal} from "../Modals/AdminEditUserModal";
+import Loader from "../layout/Loader/Loader";
+import { useAlert } from "react-alert";
 
 const UsersList = () => {
+  const alert = useAlert();
 
   const {  currentUser } = useSelector((state) => state.loginUser);
-  const { users, loading } = useSelector((state) => state.getAllUsersReducers);
+  const { users, loading,error } = useSelector((state) => state.getAllUsersReducers);
+  // const {  delLoading,delError , delSuccess} = useSelector((state) => state.deleteSpecificUser);
+
   const dispatch = useDispatch();
 
   const { data } = users;
   useEffect(() => {
     dispatch(getAllUsers(currentUser));
-  }, [dispatch]);
+
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+  
+
+  }, [dispatch, error, alert]);
   const [open, setOpen] = React.useState(false);
 
   const handleEditProfileModal = () => {
@@ -24,7 +36,12 @@ const UsersList = () => {
   return (
     <div>
       <div className="table-container">
-        <table className="table">
+      {
+        loading?
+        <Loader/>
+        :
+        (
+          <table className="table">
           <thead>
             <tr>
               <th>UserId</th>
@@ -57,6 +74,9 @@ const UsersList = () => {
               ))}
           </tbody>
         </table>
+        )
+      }
+      
       </div>
     </div>
   );

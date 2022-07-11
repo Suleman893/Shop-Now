@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { editProduct } from '../../redux/actions/productAction';
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 export const AdminEditProductModal = ({productId,productName,productDesc,productStock,productPrice,productRatings,productCategory}) => {
-  const {  currentUser,loggedInUserInfo } = useSelector((state) => state.loginUser);
+  const {  currentUser} = useSelector((state) => state.loginUser);
 const dispatch=useDispatch();
   const [open, setOpen] = useState(false);
 

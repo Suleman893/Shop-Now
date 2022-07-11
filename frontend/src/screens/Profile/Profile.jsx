@@ -1,18 +1,38 @@
-import React from "react";
+import React , {useEffect} from "react";
 import "./Profile.css";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector,useDispatch} from "react-redux";
 import FormDialog from "../../component/Modals/EditProfileModal";
+import {clearErrors } from "../../redux/actions/userActions";
+import Loader from "../../component/layout/Loader/Loader";
+import { useAlert } from "react-alert";
+
 const MyProfile = () => {
+  const alert = useAlert();
+  const dispatch = useDispatch();
 
   const [open, setOpen] = React.useState(false);
-  const {  loggedInUserInfo } = useSelector((state) => state.loginUser);
+  const {  loggedInUserInfo,error ,loading} = useSelector((state) => state.loginUser);
   const handleEditProfileModal = () => {
     setOpen(!open);
   };
+
+  useEffect(() => {
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+  
+  }, [error, alert]);
+
   return (
       <div className="container">
-      <h1 className="page-title"> {loggedInUserInfo.name} Profile </h1>
-      <div className="row">
+      {
+        loading? <Loader/>
+        :
+(
+  <>
+  <h1 className="page-title"> {loggedInUserInfo.name} Profile </h1>
+  <div className="row">
         <div className="profile-left">
           <div>
             <ul className="profile-panel-sidebar">
@@ -38,6 +58,10 @@ const MyProfile = () => {
         </div>
         </div>
       </div>
+      </>
+)
+      }
+     
     </div>
     )
 };

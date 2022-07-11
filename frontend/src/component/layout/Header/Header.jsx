@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../../redux/actions/userActions";
 import logo from "../../../images/logo.png";
@@ -7,7 +7,7 @@ import "./Header.css";
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {  loggedInUserInfo } = useSelector((state) => state.loginUser);
+  const {  loggedInUserInfo , currentUser} = useSelector((state) => state.loginUser);
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
@@ -59,7 +59,7 @@ const Header = () => {
               <Link to="/myProfile">
                 <i className="fa fa-user  mr-8"></i>
               </Link>
-              {loggedInUserInfo && (
+              {currentUser && (
            
               <i
                 className="fa fa-sign-out "

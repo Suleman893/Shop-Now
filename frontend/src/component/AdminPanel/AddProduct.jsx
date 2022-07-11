@@ -1,9 +1,14 @@
-import React, { useState } from "react";
-import { adminAddProduct } from "../../redux/actions/productAction";
+import React, { useState,useEffect } from "react";
+import { adminAddProduct,clearErrors } from "../../redux/actions/productAction";
 import { useDispatch, useSelector } from "react-redux";
+import { Validate } from "../../validation/AddProductValidation";
+import Loader from "../layout/Loader/Loader";
+import { useAlert } from "react-alert";
 const AddProduct = () => {
+  const alert = useAlert();
+
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.adminAddProductReducer);
+  const { loading,error ,success} = useSelector((state) => state.adminAddProductReducer);
   const {  currentUser } = useSelector((state) => state.loginUser);
 
   const addProductInitialValues = {
@@ -15,6 +20,7 @@ const AddProduct = () => {
   };
 
   const [newProduct, setNewProduct] = useState(addProductInitialValues);
+  const [formErrors, setFormErrors] = useState({})
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,62 +31,98 @@ const AddProduct = () => {
   };
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(adminAddProduct(newProduct,currentUser));
+
+    const errorsCount = Validate(newProduct);
+
+    setFormErrors(errorsCount)
+    if (Object.keys(errorsCount).length === 0) {
+      dispatch(adminAddProduct(newProduct,currentUser));
+    }
+
   };
+
+  useEffect(() => {
+    if (error) {
+      
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+    if(success)
+    {
+      alert.success('Product added successfully')
+    }
+  }, [error, alert,success]);
   return (
     <div>
     <div className="table-container">
-      <table className="table">
-        <thead>
-          <tr>
-            <th>ProductName</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Category</th>
-            <th>Stock</th>
-            <th>Add</th>
-          </tr>
-        </thead>
-        <tbody>
-              <tr>
-                  <td data-label="ProductName">  <input
-                  name="productName"
-                  placeholder="Name"
-                  value={newProduct.productName}
-                  onChange={handleChange}
-                /></td>
-                  <td data-label="Description">  <input
-                  name="description"
-                  placeholder="Description"
-                  value={newProduct.description}
-                  onChange={handleChange}
-                /></td>
-                  <td data-label="Price"><input
-                  name="price"
-                  placeholder="Price"
-                  value={newProduct.price}
-                  onChange={handleChange}
-                /></td>
-                  <td data-label="Category"> <input
-                  name="category"
-                  placeholder="Choose Category"
-                  value={newProduct.category}
-                  onChange={handleChange}
-                /></td>
-                  <td data-label="Stock">
-                  <input
-                  name="stock"
-                  placeholder="Stock"
-                  value={newProduct.stock}
-                  onChange={handleChange}
-                />
-                  </td>
-                  <td data-label="Add">
-                  <button onClick={submitHandler}>Add the Product</button>
-                  </td>
-              </tr>
-        </tbody>
-      </table>
+    {
+      loading? <Loader/>
+:
+(
+  <table className="table">
+  <thead>
+    <tr>
+      <th>ProductName</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Category</th>
+      <th>Stock</th>
+      <th>Add</th>
+    </tr>
+  </thead>
+  <tbody>
+        <tr>
+            <td data-label="ProductName">  <input
+            name="productName"
+            placeholder="Name"
+            value={newProduct.productName}
+            onChange={handleChange}
+          />
+      <p>{formErrors.productName ? formErrors.productName : " "}</p>
+          
+          </td>
+            <td data-label="Description">  <input
+            name="description"
+            placeholder="Description"
+            value={newProduct.description}
+            onChange={handleChange}
+          />
+          <p>{formErrors.description ? formErrors.description : " "}</p>
+          
+          </td>
+            <td data-label="Price"><input
+            name="price"
+            placeholder="Price"
+            value={newProduct.price}
+            onChange={handleChange}
+          />
+          <p>{formErrors.price ? formErrors.price : " "}</p>
+          </td>
+            <td data-label="Category"> <input
+            name="category"
+            placeholder="Choose Category"
+            value={newProduct.category}
+            onChange={handleChange}
+          /></td>
+            <td data-label="Stock">
+            <input
+            name="stock"
+            placeholder="Stock"
+            value={newProduct.stock}
+            onChange={handleChange}
+          />
+          <p>{formErrors.stock ? formErrors.stock : " "}</p>
+            </td>
+            <td data-label="Add">
+            <button onClick={submitHandler}>Add the Product</button>
+            </td>
+        </tr>
+  </tbody>
+</table>
+)      
+
+    }
+      
     </div>
   </div>
 
