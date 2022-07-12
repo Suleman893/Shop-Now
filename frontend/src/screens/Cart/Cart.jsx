@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import buy1 from "../../images/product.jpg";
 import { addToCart, removeFromCart } from "../../redux/actions/cartActions";
-import { Link, Navigate, useParams, useSearchParams } from "react-router-dom";
+import { Link,  useParams, useSearchParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import MetaData from "../../component/Layout/MetaData";
 import Checkout from "../../component/Checkout/Checkout";
@@ -46,7 +46,7 @@ const Cart = () => {
           {cartItems.length === 0 ? (
             <div>
               <h1> Nothing added in cart </h1>
-              <Link to="/products"> Buy some products</Link>
+              <Link to="/products"> Buy somes products</Link>
             </div>
           ) : (
             cartItems.map((item) => (

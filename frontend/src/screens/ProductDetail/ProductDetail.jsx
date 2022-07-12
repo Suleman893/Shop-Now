@@ -24,7 +24,7 @@ const ProductDetail = () => {
 
   const { currentUser } = useSelector((state) => state.loginUser);
 
-  const { success } = useSelector((state) => state.addReviewsReducer);
+  const { success, reviewerror } = useSelector((state) => state.addReviews);
   const param = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -51,6 +51,7 @@ const ProductDetail = () => {
   const submitReview = (e) => {
     e.preventDefault();
     dispatch(addReviews(toSend, currentUser));
+    setComment("");
   };
 
   useEffect(() => {
@@ -58,12 +59,17 @@ const ProductDetail = () => {
       alert.error(error);
       dispatch(clearErrors());
     }
+    if (reviewerror) {
+      alert.error(reviewerror);
+      dispatch(clearErrors());
+    }
     if (success) {
       alert.success("Review added");
+      dispatch(clearErrors());
     }
     dispatch(getProductDetails(param.id));
     scroll.scrollTo(1);
-  }, [dispatch, error, alert, success]);
+  }, [dispatch, error, alert, success, reviewerror]);
 
   const addToCartHandler = () => {
     if (product.stock > 0) {
@@ -90,7 +96,7 @@ const ProductDetail = () => {
   ];
   return (
     <div>
-      <MetaData title="Product Detail" />
+      <MetaData title={product.productName} />
 
       {loading ? (
         <Loader />

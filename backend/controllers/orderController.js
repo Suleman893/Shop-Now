@@ -40,18 +40,19 @@ const PlaceOrder = async (req, res) => {
         transactionId: payment.source.id,
       });
       newOrder.save();
-      res.status(200).send({ message: "Payment successful" });
+      res.status(201).send({
+        success: true,
+        message: "Order placed successful",
+      });
     } else {
-      res.status(500).send({ message: "Payment unsuccessful" });
+      res.status(500).send({ message: "Order placed unsuccessful" });
     }
   } catch (error) {
     res.status(500).send({
       message: error.message,
-      error: error,
     });
   }
 };
-
 
 const GetOrders = async (req, res) => {
   try {
@@ -59,20 +60,19 @@ const GetOrders = async (req, res) => {
       .find({ userId: req.userId })
       .sort({ _id: "-1" });
     res.status(200).send({
+      success: true,
       orders: orders,
     });
   } catch (error) {
     res.status(500).send({
       message: error.message,
-      error: error,
     });
   }
 };
 
-
 const GetAllOrders = async (req, res) => {
   try {
-    let allOrders = await orderSchema.find();
+    let allOrders = await orderSchema.find().sort({ _id: "-1" });;
     const totalOrders = await orderSchema.countDocuments();
     if (allOrders.length < 0) {
       return res.status.send({
@@ -81,6 +81,7 @@ const GetAllOrders = async (req, res) => {
       });
     }
     return res.status(200).send({
+      success: true,
       message: "Order found successfully",
       orders: allOrders,
       totalOrders: totalOrders,
@@ -88,11 +89,9 @@ const GetAllOrders = async (req, res) => {
   } catch (error) {
     return res.status(500).send({
       message: error.message,
-      error,
     });
   }
 };
-
 
 const RemoveOrderById = async (req, res) => {
   try {
@@ -105,12 +104,12 @@ const RemoveOrderById = async (req, res) => {
       });
     }
     return res.status(200).send({
+      success: true,
       message: "Order deleted successfully",
     });
   } catch (error) {
     return res.status(500).send({
       message: error.message,
-      error,
     });
   }
 };

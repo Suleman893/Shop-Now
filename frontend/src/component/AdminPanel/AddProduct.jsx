@@ -7,10 +7,9 @@ import {
   clearErrors,
 } from "../../redux/actions/productAction";
 import { Validate } from "../../validation/AddProductValidation";
-
 const AddProduct = () => {
-  const alert = useAlert();
   const dispatch = useDispatch();
+  const alert = useAlert();
   const { loading, error, success } = useSelector(
     (state) => state.adminAddProduct
   );
@@ -51,8 +50,10 @@ const AddProduct = () => {
     }
     if (success) {
       alert.success("Product added successfully");
+      dispatch(clearErrors());
+
     }
-  }, [error, alert, success]);
+  }, [dispatch, alert, error, success]);
 
   return (
     <div>
@@ -127,9 +128,9 @@ const AddProduct = () => {
                   <p>{formErrors.stock ? formErrors.stock : " "}</p>
                 </td>
                 <td data-label="Image">
-                      <input type="file" id="files" />
-                      <label for="files">Select images</label>
-                    </td>
+                  <input type="file" id="files" />
+                  <label htmlFor="files">Select images</label>
+                </td>
                 <td data-label="Add">
                   <button onClick={submitHandler}>Add the Product</button>
                 </td>

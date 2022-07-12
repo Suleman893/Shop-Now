@@ -69,8 +69,11 @@ export const getAllUsers = (currentUser) => async (dispatch) => {
   try {
     const headers = { authorization: currentUser };
     dispatch({ type: actionTypes.GET_ALL_USERS_REQUEST });
-    const { data } = await axios.get(getAllUsersApi, { headers });
-    dispatch({ type: actionTypes.GET_ALL_USERS_SUCCESS, payload: data });
+    const res = await axios.get(getAllUsersApi, { headers });
+    dispatch({
+      type: actionTypes.GET_ALL_USERS_SUCCESS,
+      payload: res.data.allUsers,
+    });
   } catch (error) {
     dispatch({
       type: actionTypes.GET_ALL_USERS_FAIL,

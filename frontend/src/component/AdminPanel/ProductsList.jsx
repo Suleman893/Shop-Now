@@ -12,8 +12,8 @@ import Loader from "../Layout/Loader/Loader";
 import { useAlert } from "react-alert";
 
 const ProductsList = () => {
-  const alert = useAlert();
   const dispatch = useDispatch();
+  const alert = useAlert();
   const { currentUser } = useSelector((state) => state.loginUser);
   const { products, loading, error } = useSelector(
     (state) => state.adminPanelProducts
@@ -52,7 +52,7 @@ const ProductsList = () => {
               </tr>
             </thead>
             <tbody>
-              {products &&
+              {products.length>0 ?
                 products.map((curr) => (
                   <tr>
                     <td data-label="ProductId">{curr._id}</td>
@@ -61,7 +61,7 @@ const ProductsList = () => {
                     <td data-label="Price">{curr.price}</td>
                     <td data-label="Image">
                       <input type="file" id="files" />
-                      <label for="files">Select images</label>
+                      <label htmlFor="files">Api image</label>
                     </td>
                     <td data-label="Edit">
                       <AdminEditProductModal
@@ -84,7 +84,11 @@ const ProductsList = () => {
                       />
                     </td>
                   </tr>
-                ))}
+                ))
+              :(
+                <h1>No products</h1>
+              )
+              }
             </tbody>
           </table>
         )}

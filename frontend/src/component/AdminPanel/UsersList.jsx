@@ -14,12 +14,9 @@ import { useAlert } from "react-alert";
 const UsersList = () => {
   const alert = useAlert();
   const { currentUser } = useSelector((state) => state.loginUser);
-  const { users, loading, error } = useSelector(
-    (state) => state.getAllUsersReducers
-  );
+  const { users, loading, error } = useSelector((state) => state.getAllUsers);
   const dispatch = useDispatch();
   // const {  delLoading,delError , delSuccess} = useSelector((state) => state.deleteSpecificUser);
-  const { data } = users;
 
   useEffect(() => {
     dispatch(getAllUsers(currentUser));
@@ -54,8 +51,8 @@ const UsersList = () => {
               </tr>
             </thead>
             <tbody>
-              {data &&
-                data.map((curr) => (
+              {users.length > 0 ? (
+                users.map((curr) => (
                   <tr>
                     <td data-label="UserId">{curr._id}</td>
                     <td data-label="Email">{curr.email}</td>
@@ -63,7 +60,7 @@ const UsersList = () => {
                     <td data-label="Role">{curr.role}</td>
                     <td data-label="Image">
                       <input type="file" id="files" />
-                      <label for="files">Select image</label>
+                      <label htmlFor="files">Api image</label>
                     </td>
                     <td data-label="Edit">
                       <AdminEditUserModal
@@ -85,7 +82,10 @@ const UsersList = () => {
                       />
                     </td>
                   </tr>
-                ))}
+                ))
+              ) : (
+                <h1>No</h1>
+              )}
             </tbody>
           </table>
         )}

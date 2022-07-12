@@ -11,20 +11,21 @@ import Loader from "../Layout/Loader/Loader";
 import { useAlert } from "react-alert";
 
 const OrderList = () => {
-  const alert = useAlert();
   const dispatch = useDispatch();
+  const alert = useAlert();
 
   const { orders, loading, error } = useSelector(
-    (state) => state.adminGetAllOrderReducer
+    (state) => state.adminGetAllOrder
   );
   const { currentUser } = useSelector((state) => state.loginUser);
   useEffect(() => {
     dispatch(getAllOrders(currentUser));
+
     if (error) {
       alert.error(error);
       dispatch(clearErrors());
     }
-  }, [dispatch, error, alert]);
+  }, [dispatch, alert, error]);
 
   const [open, setOpen] = React.useState(false);
 
@@ -37,19 +38,28 @@ const OrderList = () => {
           <table className="table">
             <thead>
               <tr>
+                <td>OrderId</td>
                 <th>UserName</th>
-                <th>OrderAmount</th>
-                <th>TransactionId</th>
+                <th>Total Bill</th>
+                <th>ProductName</th>
+                <th>Qty</th>
                 <th>Delete</th>
               </tr>
             </thead>
             <tbody>
-              {orders &&
+              {orders.length > 0 ? (
                 orders.map((curr) => (
                   <tr>
+                    <td data-label="OrderId">{curr._id}</td>
                     <td data-label="UserName">{curr.name}</td>
-                    <td data-label="OrderAmount">{curr.orderAmount}</td>
-                    <td data-label="TransactionId">{curr.transactionId}</td>
+                    <td data-label="Total Bill">{curr.orderAmount}</td>
+                    {curr.orderItems.map((c) => (
+                      <React.Fragment>
+                        <td data-label="ProductName">{c.name}</td>
+                        <td data-label="Qty">{c.qty}</td>
+                      </React.Fragment>
+                    ))}
+
                     {/*<td data-label="Edit">
                     <AdminEditUserModal setOpen={setOpen} open={open} userId={curr._id} userName={curr.name} userEmail={curr.email} userPassword={curr.password} userConfirmPassword={curr.confirmPassword}/>
                     </td>*/}
@@ -61,7 +71,10 @@ const OrderList = () => {
                       />
                     </td>
                   </tr>
-                ))}
+                ))
+              ) : (
+                <h1>No orders</h1>
+              )}
             </tbody>
           </table>
         )}

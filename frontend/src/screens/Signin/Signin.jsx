@@ -44,59 +44,59 @@ const Signin = () => {
 
   return (
     <>
-    <MetaData title="Signin" />
-    
-    <section>
-      <div className="imgBx">
-        <img src={signin} />
-      </div>
-      {loading ? (
-        <h1>loading</h1>
-      ) : (
-        <>
-          <div className="contentBx">
-            <div className="formBx">
-              <h2>Login</h2>
-              <form>
-                <div className="inputBx">
-                  <span>Email</span>
-                  <input
-                    type="text"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-                <p>{formErrors.email ? formErrors.email : " "}</p>
-                <div className="inputBx">
-                  <span>Password</span>
-                  <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-                <p>{formErrors.password ? formErrors.password : " "}</p>
-                <div className="inputBx">
-                  <input
-                    type="submit"
-                    value="Signin"
-                    name="Signin"
-                    onClick={loginHandler}
-                  ></input>
-                </div>
+      <MetaData title="Signin" />
 
-                <div className="inputBx">
-                  <p>Dont have account?</p>
-                  <Link to="/signup">Sign up</Link>
-                </div>
-              </form>
+      <section>
+        <div className="imgBx">
+          <img src={signin} />
+        </div>
+        {loading ? (
+          <h1>loading</h1>
+        ) : (
+          <>
+            <div className="contentBx">
+              <div className="formBx">
+                <h2>Login</h2>
+                <form>
+                  <div className="inputBx">
+                    <span>Email</span>
+                    <input
+                      type="text"
+                      placeholder="Email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </div>
+                  <p>{formErrors.email ? formErrors.email : " "}</p>
+                  <div className="inputBx">
+                    <span>Password</span>
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+                  <p>{formErrors.password ? formErrors.password : " "}</p>
+                  <div className="inputBx">
+                    <input
+                      type="submit"
+                      value="Signin"
+                      name="Signin"
+                      onClick={loginHandler}
+                    ></input>
+                  </div>
+
+                  <div className="inputBx">
+                    <p>Dont have account?</p>
+                    <Link to="/signup">Sign up</Link>
+                  </div>
+                </form>
+              </div>
             </div>
-          </div>
-        </>
-      )}
-    </section>
+          </>
+        )}
+      </section>
     </>
   );
 };

@@ -148,10 +148,10 @@ export const addReviewsReducer = (state = { product: {} }, action) => {
     case actionTypes.ADD_REVIEWS_FAIL:
       return {
         loading: false,
-        error: action.payload.error,
+        reviewerror: action.payload.error,
       };
     case actionTypes.CLEAR_ERRORS:
-      return { ...state, error: null };
+      return { ...state, reviewerror: null, success: false };
     default:
       return state;
   }

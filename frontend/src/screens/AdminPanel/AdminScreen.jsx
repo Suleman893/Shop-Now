@@ -1,24 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
 import MetaData from "../../component/Layout/MetaData";
 import UsersList from "../../component/AdminPanel/UsersList";
 import ProductsList from "../../component/AdminPanel/ProductsList";
 import OrderList from "../../component/AdminPanel/OrdersList";
-import "./AdminScreen.css";
 import AddProduct from "../../component/AdminPanel/AddProduct";
+import "./AdminScreen.css";
+
 const AdminScreen = () => {
-
-  const userState = useSelector((state) => state.loginUser);
-  const { currentUser } = userState;
-  useEffect(() => {
-    if (
-      localStorage.getItem("currentUser") === null ||
-      !currentUser.role === "admin"
-    ) {
-      window.location.href = "/products";
-    }
-  }, []);
-
   const [showUser, setShowUser] = useState(true);
   const [showProduct, setShowProduct] = useState(false);
   const [showOrder, setShowOrder] = useState(false);
@@ -55,7 +43,15 @@ const AdminScreen = () => {
     <>
       <MetaData title="AdminPanel" />
       <div className="container">
-        <h1 className="page-title">Admin panel</h1>
+        <h1 className="page-title">
+          {showUser
+            ? "Users"
+            : showProduct
+            ? "Product"
+            : showOrder
+            ? "Orders"
+            : showAddProduct && "Add Products"}
+        </h1>
         <div className="row">
           <div className="admin-left">
             <div>

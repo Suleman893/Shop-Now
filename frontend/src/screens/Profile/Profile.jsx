@@ -9,8 +9,8 @@ import { useNavigate } from "react-router-dom";
 import MetaData from "../../component/Layout/MetaData";
 
 const MyProfile = () => {
-  const alert = useAlert();
   const dispatch = useDispatch();
+  const alert = useAlert();
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const { loggedInUserInfo, error, loading, currentUser } = useSelector(
@@ -30,7 +30,7 @@ const MyProfile = () => {
   }, [error, alert, navigate]);
 
   return (
-    <>
+    <React.Fragment>
       <MetaData title="My Profile" />
       <div className="container">
         {loading ? (
@@ -80,7 +80,7 @@ const MyProfile = () => {
           </div>
         )}
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

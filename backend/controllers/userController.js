@@ -33,7 +33,8 @@ const UserRegistration = async (req, res) => {
         password: encryptedPassword,
         confirmPassword: encryptedPassword,
       });
-      return res.status(200).send({
+      return res.status(201).send({
+        success: true,
         message: "User registered successfully",
         user,
       });
@@ -41,7 +42,6 @@ const UserRegistration = async (req, res) => {
   } catch (error) {
     return res.status(500).send({
       message: error.message,
-      error,
     });
   }
 };
@@ -71,6 +71,7 @@ const UserLogin = async (req, res) => {
       role: user.role,
     });
     return res.status(200).send({
+      success: true,
       message: "Login successfull",
       token,
       user,
@@ -78,7 +79,6 @@ const UserLogin = async (req, res) => {
   } catch (error) {
     return res.status(500).send({
       message: error.message,
-      error,
     });
   }
 };
@@ -87,12 +87,12 @@ const UserLogout = async (req, res) => {
   try {
     res.cookie("token", null);
     res.status(200).send({
+      success: true,
       message: "User logged out",
     });
   } catch (error) {
     return res.status(500).send({
-      message: "The server error",
-      error,
+      message: error.message,
     });
   }
 };
@@ -108,6 +108,7 @@ const UserDetails = async (req, res) => {
       });
     }
     return res.status(200).send({
+      success: true,
       message: "Users Info found successfully",
       user: SpecificUserInfo,
       specficUser,
@@ -115,7 +116,6 @@ const UserDetails = async (req, res) => {
   } catch (error) {
     return res.status(500).send({
       message: error.message,
-      error,
     });
   }
 };
@@ -139,37 +139,42 @@ const UpdateDetails = async (req, res) => {
         password: encryptedPassword,
         confirmPassword: encryptedPassword,
         ...req.body,
+      },
+      {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
       }
     );
     return res.status(200).send({
+      success: true,
       message: "User updated successfully",
       user,
     });
   } catch (error) {
     return res.status(500).send({
       message: error.message,
-      error,
     });
   }
 };
 
 const GetAllUsers = async (req, res) => {
   try {
-    let allUsers = await userSchema.find();
+    let allUsers = await userSchema.find().sort({ _id: "-1" });
     if (allUsers.length < 0) {
       return res.status.send({
         message: "No User Found",
-        data: [],
+        allUser: [],
       });
     }
     return res.status(200).send({
+      success: true,
       message: "Users found successfully",
-      data: allUsers,
+      allUsers,
     });
   } catch (error) {
     return res.status(500).send({
       message: error.message,
-      error,
     });
   }
 };
@@ -185,18 +190,18 @@ const RemoveUserById = async (req, res) => {
       });
     }
     return res.status(200).send({
+      success: true,
       message: "User deleted successfully",
     });
   } catch (error) {
     return res.status(500).send({
       message: error.message,
-      error,
     });
   }
 };
 
 const AdminUpdateUser = async (req, res) => {
-  const { _id, name, email, password, confirmPassword, role } = req.body
+  const { _id, password, confirmPassword } = req.body;
 
   let salt = await bcrypt.genSalt(10); //round 10 out of total 12 round
   let encryptedPassword = await bcrypt.hash(password, salt);
@@ -213,6 +218,11 @@ const AdminUpdateUser = async (req, res) => {
         password: encryptedPassword,
         confirmPassword: encryptedPassword,
         ...req.body,
+      },
+      {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
       }
     );
     if (!user) {
@@ -221,13 +231,13 @@ const AdminUpdateUser = async (req, res) => {
       });
     }
     return res.status(200).send({
+      success: true,
       message: "user updated successfully",
       user,
     });
   } catch (error) {
     return res.status(500).send({
       message: error.message,
-      error,
     });
   }
 };

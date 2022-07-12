@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./Signup.css";
-import banner from "../../images/banner.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { registerUser, clearErrors } from "../../redux/actions/userActions";
@@ -42,6 +41,8 @@ const Signup = () => {
     }
     if (success) {
       alert.success("Registered successfully");
+      dispatch(clearErrors());
+
     }
 
     if (localStorage.getItem("currentUser")) {

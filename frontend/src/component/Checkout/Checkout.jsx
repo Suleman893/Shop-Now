@@ -15,8 +15,8 @@ const Checkout = ({ subTotal }) => {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
   //orderState
-  const orderState = useSelector((state) => state.placeOrderReducer);
-  const { loading, error, success } = orderState;
+  const orderState = useSelector((state) => state.placeOrder);
+  const { error, success } = orderState;
   //
   const tokenHandler = (token) => {
     dispatch(placeOrder(token, subTotal, currentUser, cartItems));
@@ -25,14 +25,16 @@ const Checkout = ({ subTotal }) => {
   useEffect(() => {
     if (error) {
       alert.error(error);
+      dispatch(clearErrors());
     }
     if (success) {
-      alert.success("Product added successfully");
+      alert.success("Order placed successfully");
       dispatch(clearErrors());
-      dispatch(clearCart());
+      
+
       navigate("/myOrders");
     }
-  }, [error, alert, success]);
+  }, [dispatch, error, alert, success]);
 
   return (
     <>

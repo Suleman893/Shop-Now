@@ -33,7 +33,7 @@ const Products = () => {
   const [setTheCategory, setSetTheCategory] = useSearchParams();
   const { categoryProducts } = useSelector((state) => state.productByCategory);
   const { searchedProducts } = useSelector(
-    (state) => state.searchProductReducer
+    (state) => state.searchProduct
   );
 
   useEffect(() => {

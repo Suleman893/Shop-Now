@@ -34,7 +34,7 @@ const rootReducer = combineReducers({
   //Users
   registerUser: registerUserReducer,
   loginUser: loginUserReducer,
-  getAllUsersReducers: getAllUsersReducers,
+  getAllUsers: getAllUsersReducers,
   // editMySelf:editMySelf,
   // adminEditUserProfile:adminEditUserProfile,
   // deleteSpecificUser:deleteSpecificUser,
@@ -46,18 +46,18 @@ const rootReducer = combineReducers({
   featuredProducts: featuredProductReducer,
   adminPanelProducts: adminProductReducer,
   adminAddProduct: adminAddProductReducer,
-  searchProductReducer: searchProductReducer,
+  searchProduct: searchProductReducer,
   productByCategory: productByCategory,
-  addReviewsReducer: addReviewsReducer,
+  addReviews: addReviewsReducer,
   // deleteSpecificProductReducer:deleteSpecificProductReducer
 
   //Cart
   cart: cartReducer,
   
   //Order
-  placeOrderReducer: placeOrderReducer,
-  getUserOrdersReducer: getUserOrdersReducer,
-  adminGetAllOrderReducer: adminGetAllOrderReducer,
+  placeOrder: placeOrderReducer,
+  getUserOrders: getUserOrdersReducer,
+  adminGetAllOrder: adminGetAllOrderReducer,
 });
 
 //LocalStorage

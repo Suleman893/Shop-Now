@@ -20,7 +20,7 @@ export const placeOrderReducer = (state = {}, action) => {
         error: action.payload,
       };
     case actionTypes.CLEAR_ERRORS:
-      return { ...state, error: null };
+      return { ...state, error: null, success: false };
     default:
       return state;
   }
@@ -43,8 +43,8 @@ export const getUserOrdersReducer = (state = { orders: [] }, action) => {
         loading: false,
         error: action.payload,
       };
-    case actionTypes.CLEAR_ERRORS:
-      return { ...state, error: null };
+      case actionTypes.CLEAR_ERRORS:
+      return { ...state, error: null, success: false };
     default:
       return state;
   }
@@ -68,8 +68,8 @@ export const adminGetAllOrderReducer = (state = { orders: [] }, action) => {
         loading: false,
         error: action.payload,
       };
-    case actionTypes.CLEAR_ERRORS:
-      return { ...state, error: null };
+      case actionTypes.CLEAR_ERRORS:
+      return { ...state, error: null, success: false };
     default:
       return state;
   }
@@ -89,8 +89,8 @@ export const deleteSpecificOrderReducer = (state = {}, action) => {
         loading: false,
         error: action.payload,
       };
-    case actionTypes.CLEAR_ERRORS:
-      return { error: null };
+      case actionTypes.CLEAR_ERRORS:
+      return { ...state, error: null, success: false };
     default:
       return;
   }

@@ -17,7 +17,7 @@ const ProductsCategory = () => {
     (state) => state.products
   );
   const { searchedProducts } = useSelector(
-    (state) => state.searchProductReducer
+    (state) => state.searchProduct
   );
   const [currentProduct, setCurrentProduct] = useState([]);
   const pages = new Array(numberOfPages).fill(null).map((v, i) => i);

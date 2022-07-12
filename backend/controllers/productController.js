@@ -23,7 +23,8 @@ const CreateProduct = async (req, res) => {
       const newProduct = await productSchema.create({
         ...req.body,
       });
-      return res.status(200).send({
+      return res.status(201).send({
+        success: true,
         message: "New Product Created Successfully",
         product: newProduct,
       });
@@ -31,7 +32,6 @@ const CreateProduct = async (req, res) => {
   } catch (error) {
     return res.status(500).send({
       message: error.message,
-      error,
     });
   }
 };
@@ -53,6 +53,7 @@ const GetAllProducts = async (req, res) => {
       });
     }
     return res.status(200).send({
+      success: true,
       message: "Product found successfully",
       products: allProducts,
       totalPages: Math.ceil(total / pageSize),
@@ -60,14 +61,13 @@ const GetAllProducts = async (req, res) => {
   } catch (error) {
     return res.status(500).send({
       message: error.message,
-      error,
     });
   }
 };
 
 const AdminGetAllProducts = async (req, res) => {
   try {
-    let allProducts = await productSchema.find();
+    let allProducts = await productSchema.find().sort({ _id: "-1" });
     if (allProducts.length < 0) {
       return res.status.send({
         message: "No Product Found",
@@ -75,13 +75,13 @@ const AdminGetAllProducts = async (req, res) => {
       });
     }
     return res.status(200).send({
+      success: true,
       message: "Product found successfully",
       products: allProducts,
     });
   } catch (error) {
     return res.status(500).send({
       message: error.message,
-      error,
     });
   }
 };
@@ -100,13 +100,13 @@ const GetLatestProducts = async (req, res) => {
       });
     }
     return res.status(200).send({
+      success: true,
       message: "Product found successfully",
       latestProducts: allLatestProducts,
     });
   } catch (error) {
     return res.status(500).send({
       message: error.message,
-      error,
     });
   }
 };
@@ -125,13 +125,13 @@ const GetFeaturedProduct = async (req, res) => {
       });
     }
     return res.status(200).send({
+      success: true,
       message: "Product found successfully",
       featuredProducts: featuredProducts,
     });
   } catch (error) {
     return res.status(500).send({
       message: error.message,
-      error,
     });
   }
 };
@@ -147,13 +147,13 @@ const DeleteProduct = async (req, res) => {
       });
     }
     return res.status(200).send({
+      success: true,
       message: "Product deleted successfully",
       data: product,
     });
   } catch (error) {
     return res.status(500).send({
       message: error.message,
-      error,
     });
   }
 };
@@ -171,6 +171,11 @@ const UpdateProduct = async (req, res) => {
       { _id: productId },
       {
         ...req.body,
+      },
+      {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
       }
     );
 
@@ -181,13 +186,13 @@ const UpdateProduct = async (req, res) => {
     }
 
     return res.status(200).send({
+      success: true,
       message: "product updated successfully",
       data: product,
     });
   } catch (error) {
     return res.status(500).send({
       message: error.message,
-      error,
     });
   }
 };
@@ -201,15 +206,14 @@ const ProductDetails = async (req, res) => {
         message: "The product not found",
       });
     }
-    return res.send({
+    return res.status(200).send({
+      success: true,
       message: "Product found successfully",
-      status: "200",
       product: product,
     });
   } catch (error) {
     return res.status(500).send({
       message: error.message,
-      error,
     });
   }
 };
@@ -221,13 +225,13 @@ const SearchProduct = async (req, res) => {
       $or: [{ productName: { $regex: req.params.productName, $options: "i" } }],
     });
     return res.status(200).send({
-      searchedProduct: searchedProduct,
+      success: true,
       message: "The Product searched",
+      searchedProduct: searchedProduct,
     });
   } catch (error) {
     return res.status(500).send({
       message: err.message,
-      error,
     });
   }
 };
@@ -250,6 +254,8 @@ const GetProductByCategory = async (req, res) => {
     }
     const result = await query;
     res.status(200).send({
+      sucess: true,
+      message: "Product found",
       status: "success",
       count: result.length,
       page,
@@ -259,42 +265,48 @@ const GetProductByCategory = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       status: "error",
-      message: "Server Error",
+      message: err.message,
     });
   }
 };
 
 const CreateProductReview = async (req, res) => {
   const { rating, comment, productId } = req.body;
-
-  const review = {
-    user: req.userId,
-    name: req.name,
-    rating: Number(rating),
-    comment,
-  };
-  const product = await productSchema.findById(productId);
-  const isReviewed = product.reviews.find(
-    (rev) => rev.user.toString() === req.userId.toString()
-  );
-  if (isReviewed) {
+  try {
+    const review = {
+      user: req.userId,
+      name: req.name,
+      rating: Number(rating),
+      comment,
+    };
+    const product = await productSchema.findById(productId);
+    const isReviewed = product.reviews.find(
+      (rev) => rev.user.toString() === req.userId.toString()
+    );
+    if (isReviewed) {
+      product.reviews.forEach((rev) => {
+        if (rev.user.toString() === req.userId.toString())
+          (rev.rating = rating), (rev.comment = comment);
+      });
+    } else {
+      product.reviews.push(review);
+      product.numOfReviews = product.reviews.length;
+    }
+    let avg = 0;
     product.reviews.forEach((rev) => {
-      if (rev.user.toString() === req.userId.toString())
-        (rev.rating = rating), (rev.comment = comment);
+      avg += rev.rating;
     });
-  } else {
-    product.reviews.push(review);
-    product.numOfReviews = product.reviews.length;
+    product.ratings = avg / product.reviews.length;
+    await product.save({ validateBeforeSave: false });
+    res.status(201).json({
+      success: true,
+      message: "Product review created successfully",
+    });
+  } catch (error) {
+    return res.status(500).send({
+      message: err.message,
+    });
   }
-  let avg = 0;
-  product.reviews.forEach((rev) => {
-    avg += rev.rating;
-  });
-  product.ratings = avg / product.reviews.length;
-  await product.save({ validateBeforeSave: false });
-  res.status(200).json({
-    success: true,
-  });
 };
 
 module.exports = {
