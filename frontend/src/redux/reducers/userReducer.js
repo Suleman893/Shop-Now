@@ -26,16 +26,30 @@ export const loginUserReducer = (state = { user: {} }, action) => {
   console.log("The action.payload", action.payload);
   switch (action.type) {
     case actionTypes.USER_LOGIN_REQUEST:
-      return { loading: true, user: {} };
+    case actionTypes.LOAD_USER_REQUEST:
+      return { loading: true, isAuthenticated: false };
     case actionTypes.USER_LOGIN_SUCCESS:
+    case actionTypes.LOAD_USER_SUCCESS:
       return {
-        user: action.payload,
+        ...state,
         loading: false,
         success: true,
+        isAuthenticated: true,
+        user: action.payload,
       };
     case actionTypes.USER_LOGIN_FAIL:
       return {
+        ...state,
         loading: false,
+        isAuthenticated: false,
+        user: null,
+        error: action.payload,
+      };
+    case actionTypes.LOAD_USER_FAIL:
+      return {
+        loading: false,
+        isAuthenticated: false,
+        user: null,
         error: action.payload,
       };
     case actionTypes.CLEAR_ERRORS:
@@ -72,14 +86,14 @@ export const getAllUsersReducers = (
   }
 };
 
-export const deleteSpecificUser = (state = {user:{}}, action) => {
+export const deleteSpecificUser = (state = { user: {} }, action) => {
   switch (action.type) {
     case actionTypes.DELETE_USER_REQUEST:
       return { delLoading: true };
     case actionTypes.DELETE_USER_SUCCESS:
       return {
         delLoading: false,
-        user:{},
+        user: {},
         delSuccess: true,
       };
     case actionTypes.DELETE_USER_FAIL:

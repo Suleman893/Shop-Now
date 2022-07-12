@@ -4,13 +4,13 @@ import buy1 from "../../images/product.jpg";
 import ReactStars from "react-rating-stars-component";
 import { getProduct, searchProduct } from "../../redux/actions/productAction";
 import { useSelector, useDispatch } from "react-redux";
-import { Link , useSearchParams} from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 const ProductsCategory = () => {
   const [page, setPage] = useState(0);
   const [numberOfPages, setNumberOfPages] = useState(0);
   const dispatch = useDispatch();
-  const [getTheCategory,setGetTheCategory] = useSearchParams();
+  const [getTheCategory, setGetTheCategory] = useSearchParams();
   getTheCategory.get("categorytype");
   alert(getTheCategory);
   const { loading, error, products, totalPages } = useSelector(
@@ -19,25 +19,22 @@ const ProductsCategory = () => {
   const { searchedProducts } = useSelector(
     (state) => state.searchProductReducer
   );
-  const [currentProduct,setCurrentProduct]= useState([]);
+  const [currentProduct, setCurrentProduct] = useState([]);
   const pages = new Array(numberOfPages).fill(null).map((v, i) => i);
 
-    
-const getProducts = ()=>
-{
-  dispatch(getProduct(page));
-  setNumberOfPages(totalPages);
-  setCurrentProduct(searchedProducts)
-}
+  const getProducts = () => {
+    dispatch(getProduct(page));
+    setNumberOfPages(totalPages);
+    setCurrentProduct(searchedProducts);
+  };
   useEffect(() => {
-    getProducts()
+    getProducts();
   }, [page]);
 
-  const setProductSearchHandler = (e)=>
-  {
-    let productSearchName = e.target.value
-    dispatch(searchProduct(productSearchName))
-  }
+  const setProductSearchHandler = (e) => {
+    let productSearchName = e.target.value;
+    dispatch(searchProduct(productSearchName));
+  };
   const ratingOptions = {
     edit: false,
     color: "rgba(20,20,20,0.1)",

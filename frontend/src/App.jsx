@@ -1,9 +1,13 @@
 import "./App.css";
-import Header from "./component/layout/Header/Header";
-import webfontloader from "webfontloader";
 import { useEffect } from "react";
-import Footer from "./component/layout/Footer/Footer";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import webfontloader from "webfontloader";
+
+//Header&FooterComponent
+import Header from "./component/Layout/Header/Header";
+import Footer from "./component/Layout/Footer/Footer";
+
+//Screens
 import Home from "./screens/Home/Home";
 import Products from "./screens/Products/Products";
 import ProductsCategory from "./screens/Products/ProductCategory";
@@ -12,13 +16,12 @@ import Cart from "./screens/Cart/Cart";
 import Signin from "./screens/Signin/Signin";
 import Signup from "./screens/Signup/Signup";
 import MyProfile from "./screens/Profile/Profile";
-// import UserList from "./component/AdminPanel/UsersList";
-// import ProductsList from "./component/AdminPanel/ProductsList";
-// import OrdersList from "./component/AdminPanel/OrdersList";
-// import AddProduct from "./component/AdminPanel/AddProduct";
+import MyOrders from "./screens/Profile/MyOrders";
+import NotFound from "./screens/NotFound/NotFound";
 import AdminScreen from "./screens/AdminPanel/AdminScreen";
 import About from "./screens/About/About";
-import AddProduct from "./component/AdminPanel/AddProduct";
+
+//ProtectedRouteComponent
 import ProtectedRoute from "./ProtectedRoute";
 function App() {
   useEffect(() => {
@@ -40,18 +43,33 @@ function App() {
         <Route exact path="/productdetail/:id" element={<ProductDetail />} />
         <Route exact path="/cart/:id" element={<Cart />} />
         <Route exact path="/about" element={<About />} />
-        <Route exact path="/myProfile" element={
-          <ProtectedRoute>
-          <MyProfile />
-          </ProtectedRoute>
-          } />
-        <Route path="/admin" element={
-          <ProtectedRoute  
-          isAdmin={true}>
-          <AdminScreen />
-          </ProtectedRoute>
-        } />
-        <Route path="/admin/admin/addProduct" element={<AddProduct />} />
+        <Route
+          exact
+          path="/myProfile"
+          element={
+            <ProtectedRoute>
+              <MyProfile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/myOrders"
+          element={
+            <ProtectedRoute>
+              <MyOrders />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute isAdmin={true}>
+              <AdminScreen />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
     </Router>

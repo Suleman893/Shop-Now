@@ -1,17 +1,23 @@
-import {useState} from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
+import { useState } from "react";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
 import { useDispatch, useSelector } from "react-redux";
-import { editUserProfile } from '../../redux/actions/userActions';
-import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+import { editUserProfile } from "../../redux/actions/userActions";
+import { AiFillEdit } from "react-icons/ai";
 
-export const AdminEditUserModal = ({userId,userName,userEmail,userPassword,userConfirmPassword}) => {
-  const {  currentUser } = useSelector((state) => state.loginUser);
-const dispatch=useDispatch();
+export const AdminEditUserModal = ({
+  userId,
+  userName,
+  userEmail,
+  userPassword,
+  userConfirmPassword,
+}) => {
+  const { currentUser } = useSelector((state) => state.loginUser);
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -23,12 +29,12 @@ const dispatch=useDispatch();
   };
 
   const initialValues = {
-    _id:userId,
-    name:userName,
-    email:userEmail,
-    password:userPassword,
-    confirmPassword:userConfirmPassword
-  }
+    _id: userId,
+    name: userName,
+    email: userEmail,
+    password: userPassword,
+    confirmPassword: userConfirmPassword,
+  };
   const [updatedUser, setUpdatedUser] = useState(initialValues);
 
   const editonChangeHandler = (e) => {
@@ -41,16 +47,14 @@ const dispatch=useDispatch();
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(editUserProfile(updatedUser,currentUser));
+    dispatch(editUserProfile(updatedUser, currentUser));
     setOpen(false);
   };
 
   return (
     <div>
-      <button  onClick={handleClickOpen}>
-      <AiFillEdit 
-                  
-                  />
+      <button onClick={handleClickOpen}>
+        <AiFillEdit />
       </button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Update Profile</DialogTitle>
@@ -107,4 +111,4 @@ const dispatch=useDispatch();
       </Dialog>
     </div>
   );
-}
+};

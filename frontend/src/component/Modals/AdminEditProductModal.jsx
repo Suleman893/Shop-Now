@@ -1,16 +1,25 @@
-import {useState} from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
+import { useState } from "react";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
 import { useDispatch, useSelector } from "react-redux";
-import { editProduct } from '../../redux/actions/productAction';
-import { AiFillEdit, AiFillDelete } from "react-icons/ai";
-export const AdminEditProductModal = ({productId,productName,productDesc,productStock,productPrice,productRatings,productCategory}) => {
-  const {  currentUser} = useSelector((state) => state.loginUser);
-const dispatch=useDispatch();
+import { editProduct } from "../../redux/actions/productAction";
+import { AiFillEdit} from "react-icons/ai";
+
+export const AdminEditProductModal = ({
+  productId,
+  productName,
+  productDesc,
+  productStock,
+  productPrice,
+  productRatings,
+  productCategory,
+}) => {
+  const { currentUser } = useSelector((state) => state.loginUser);
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -22,14 +31,14 @@ const dispatch=useDispatch();
   };
 
   const initialValues = {
-    productId:productId,
-    productName:productName,
-    description:productDesc,
-    price:productPrice,
-    ratings:productRatings,
-    category:productCategory,
-    stock:productStock,
-  }
+    productId: productId,
+    productName: productName,
+    description: productDesc,
+    price: productPrice,
+    ratings: productRatings,
+    category: productCategory,
+    stock: productStock,
+  };
   const [updateProduct, setUpdatedProduct] = useState(initialValues);
 
   const editonChangeHandler = (e) => {
@@ -42,14 +51,14 @@ const dispatch=useDispatch();
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(editProduct(updateProduct,currentUser));
+    dispatch(editProduct(updateProduct, currentUser));
     setOpen(false);
   };
 
   return (
     <div>
-      <button  onClick={handleClickOpen}>
-      <AiFillEdit/>
+      <button onClick={handleClickOpen}>
+        <AiFillEdit />
       </button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Update Product</DialogTitle>
@@ -128,4 +137,4 @@ const dispatch=useDispatch();
       </Dialog>
     </div>
   );
-}
+};

@@ -1,8 +1,8 @@
 const productSchema = require("../models/productModel");
 const { validationResult } = require("express-validator");
+
 const CreateProduct = async (req, res) => {
   const { productName } = req.body;
-
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).send({
@@ -136,27 +136,6 @@ const GetFeaturedProduct = async (req, res) => {
   }
 };
 
-const GetAdminProduct = async (req, res) => {
-  try {
-    let allProducts = await productSchema.find();
-    if (allProducts.length < 0) {
-      return res.status.send({
-        message: "No Product Found",
-        data: [],
-      });
-    }
-    return res.status(200).send({
-      message: "Product found successfully",
-      data: allProducts,
-    });
-  } catch (error) {
-    return res.status(500).send({
-      message: error.message,
-      error,
-    });
-  }
-};
-
 const DeleteProduct = async (req, res) => {
   try {
     let product = await productSchema.findOneAndDelete({
@@ -181,7 +160,6 @@ const DeleteProduct = async (req, res) => {
 
 const UpdateProduct = async (req, res) => {
   const { productId } = req.body;
-
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).send({
@@ -286,8 +264,7 @@ const GetProductByCategory = async (req, res) => {
   }
 };
 
-// Create New Review or Update the review
-const createProductReview = async (req, res) => {
+const CreateProductReview = async (req, res) => {
   const { rating, comment, productId } = req.body;
 
   const review = {
@@ -300,7 +277,6 @@ const createProductReview = async (req, res) => {
   const isReviewed = product.reviews.find(
     (rev) => rev.user.toString() === req.userId.toString()
   );
-
   if (isReviewed) {
     product.reviews.forEach((rev) => {
       if (rev.user.toString() === req.userId.toString())
@@ -310,17 +286,12 @@ const createProductReview = async (req, res) => {
     product.reviews.push(review);
     product.numOfReviews = product.reviews.length;
   }
-
   let avg = 0;
-
   product.reviews.forEach((rev) => {
     avg += rev.rating;
   });
-
   product.ratings = avg / product.reviews.length;
-
   await product.save({ validateBeforeSave: false });
-
   res.status(200).json({
     success: true,
   });
@@ -333,10 +304,9 @@ module.exports = {
   AdminGetAllProducts,
   GetLatestProducts,
   GetFeaturedProduct,
-  GetAdminProduct,
   UpdateProduct,
   DeleteProduct,
   ProductDetails,
   GetProductByCategory,
-  createProductReview,
+  CreateProductReview,
 };

@@ -18,12 +18,13 @@ import {
   registerUserReducer,
   loginUserReducer,
   getAllUsersReducers,
-  deleteSpecificUser
+  deleteSpecificUser,
 } from "./reducers/userReducer";
 import { cartReducer } from "./reducers/cartReducer";
 import {
   placeOrderReducer,
   getUserOrdersReducer,
+  adminGetAllOrderReducer,
 } from "./reducers/orderReducer";
 
 //Combine Reducers
@@ -32,25 +33,27 @@ const rootReducer = combineReducers({
   registerUser: registerUserReducer,
   loginUser: loginUserReducer,
   getAllUsersReducers: getAllUsersReducers,
-
   // deleteSpecificUser:deleteSpecificUser,
+
   //Products
   products: productReducer,
   productDetail: productDetailReducer,
   latestProducts: latestProductReducer,
   featuredProducts: featuredProductReducer,
   adminPanelProducts: adminProductReducer,
-  adminAddProductReducer: adminAddProductReducer,
+  adminAddProduct: adminAddProductReducer,
   searchProductReducer: searchProductReducer,
   productByCategory: productByCategory,
   addReviewsReducer: addReviewsReducer,
   // deleteSpecificProductReducer:deleteSpecificProductReducer
+
   //Cart
   cart: cartReducer,
+  
   //Order
   placeOrderReducer: placeOrderReducer,
   getUserOrdersReducer: getUserOrdersReducer,
-
+  adminGetAllOrderReducer: adminGetAllOrderReducer,
 });
 
 //LocalStorage

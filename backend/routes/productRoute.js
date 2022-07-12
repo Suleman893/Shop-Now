@@ -9,20 +9,19 @@ const {
   AdminGetAllProducts,
   GetLatestProducts,
   GetFeaturedProduct,
-  GetAdminProduct,
   UpdateProduct,
   DeleteProduct,
   ProductDetails,
   SearchProduct,
   GetProductByCategory,
-  createProductReview,
+  CreateProductReview,
 } = require("../controllers/productController");
-
-//SearchProduct
-router.get("/searchProduct/:productName", SearchProduct);
 
 //GetAllProducts
 router.get("/products", GetAllProducts);
+
+//SearchProduct
+router.get("/searchProduct/:productName", SearchProduct);
 
 //GetLatestProduct
 router.get("/latestProduct", GetLatestProducts);
@@ -33,10 +32,12 @@ router.get("/featuredProduct", GetFeaturedProduct);
 //GetSpecificProduct
 router.get("/product/:id", ProductDetails);
 
+//GetProductByCategory
 router.get("/productbycategory/:category", GetProductByCategory);
-// router.get("/getcommentsbyid/:id", GetCommentsById);
 
-router.put("/productreview", checkToken, createProductReview);
+
+// Create New Review or Update the review
+router.put("/productreview", checkToken, CreateProductReview);
 
 //AdminGetAllProducts
 router.get("/adminproducts", checkIsAdmin, AdminGetAllProducts);
@@ -52,9 +53,6 @@ router.post(
   checkIsAdmin,
   CreateProduct
 );
-
-//GetAdminProduct
-// router.get("/getAdminProducts", checkToken, checkIsAdmin, GetAdminProduct);
 
 //AdminCanUpdateProduct
 router.put("/admin/product", checkIsAdmin, UpdateProduct);

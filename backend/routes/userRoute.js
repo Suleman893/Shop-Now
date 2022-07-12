@@ -10,7 +10,6 @@ const {
   UserDetails,
   UpdateDetails,
   GetAllUsers,
-  GetUserById,
   RemoveUserById,
   UpdateUserById,
 } = require("../controllers/userController");
@@ -44,11 +43,12 @@ router.get("/userInfo", checkToken, UserDetails);
 router.put("/userInfo/update", checkToken, UpdateDetails);
 
 //AdminCanGetAllUsers
-router.get("/admin/users", checkIsAdmin,GetAllUsers);
+router.get("/admin/users", checkIsAdmin, GetAllUsers);
 
-//AdminCanPerformTheseOperationsById
-router.get("/admin/getUser/:u_id", checkToken, checkIsAdmin, GetUserById);
+//AdminCanUpdateUser
 router.put("/admin/updateUser", checkToken, UpdateUserById);
+
+//AdminCanDeleteUser
 router.delete("/admin/deleteUser", checkIsAdmin, RemoveUserById);
 
 module.exports = router;

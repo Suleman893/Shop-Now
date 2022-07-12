@@ -1,7 +1,7 @@
 const userSchema = require("../models/userModel");
-const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwtHelper = require("../middlewares/jwt");
+const { validationResult } = require("express-validator");
 
 const UserRegistration = async (req, res) => {
   const { name, email, password, confirmPassword, role } = req.body;
@@ -109,7 +109,7 @@ const UserDetails = async (req, res) => {
     }
     return res.status(200).send({
       message: "Users Info found successfully",
-      data: SpecificUserInfo,
+      user: SpecificUserInfo,
       specficUser,
     });
   } catch (error) {
@@ -153,7 +153,6 @@ const UpdateDetails = async (req, res) => {
 };
 
 const GetAllUsers = async (req, res) => {
-  // const specficUser = req.userId;
   try {
     let allUsers = await userSchema.find();
     if (allUsers.length < 0) {
@@ -162,35 +161,9 @@ const GetAllUsers = async (req, res) => {
         data: [],
       });
     }
-    // const foundedUser = await userSchema
-    //   .findOne({ specficUser })
-    //   .select("name");
     return res.status(200).send({
       message: "Users found successfully",
       data: allUsers,
-      // foundedUser,
-    });
-  } catch (error) {
-    return res.status(500).send({
-      message: error.message,
-      error,
-    });
-  }
-};
-
-const GetUserById = async (req, res) => {
-  try {
-    let user = await userSchema
-      .findOne({ _id: req.params.u_id })
-      .select("-_id name email role");
-    if (!user) {
-      return res.status(404).send({
-        message: "The User Not Found",
-      });
-    }
-    return res.status(200).send({
-      message: "User found successfully",
-      data: user,
     });
   } catch (error) {
     return res.status(500).send({
@@ -264,7 +237,6 @@ module.exports = {
   UserDetails,
   UpdateDetails,
   GetAllUsers,
-  GetUserById,
   RemoveUserById,
   UpdateUserById,
 };

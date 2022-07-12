@@ -7,7 +7,9 @@ import "./Header.css";
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {  loggedInUserInfo , currentUser} = useSelector((state) => state.loginUser);
+  const { loggedInUserInfo, currentUser } = useSelector(
+    (state) => state.loginUser
+  );
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
@@ -45,29 +47,32 @@ const Header = () => {
           </ul>
         </nav>
         <div className="header-btns">
-          <i className="fas fa-shopping-cart mr-8">
-            <span>{cartItems.reduce((qty, item) => qty + Number(item.qty), 0)}</span>
-          </i>
-         
-          {loggedInUserInfo ? loggedInUserInfo.role==="admin" && (
-              <Link to="/admin">
-                <li className="fa fa-users">
-                </li>
-              </Link>
-            ): ' '}
+          <Link to="/cart/62c9713f070a74188a24d26">
+            <i className="fas fa-shopping-cart mr-8">
+              <span>
+                {cartItems.reduce((qty, item) => qty + Number(item.qty), 0)}
+              </span>
+            </i>
+          </Link>
+          {loggedInUserInfo
+            ? loggedInUserInfo.role === "admin" && (
+                <Link to="/admin">
+                  <li className="fa fa-users"></li>
+                </Link>
+              )
+            : " "}
 
-              <Link to="/myProfile">
-                <i className="fa fa-user  mr-8"></i>
-              </Link>
-              {currentUser && (
-           
-              <i
-                className="fa fa-sign-out "
-                onClick={() => {
-                  dispatch(logoutUser());
-                  navigate("/signin");
-                }}
-              ></i>
+          <Link to="/myProfile">
+            <i className="fa fa-user  mr-8"></i>
+          </Link>
+          {currentUser && (
+            <i
+              className="fa fa-sign-out "
+              onClick={() => {
+                dispatch(logoutUser());
+                navigate("/signin");
+              }}
+            ></i>
           )}
         </div>
       </div>

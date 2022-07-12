@@ -1,5 +1,5 @@
 import "./About.css";
-import MetaData from "../../component/layout/MetaData";
+import MetaData from "../../component/Layout/MetaData";
 import pic from "../../images/pic.jpg";
 
 const About = () => {

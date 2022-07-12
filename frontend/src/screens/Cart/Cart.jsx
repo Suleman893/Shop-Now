@@ -3,7 +3,7 @@ import buy1 from "../../images/product.jpg";
 import { addToCart, removeFromCart } from "../../redux/actions/cartActions";
 import { Link, Navigate, useParams, useSearchParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import MetaData from "../../component/layout/MetaData";
+import MetaData from "../../component/Layout/MetaData";
 import Checkout from "../../component/Checkout/Checkout";
 import "../Cart/Cart.css";
 
@@ -48,76 +48,75 @@ const Cart = () => {
               <h1> Nothing added in cart </h1>
               <Link to="/products"> Buy some products</Link>
             </div>
-          ) : 
+          ) : (
             cartItems.map((item) => (
-                <tr>
-                  <td>
-                    <div className="cart-info">
-                      <img src={buy1} alt="cart" />
-                      <div>
-                        <Link to={`/productdetail/${item.product}`}>
-                        </Link>
-                        <h1>{item.name}</h1>
-                        <small>$ {item.price}</small>
-                        <br />
-                        <small
-                          onClick={() => {
-                            removeFromCartHandler(item.product);
-                          }}
-                        >
-                          <li
-                            className="fa fa-trash text-danger"
-                            aria-hidden="true"
-                            style={{ cursor: "pointer" }}
-                          ></li>
-                        </small>
-                        <br />
-                      </div>
+              <tr>
+                <td>
+                  <div className="cart-info">
+                    <img src={buy1} alt="cart" />
+                    <div>
+                      <Link to={`/productdetail/${item.product}`}></Link>
+                      <h1>{item.name}</h1>
+                      <small>PKR: {item.price}</small>
+                      <br />
+                      <small
+                        onClick={() => {
+                          removeFromCartHandler(item.product);
+                        }}
+                      >
+                        <li
+                          className="fa fa-trash text-danger"
+                          aria-hidden="true"
+                          style={{ cursor: "pointer" }}
+                        ></li>
+                      </small>
+                      <br />
                     </div>
-                  </td>
-                  <td>
-                    <select
-                      value={item.qty}
-                      onChange={(e) =>
-                        dispatch(
-                          addToCart(item.product, Number(e.target.value))
-                        )
-                      }
-                    >
-                      {[...Array(item.countInStock).keys()].map((x) => (
-                        <option key={x + 1} value={x + 1}>
-                          {x + 1}
-                        </option>
-                      ))}
-                    </select>
-                  </td>
-                  <td>{item.price}</td>
-                </tr>
-            )
+                  </div>
+                </td>
+                <td>
+                  <select
+                    value={item.qty}
+                    onChange={(e) =>
+                      dispatch(addToCart(item.product, Number(e.target.value)))
+                    }
+                  >
+                    {[...Array(item.countInStock).keys()].map((x) => (
+                      <option key={x + 1} value={x + 1}>
+                        {x + 1}
+                      </option>
+                    ))}
+                  </select>
+                </td>
+                <td>{item.price}</td>
+              </tr>
+            ))
           )}
         </table>
         <div className="total-price">
           <table>
             <tr>
               <td>Total Items </td>
-              <td>({cartItems.reduce((qty, item) => Number(item.qty) + qty, 0)})</td>
+              <td>
+                ({cartItems.reduce((qty, item) => Number(item.qty) + qty, 0)})
+              </td>
             </tr>
             <tr>
               <td>Subtotal</td>
               <td>
-                $
+                PKR:
                 {cartItems
                   .reduce((price, item) => item.price * item.qty + price, 0)
                   .toFixed(2)}
               </td>
             </tr>
-           {/*<tr>
+            {/*<tr>
               <td>Tax</td>
-              <td>$10.00</td>
+              <td>PKR:10.00</td>
             </tr>
             <tr>
               <td>Total</td>
-              <td>$210.00</td>
+              <td>PKR:210.00</td>
               </tr>  */}
           </table>
         </div>

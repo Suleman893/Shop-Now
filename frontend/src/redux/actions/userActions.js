@@ -9,6 +9,7 @@ import {
 } from "../../api/Apis";
 import axios from "axios";
 // import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export const registerUser = (user) => async (dispatch) => {
   dispatch({ type: actionTypes.USER_REGISTER_REQUEST });
@@ -16,7 +17,10 @@ export const registerUser = (user) => async (dispatch) => {
     const { data } = await axios.post(registerUserApi, user);
     dispatch({ type: actionTypes.USER_REGISTER_SUCCESS, payload: data.user });
   } catch (error) {
-    dispatch({ type: actionTypes.USER_REGISTER_FAIL, payload: error.response.data.message});
+    dispatch({
+      type: actionTypes.USER_REGISTER_FAIL,
+      payload: error.response.data.message,
+    });
   }
 };
 
@@ -31,6 +35,24 @@ export const loginUser = (userinfo) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: actionTypes.USER_LOGIN_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const loadUser = () => async (dispatch) => {
+  const { currentUser } = useSelector((state) => state.loginUser);
+  const headers = { authorization: currentUser };
+  try {
+    dispatch({ type: actionTypes.LOAD_USER_REQUEST });
+    const { data } = await axios.get(
+      "http://localhost:2000/api/user/userInfo",
+      { headers }
+    );
+    dispatch({ type: actionTypes.LOAD_USER_SUCCESS, payload: data.user });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.LOAD_USER_FAIL,
       payload: error.response.data.message,
     });
   }
@@ -51,8 +73,7 @@ export const editUserProfile =
     } catch (error) {
       dispatch({
         type: actionTypes.EDIT_USER_PROFILE_FAIL,
-      payload: error.response.data.message
-
+        payload: error.response.data.message,
       });
     }
   };
@@ -65,7 +86,10 @@ export const getAllUsers = (currentUser) => async (dispatch) => {
     const { data } = await axios.get(getAllUsersApi, { headers });
     dispatch({ type: actionTypes.GET_ALL_USERS_SUCCESS, payload: data });
   } catch (error) {
-    dispatch({ type: actionTypes.GET_ALL_USERS_FAIL, payload: error.response.data.message });
+    dispatch({
+      type: actionTypes.GET_ALL_USERS_FAIL,
+      payload: error.response.data.message,
+    });
   }
 };
 
@@ -83,7 +107,10 @@ export const deleteUser = (id, currentUser) => async (dispatch) => {
 
     dispatch({ type: actionTypes.DELETE_USER_SUCCESS });
   } catch (error) {
-    dispatch({ type: actionTypes.DELETE_USER_FAIL, payload: error.response.data.message });
+    dispatch({
+      type: actionTypes.DELETE_USER_FAIL,
+      payload: error.response.data.message,
+    });
   }
 };
 

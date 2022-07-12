@@ -1,14 +1,13 @@
-import React, { useEffect } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import ProductsList from "../../component/AdminPanel/ProductsList";
-import OrdersList from "../../component/AdminPanel/OrdersList";
-import AddProduct from "../../component/AdminPanel/AddProduct";
-
-import "./AdminScreen.css";
+import MetaData from "../../component/Layout/MetaData";
 import UsersList from "../../component/AdminPanel/UsersList";
+import ProductsList from "../../component/AdminPanel/ProductsList";
+import OrderList from "../../component/AdminPanel/OrdersList";
+import "./AdminScreen.css";
+import AddProduct from "../../component/AdminPanel/AddProduct";
 const AdminScreen = () => {
-  const navigate = useNavigate;
+
   const userState = useSelector((state) => state.loginUser);
   const { currentUser } = userState;
   useEffect(() => {
@@ -18,10 +17,43 @@ const AdminScreen = () => {
     ) {
       window.location.href = "/products";
     }
-  }, [navigate]);
+  }, []);
 
+  const [showUser, setShowUser] = useState(true);
+  const [showProduct, setShowProduct] = useState(false);
+  const [showOrder, setShowOrder] = useState(false);
+  const [showAddProduct, setShowAddProduct] = useState(false);
+
+  const userHandler = () => {
+    setShowUser(true);
+    setShowProduct(false);
+    setShowOrder(false);
+    setShowAddProduct(false);
+  };
+
+  const productHandler = () => {
+    setShowUser(false);
+    setShowProduct(true);
+    setShowOrder(false);
+    setShowAddProduct(false);
+  };
+
+  const orderHandler = () => {
+    setShowUser(false);
+    setShowProduct(false);
+    setShowOrder(true);
+    setShowAddProduct(false);
+  };
+
+  const addProductHandler = () => {
+    setShowUser(false);
+    setShowProduct(false);
+    setShowOrder(false);
+    setShowAddProduct(true);
+  };
   return (
     <>
+      <MetaData title="AdminPanel" />
       <div className="container">
         <h1 className="page-title">Admin panel</h1>
         <div className="row">
@@ -29,31 +61,25 @@ const AdminScreen = () => {
             <div>
               <ul className="admin-panel-sidebar">
                 <li>
-                  <button onClick={() => navigate("/admin/userList")}>
-                    Users
-                  </button>
+                  <button onClick={userHandler}>Users</button>
                 </li>
                 <li>
-                  <button onClick={() => navigate("/admin/productList")}>
-                    Products
-                  </button>
+                  <button onClick={productHandler}>Products</button>
                 </li>
                 <li>
-                  <button onClick={() => navigate("/admin/orderList")}>
-                    Orders
-                  </button>
+                  <button onClick={orderHandler}>Orders</button>
                 </li>
                 <li>
-                  <button onClick={() => navigate("/admin/addProduct")}>
-                    Add Products
-                  </button>
+                  <button onClick={addProductHandler}>Add Products</button>
                 </li>
-              
               </ul>
             </div>
           </div>
           <div className="admin-right">
-            <UsersList />
+            {showUser && <UsersList />}
+            {showProduct && <ProductsList />}
+            {showOrder && <OrderList />}
+            {showAddProduct && <AddProduct />}
           </div>
         </div>
       </div>

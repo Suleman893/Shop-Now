@@ -158,11 +158,10 @@ export const addReviewsReducer = (state = { product: {} }, action) => {
 };
 
 ///Admins
-
-export const adminAddProductReducer = (state = {}, action) => {
+export const adminAddProductReducer = (state = { product: {} }, action) => {
   switch (action.type) {
     case actionTypes.ADMIN_CREATE_PRODUCT_REQUEST:
-      return { loading: true, ...state };
+      return { ...state, loading: true };
     case actionTypes.ADMIN_CREATE_PRODUCT_SUCCESS:
       return {
         loading: false,
@@ -172,6 +171,7 @@ export const adminAddProductReducer = (state = {}, action) => {
       };
     case actionTypes.ADMIN_CREATE_PRODUCT_FAIL:
       return {
+        ...state,
         loading: false,
         error: action.payload,
       };
@@ -212,7 +212,7 @@ export const adminProductReducer = (state = { products: [] }, action) => {
 
 export const deleteSpecificProductReducer = (state = {}, action) => {
   switch (action.type) {
-    case actionTypes.ADMIN_DELETE_PRODUCT_REQUEST :
+    case actionTypes.ADMIN_DELETE_PRODUCT_REQUEST:
       return { loading: true };
     case actionTypes.ADMIN_DELETE_PRODUCT_SUCCESS:
       return {
@@ -229,5 +229,4 @@ export const deleteSpecificProductReducer = (state = {}, action) => {
     default:
       return;
   }
-
 };
