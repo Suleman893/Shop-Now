@@ -3,9 +3,10 @@ import * as actionTypes from "../constants/userConstant";
 import {
   registerUserApi,
   loginUserApi,
+  userCanUpdateItselfApi,
   getAllUsersApi,
   deleteSpecificUserApi,
-  updateUserApi,
+  adminCanUpdateUser,
 } from "../../api/Apis";
 import axios from "axios";
 // import { useNavigate } from "react-router-dom";
@@ -63,21 +64,6 @@ export const logoutUser = () => () => {
   localStorage.removeItem("loggedInUserInfo");
 };
 
-export const editUserProfile =
-  (updatedUser, currentUser) => async (dispatch) => {
-    try {
-      const headers = { authorization: currentUser };
-      dispatch({ type: actionTypes.EDIT_USER_PROFILE_REQUEST });
-      const res = await axios.put(`${updateUserApi}`, updatedUser, { headers });
-      dispatch({ type: actionTypes.EDIT_USER_PROFILE_SUCCESS });
-    } catch (error) {
-      dispatch({
-        type: actionTypes.EDIT_USER_PROFILE_FAIL,
-        payload: error.response.data.message,
-      });
-    }
-  };
-
 //Admins Actions
 export const getAllUsers = (currentUser) => async (dispatch) => {
   try {
@@ -104,11 +90,46 @@ export const deleteUser = (id, currentUser) => async (dispatch) => {
       headers,
       data,
     });
-
     dispatch({ type: actionTypes.DELETE_USER_SUCCESS });
   } catch (error) {
     dispatch({
       type: actionTypes.DELETE_USER_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const updateMySelf = (updatedUser, currentUser) => async (dispatch) => {
+  try {
+    const headers = { authorization: currentUser };
+    dispatch({ type: actionTypes.EDIT_MY_PROFILE_REQUEST });
+    const { data } = await axios.put(`${userCanUpdateItselfApi}`, updatedUser, {
+      headers,
+    });
+    dispatch({ type: actionTypes.EDIT_MY_PROFILE_SUCCESS, payload: data.user });
+    localStorage.setItem("loggedInUserInfo", JSON.stringify(data.user));
+  } catch (error) {
+    dispatch({
+      type: actionTypes.EDIT_MY_PROFILE_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const adminEditUser = (updatedUser, currentUser) => async (dispatch) => {
+  try {
+    const headers = { authorization: currentUser };
+    dispatch({ type: actionTypes.ADMIN_EDIT_PROFILE_REQUEST });
+    const { data } = await axios.put(`${adminCanUpdateUser}`, updatedUser, {
+      headers,
+    });
+    dispatch({
+      type: actionTypes.ADMIN_EDIT_PROFILE_SUCCESS,
+      payload: data.user,
+    });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.ADMIN_EDIT_PROFILE_FAIL,
       payload: error.response.data.message,
     });
   }

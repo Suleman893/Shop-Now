@@ -122,7 +122,8 @@ const UserDetails = async (req, res) => {
 
 const UpdateDetails = async (req, res) => {
   const specficUser = req.userId;
-  const { name, email, password, confirmPassword, role } = req.body;
+  const { name, email, password, confirmPassword } = req.body;
+
   let salt = await bcrypt.genSalt(10); //round 10 out of total 12 round
   let encryptedPassword = await bcrypt.hash(password, salt);
   const errors = validationResult(req);
@@ -194,8 +195,9 @@ const RemoveUserById = async (req, res) => {
   }
 };
 
-const UpdateUserById = async (req, res) => {
-  const { _id, name, email, password, confirmPassword, role } = req.body;
+const AdminUpdateUser = async (req, res) => {
+  const { _id, name, email, password, confirmPassword, role } = req.body
+
   let salt = await bcrypt.genSalt(10); //round 10 out of total 12 round
   let encryptedPassword = await bcrypt.hash(password, salt);
   const errors = validationResult(req);
@@ -238,5 +240,5 @@ module.exports = {
   UpdateDetails,
   GetAllUsers,
   RemoveUserById,
-  UpdateUserById,
+  AdminUpdateUser,
 };

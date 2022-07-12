@@ -26,12 +26,24 @@
   font-weight: normal;
 }
 
-.table tbody tr td input {
+.table tbody tr td input[type="text"] {
   width: 100%;
   height: 32px;
   padding: 12px 10px;
   border-radius: 10px;
   border: 1px solid #ff7f50;
+}
+
+.table tbody tr td input[type="number"] {
+  width: 100%;
+  height: 32px;
+  padding: 12px 10px;
+  border-radius: 10px;
+  border: 1px solid #ff7f50;
+}
+
+.table tbody tr td input[type="file"] {
+  display: none;
 }
 
 .table tbody tr td button {

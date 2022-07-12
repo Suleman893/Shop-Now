@@ -19,6 +19,8 @@ import {
   loginUserReducer,
   getAllUsersReducers,
   deleteSpecificUser,
+  editMySelf,
+  adminEditUserProfile
 } from "./reducers/userReducer";
 import { cartReducer } from "./reducers/cartReducer";
 import {
@@ -33,6 +35,8 @@ const rootReducer = combineReducers({
   registerUser: registerUserReducer,
   loginUser: loginUserReducer,
   getAllUsersReducers: getAllUsersReducers,
+  // editMySelf:editMySelf,
+  // adminEditUserProfile:adminEditUserProfile,
   // deleteSpecificUser:deleteSpecificUser,
 
   //Products

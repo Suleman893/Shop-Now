@@ -48,6 +48,7 @@ const UsersList = () => {
                 <th>Email</th>
                 <th>Name</th>
                 <th>Role</th>
+                <th>Image</th>
                 <th>Edit</th>
                 <th>Delete</th>
               </tr>
@@ -60,6 +61,10 @@ const UsersList = () => {
                     <td data-label="Email">{curr.email}</td>
                     <td data-label="Name">{curr.name}</td>
                     <td data-label="Role">{curr.role}</td>
+                    <td data-label="Image">
+                      <input type="file" id="files" />
+                      <label for="files">Select image</label>
+                    </td>
                     <td data-label="Edit">
                       <AdminEditUserModal
                         setOpen={setOpen}
@@ -67,6 +72,7 @@ const UsersList = () => {
                         userId={curr._id}
                         userName={curr.name}
                         userEmail={curr.email}
+                        userRole={curr.role}
                         userPassword={curr.password}
                         userConfirmPassword={curr.confirmPassword}
                       />

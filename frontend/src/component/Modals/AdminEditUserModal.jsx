@@ -6,13 +6,14 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useDispatch, useSelector } from "react-redux";
-import { editUserProfile } from "../../redux/actions/userActions";
+import { adminEditUser } from "../../redux/actions/userActions";
 import { AiFillEdit } from "react-icons/ai";
 
 export const AdminEditUserModal = ({
   userId,
   userName,
   userEmail,
+  userRole,
   userPassword,
   userConfirmPassword,
 }) => {
@@ -32,6 +33,7 @@ export const AdminEditUserModal = ({
     _id: userId,
     name: userName,
     email: userEmail,
+    role: userRole,
     password: userPassword,
     confirmPassword: userConfirmPassword,
   };
@@ -47,7 +49,7 @@ export const AdminEditUserModal = ({
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(editUserProfile(updatedUser, currentUser));
+    dispatch(adminEditUser(updatedUser, currentUser));
     setOpen(false);
   };
 
@@ -79,6 +81,17 @@ export const AdminEditUserModal = ({
             fullWidth
             variant="standard"
             value={updatedUser.email}
+            onChange={editonChangeHandler}
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            name="role"
+            label="Role"
+            type="text"
+            fullWidth
+            variant="standard"
+            value={updatedUser.role}
             onChange={editonChangeHandler}
           />
           <TextField

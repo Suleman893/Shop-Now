@@ -81,6 +81,8 @@ export const getAllUsersReducers = (
         error: action.payload,
         loading: false,
       };
+    case actionTypes.CLEAR_ERRORS:
+      return { ...state, error: null };
     default:
       return state;
   }
@@ -103,6 +105,57 @@ export const deleteSpecificUser = (state = { user: {} }, action) => {
       };
     case actionTypes.CLEAR_ERRORS:
       return { delError: null };
+    default:
+      return;
+  }
+};
+
+export const editMySelf = (state = { user: {} }, action) => {
+  switch (action.type) {
+    case actionTypes.EDIT_MY_PROFILE_REQUEST:
+      return {
+        loading: true,
+        ...state,
+      };
+    case actionTypes.EDIT_MY_PROFILE_SUCCESS:
+      return {
+        loading: false,
+        user: action.payload,
+        success: true,
+      };
+    case actionTypes.EDIT_MY_PROFILE_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    case actionTypes.CLEAR_ERRORS:
+      return { ...state, error: null };
+    default:
+      return;
+  }
+};
+
+export const adminEditUserProfile = (state = { user: {} }, action) => {
+  switch (action.type) {
+    case actionTypes.ADMIN_EDIT_PROFILE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case actionTypes.ADMIN_EDIT_PROFILE_SUCCESS:
+      return {
+        loading: false,
+        user: action.payload,
+        success: true,
+      };
+    case actionTypes.ADMIN_EDIT_PROFILE_FAIL:
+      return {
+        ...state,
+        loading: false,
+        success: false,
+      };
+    case actionTypes.CLEAR_ERRORS:
+      return { ...state, error: null };
     default:
       return;
   }

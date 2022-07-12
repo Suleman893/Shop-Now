@@ -46,6 +46,7 @@ const ProductsList = () => {
                 <th>Name</th>
                 <th>Stock</th>
                 <th>Price</th>
+                <th>Image</th>
                 <th>Edit</th>
                 <th>Delete</th>
               </tr>
@@ -58,6 +59,10 @@ const ProductsList = () => {
                     <td data-label="Name">{curr.productName}</td>
                     <td data-label="Stock">{curr.stock}</td>
                     <td data-label="Price">{curr.price}</td>
+                    <td data-label="Image">
+                      <input type="file" id="files" />
+                      <label for="files">Select images</label>
+                    </td>
                     <td data-label="Edit">
                       <AdminEditProductModal
                         setOpen={setOpen}

@@ -4,8 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { placeOrder, clearErrors } from "../../redux/actions/orderActions";
 import { useEffect } from "react";
 import { useAlert } from "react-alert";
+import { clearCart } from "../../redux/actions/cartActions";
+import { useNavigate } from "react-router-dom";
 
 const Checkout = ({ subTotal }) => {
+  const navigate = useNavigate();
   const alert = useAlert();
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.loginUser);
@@ -26,6 +29,8 @@ const Checkout = ({ subTotal }) => {
     if (success) {
       alert.success("Product added successfully");
       dispatch(clearErrors());
+      dispatch(clearCart());
+      navigate("/myOrders");
     }
   }, [error, alert, success]);
 

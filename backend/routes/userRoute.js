@@ -11,7 +11,7 @@ const {
   UpdateDetails,
   GetAllUsers,
   RemoveUserById,
-  UpdateUserById,
+  AdminUpdateUser,
 } = require("../controllers/userController");
 
 //UserRegistration
@@ -45,8 +45,8 @@ router.put("/userInfo/update", checkToken, UpdateDetails);
 //AdminCanGetAllUsers
 router.get("/admin/users", checkIsAdmin, GetAllUsers);
 
-//AdminCanUpdateUser
-router.put("/admin/updateUser", checkToken, UpdateUserById);
+//AdminCanUpdateUser(Role of user can be changed)
+router.put("/admin/updateUser", checkIsAdmin, AdminUpdateUser);
 
 //AdminCanDeleteUser
 router.delete("/admin/deleteUser", checkIsAdmin, RemoveUserById);

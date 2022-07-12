@@ -7,7 +7,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useDispatch, useSelector } from "react-redux";
 import { editProduct } from "../../redux/actions/productAction";
-import { AiFillEdit} from "react-icons/ai";
+import { AiFillEdit } from "react-icons/ai";
 
 export const AdminEditProductModal = ({
   productId,

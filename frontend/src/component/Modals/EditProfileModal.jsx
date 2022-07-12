@@ -6,10 +6,9 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useDispatch, useSelector } from "react-redux";
-import { editUserProfile } from "../../redux/actions/userActions";
+import { updateMySelf } from "../../redux/actions/userActions";
 
 export default function FormDialog() {
-  
   const { currentUser, loggedInUserInfo } = useSelector(
     (state) => state.loginUser
   );
@@ -37,7 +36,7 @@ export default function FormDialog() {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(editUserProfile(updatedUser, currentUser));
+    dispatch(updateMySelf(updatedUser, currentUser));
     setOpen(false);
   };
 

@@ -2,10 +2,10 @@
 export const registerUserApi = "http://localhost:2000/api/user/register";
 export const loginUserApi = "http://localhost:2000/api/user/login";
 export const getAllUsersApi = "http://localhost:2000/api/user/admin/users";
-export const updateUserApi = "http://localhost:2000/api/user/admin/updateUser";
+export const userCanUpdateItselfApi = "http://localhost:2000/api/user/userInfo/update";
 export const deleteSpecificUserApi =
   "http://localhost:2000/api/user/admin/deleteUser";
-  
+export const adminCanUpdateUser = "http://localhost:2000/api/user/admin/updateUser"
 //Product Api's
 export const getlatestProductsApi =
   "http://localhost:2000/api/product/latestProduct";

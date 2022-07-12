@@ -68,6 +68,7 @@ const AddProduct = () => {
                 <th>Price</th>
                 <th>Category</th>
                 <th>Stock</th>
+                <th>Image</th>
                 <th>Add</th>
               </tr>
             </thead>
@@ -76,6 +77,7 @@ const AddProduct = () => {
                 <td data-label="ProductName">
                   {" "}
                   <input
+                    type="text"
                     name="productName"
                     placeholder="Name"
                     value={newProduct.productName}
@@ -86,6 +88,7 @@ const AddProduct = () => {
                 <td data-label="Description">
                   {" "}
                   <input
+                    type="text"
                     name="description"
                     placeholder="Description"
                     value={newProduct.description}
@@ -95,6 +98,7 @@ const AddProduct = () => {
                 </td>
                 <td data-label="Price">
                   <input
+                    type="number"
                     name="price"
                     placeholder="Price"
                     value={newProduct.price}
@@ -105,6 +109,7 @@ const AddProduct = () => {
                 <td data-label="Category">
                   {" "}
                   <input
+                    type="text"
                     name="category"
                     placeholder="Choose Category"
                     value={newProduct.category}
@@ -113,6 +118,7 @@ const AddProduct = () => {
                 </td>
                 <td data-label="Stock">
                   <input
+                    type="number"
                     name="stock"
                     placeholder="Stock"
                     value={newProduct.stock}
@@ -120,6 +126,10 @@ const AddProduct = () => {
                   />
                   <p>{formErrors.stock ? formErrors.stock : " "}</p>
                 </td>
+                <td data-label="Image">
+                      <input type="file" id="files" />
+                      <label for="files">Select images</label>
+                    </td>
                 <td data-label="Add">
                   <button onClick={submitHandler}>Add the Product</button>
                 </td>
