@@ -18,14 +18,24 @@ const ProductsList = () => {
   const { products, loading, error } = useSelector(
     (state) => state.adminPanelProducts
   );
-
+  const { delError, delSuccess } = useSelector(
+    (state) => state.deleteSpecificProduct
+  );
   useEffect(() => {
     dispatch(getAdminProduct(currentUser));
     if (error) {
       alert.error(error);
       dispatch(clearErrors());
     }
-  }, [dispatch, error, alert]);
+    if (delError) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+    if (delSuccess) {
+      alert.success("Product deleted");
+      dispatch(clearErrors());
+    }
+  }, [dispatch, error, alert, delSuccess, delError]);
 
   const [open, setOpen] = React.useState(false);
 
@@ -52,7 +62,7 @@ const ProductsList = () => {
               </tr>
             </thead>
             <tbody>
-              {products.length>0 ?
+              {products.length > 0 ? (
                 products.map((curr) => (
                   <tr>
                     <td data-label="ProductId">{curr._id}</td>
@@ -85,10 +95,9 @@ const ProductsList = () => {
                     </td>
                   </tr>
                 ))
-              :(
+              ) : (
                 <h1>No products</h1>
-              )
-              }
+              )}
             </tbody>
           </table>
         )}

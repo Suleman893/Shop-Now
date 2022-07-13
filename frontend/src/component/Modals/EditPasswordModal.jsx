@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -6,15 +6,20 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  updateMyPassword,
-  updateMySelf,
-} from "../../redux/actions/userActions";
+import { updateMyPassword, clearErrors } from "../../redux/actions/userActions";
+import { useAlert } from "react-alert";
 
 const EditPasswordModal = () => {
+  const alert = useAlert();
+
   const { currentUser, loggedInUserInfo } = useSelector(
     (state) => state.loginUser
   );
+
+  const { success, loading, error } = useSelector(
+    (state) => state.editMyPassword
+  );
+
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
 
@@ -47,6 +52,17 @@ const EditPasswordModal = () => {
     dispatch(updateMyPassword(updatedPassword, currentUser));
     setOpen(false);
   };
+
+  useEffect(() => {
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+    if (success) {
+      alert.success("Password updated");
+      dispatch(clearErrors());
+    }
+  }, [dispatch, error, success, alert]);
 
   return (
     <div>

@@ -7,26 +7,28 @@ import {
   productDetailReducer,
   latestProductReducer,
   featuredProductReducer,
-  adminProductReducer,
-  adminAddProductReducer,
   searchProductReducer,
-  productByCategory,
+  productByCategoryReducer,
   deleteSpecificProductReducer,
   addReviewsReducer,
+  adminProductReducer,
+  adminAddProductReducer,
+  adminEditProductReducer,
 } from "./reducers/productReducer";
 import {
   registerUserReducer,
   loginUserReducer,
   getAllUsersReducers,
-  
-  deleteSpecificUser,
-  editMySelf,
-  adminEditUserProfile
+  deleteSpecificUserReducer,
+  editMySelfReducer,
+  editMyPasswordReducer,
+  adminEditUserProfileReducer,
 } from "./reducers/userReducer";
 import { cartReducer } from "./reducers/cartReducer";
 import {
   placeOrderReducer,
   getUserOrdersReducer,
+  deleteSpecificOrderReducer,
   adminGetAllOrderReducer,
 } from "./reducers/orderReducer";
 
@@ -36,29 +38,32 @@ const rootReducer = combineReducers({
   registerUser: registerUserReducer,
   loginUser: loginUserReducer,
   getAllUsers: getAllUsersReducers,
-  // editMySelf:editMySelf,
-  // adminEditUserProfile:adminEditUserProfile,
-  // deleteSpecificUser:deleteSpecificUser,
+  deleteSpecificUser: deleteSpecificUserReducer,
+  editMySelf: editMySelfReducer,
+  editMyPassword: editMyPasswordReducer,
+  adminEditUserProfile: adminEditUserProfileReducer,
 
   //Products
   products: productReducer,
   productDetail: productDetailReducer,
   latestProducts: latestProductReducer,
   featuredProducts: featuredProductReducer,
+  searchProduct: searchProductReducer,
+  productByCategory: productByCategoryReducer,
+  addReviews: addReviewsReducer,
   adminPanelProducts: adminProductReducer,
   adminAddProduct: adminAddProductReducer,
-  searchProduct: searchProductReducer,
-  productByCategory: productByCategory,
-  addReviews: addReviewsReducer,
-  // deleteSpecificProductReducer:deleteSpecificProductReducer
+  deleteSpecificProduct: deleteSpecificProductReducer,
+  adminEditProduct: adminEditProductReducer,
 
-  //Cart
-  cart: cartReducer,
-  
   //Order
   placeOrder: placeOrderReducer,
   getUserOrders: getUserOrdersReducer,
   adminGetAllOrder: adminGetAllOrderReducer,
+  deleteSpecificOrder: deleteSpecificOrderReducer,
+
+  //Cart
+  cart: cartReducer,
 });
 
 //LocalStorage

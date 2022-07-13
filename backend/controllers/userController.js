@@ -183,10 +183,7 @@ const RemoveUserById = async (req, res) => {
 };
 
 const AdminUpdateUser = async (req, res) => {
-  const { _id, password, confirmPassword } = req.body;
-
-  let salt = await bcrypt.genSalt(10); //round 10 out of total 12 round
-  let encryptedPassword = await bcrypt.hash(password, salt);
+  const { _id } = req.body;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).send({
@@ -197,8 +194,6 @@ const AdminUpdateUser = async (req, res) => {
     let user = await userSchema.findByIdAndUpdate(
       { _id },
       {
-        password: encryptedPassword,
-        confirmPassword: encryptedPassword,
         ...req.body,
       },
       {

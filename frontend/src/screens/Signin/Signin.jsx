@@ -37,7 +37,7 @@ const Signin = () => {
       dispatch(clearErrors());
     }
     if (success) {
-      alert.success("Login successfully");
+      alert.success("Login successful");
       dispatch(clearErrors());
     }
   }, [dispatch, error, alert, success, navigate]);

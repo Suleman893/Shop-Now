@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import buy1 from "../../images/product.jpg";
 import { addToCart, removeFromCart } from "../../redux/actions/cartActions";
-import { Link,  useParams, useSearchParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import MetaData from "../../component/Layout/MetaData";
 import Checkout from "../../component/Checkout/Checkout";
@@ -29,9 +29,6 @@ const Cart = () => {
     dispatch(removeFromCart(id));
   };
 
-  const checkoutHandler = () => {
-    //if logged in then shipping page otherwise signin page using history.push and redirect
-  };
   return (
     <>
       <MetaData title="Product Cart" />
@@ -122,15 +119,15 @@ const Cart = () => {
         </div>
         <button
           className="btn"
-          onClick={checkoutHandler}
           disabled={cartItems.length === 0}
         >
           <Checkout
             subTotal={cartItems
               .reduce((qty, item) => qty + item.qty * item.price, 0)
               .toFixed(2)}
+              
           />
-          &#8594;
+      
         </button>
       </div>
     </>

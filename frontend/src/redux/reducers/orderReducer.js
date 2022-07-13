@@ -78,20 +78,29 @@ export const adminGetAllOrderReducer = (state = { orders: [] }, action) => {
 export const deleteSpecificOrderReducer = (state = {}, action) => {
   switch (action.type) {
     case actionTypes.DELETE_ORDER_REQUEST:
-      return { loading: true };
+      return {
+        ...state,
+        delLoading: true,
+      };
     case actionTypes.DELETE_ORDER_SUCCESS:
       return {
-        loading: false,
-        success: true,
+        ...state,
+        delLoading: false,
+        delSuccess: true,
       };
     case actionTypes.DELETE_ORDER_FAIL:
       return {
-        loading: false,
-        error: action.payload,
+        ...state,
+        delLoading: false,
+        delError: action.payload,
       };
       case actionTypes.CLEAR_ERRORS:
-      return { ...state, error: null, success: false };
+        return {
+        ...state,
+        delSuccess: false,
+        delError: null,
+      };
     default:
-      return;
+      return state;
   }
 };

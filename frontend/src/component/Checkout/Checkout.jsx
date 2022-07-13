@@ -28,9 +28,8 @@ const Checkout = ({ subTotal }) => {
       dispatch(clearErrors());
     }
     if (success) {
-      alert.success("Order placed successfully");
+      alert.success("Order placed");
       dispatch(clearErrors());
-      
 
       navigate("/myOrders");
     }
@@ -45,7 +44,17 @@ const Checkout = ({ subTotal }) => {
         stripeKey="pk_test_51KwisUAehaVXR4RDRowYrQHZDZGMSY5AMf8ssCH5l4ut7a0bZDHk5jtSF4fWyAaDHYNw8ovHxPJthWjMojMycoj400XcN3HN9P"
         currency="PKR"
       >
-        <button>Pay now</button>
+        <button
+          disabled={cartItems.length === 0}
+          style={{
+            background: "transparent",
+            border: "none",
+            paddingRight: "8px",
+            cursor: "pointer",
+          }}
+        >
+          Pay now &#8594;
+        </button>
       </StripeCheckout>
     </>
   );

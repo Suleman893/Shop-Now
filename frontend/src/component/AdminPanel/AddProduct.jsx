@@ -49,7 +49,7 @@ const AddProduct = () => {
       dispatch(clearErrors());
     }
     if (success) {
-      alert.success("Product added successfully");
+      alert.success("Product added");
       dispatch(clearErrors());
 
     }

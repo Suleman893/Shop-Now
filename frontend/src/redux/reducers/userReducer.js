@@ -92,7 +92,7 @@ export const getAllUsersReducers = (
   }
 };
 
-export const deleteSpecificUser = (state = { user: {} }, action) => {
+export const deleteSpecificUserReducer = (state = { user: {} }, action) => {
   switch (action.type) {
     case actionTypes.DELETE_USER_REQUEST:
       return {
@@ -115,7 +115,6 @@ export const deleteSpecificUser = (state = { user: {} }, action) => {
       return {
         ...state,
         delSuccess: false,
-
         delError: null,
       };
     default:
@@ -123,7 +122,7 @@ export const deleteSpecificUser = (state = { user: {} }, action) => {
   }
 };
 
-export const editMySelf = (state = { user: {} }, action) => {
+export const editMySelfReducer = (state = { user: {} }, action) => {
   switch (action.type) {
     case actionTypes.EDIT_MY_PROFILE_REQUEST:
       return {
@@ -150,7 +149,7 @@ export const editMySelf = (state = { user: {} }, action) => {
   }
 };
 
-export const editMyPassword = (state = { user: {} }, action) => {
+export const editMyPasswordReducer = (state = { user: {} }, action) => {
   switch (action.type) {
     case actionTypes.EDIT_MY_PASSWORD_REQUEST:
       return {
@@ -177,7 +176,7 @@ export const editMyPassword = (state = { user: {} }, action) => {
   }
 };
 
-export const adminEditUserProfile = (state = { user: {} }, action) => {
+export const adminEditUserProfileReducer = (state = { user: {} }, action) => {
   switch (action.type) {
     case actionTypes.ADMIN_EDIT_PROFILE_REQUEST:
       return {

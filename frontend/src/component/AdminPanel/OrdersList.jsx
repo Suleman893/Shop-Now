@@ -18,6 +18,10 @@ const OrderList = () => {
     (state) => state.adminGetAllOrder
   );
   const { currentUser } = useSelector((state) => state.loginUser);
+  const {delError, delSuccess } = useSelector(
+    (state) => state.deleteSpecificOrder
+  );
+
   useEffect(() => {
     dispatch(getAllOrders(currentUser));
 
@@ -25,7 +29,15 @@ const OrderList = () => {
       alert.error(error);
       dispatch(clearErrors());
     }
-  }, [dispatch, alert, error]);
+    if (delError) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+    if (delSuccess) {
+      alert.success("Order deleted ");
+      dispatch(clearErrors());
+    }
+  }, [dispatch, alert, error, delSuccess, delError]);
 
   const [open, setOpen] = React.useState(false);
 

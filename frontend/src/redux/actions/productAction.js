@@ -195,7 +195,9 @@ export const deleteProduct = (id, currentUser) => async (dispatch) => {
     };
     dispatch({ type: actionTypes.ADMIN_DELETE_PRODUCT_REQUEST });
     const res = await axios.delete(`${deleteProductApi}`, { headers, data });
-    dispatch({ type: actionTypes.ADMIN_DELETE_PRODUCT_SUCCESS });
+    dispatch({
+      type: actionTypes.ADMIN_DELETE_PRODUCT_SUCCESS,
+    });
   } catch (error) {
     dispatch({
       type: actionTypes.ADMIN_DELETE_PRODUCT_FAIL,

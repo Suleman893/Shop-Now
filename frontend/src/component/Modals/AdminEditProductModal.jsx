@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -6,8 +6,9 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useDispatch, useSelector } from "react-redux";
-import { editProduct } from "../../redux/actions/productAction";
+import { editProduct, clearErrors } from "../../redux/actions/productAction";
 import { AiFillEdit } from "react-icons/ai";
+import { useAlert } from "react-alert";
 
 export const AdminEditProductModal = ({
   productId,
@@ -18,7 +19,14 @@ export const AdminEditProductModal = ({
   productRatings,
   productCategory,
 }) => {
+  const alert = useAlert();
+
   const { currentUser } = useSelector((state) => state.loginUser);
+
+  const { loading, error, success } = useSelector(
+    (state) => state.adminEditProduct
+  );
+
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
 
@@ -54,6 +62,17 @@ export const AdminEditProductModal = ({
     dispatch(editProduct(updateProduct, currentUser));
     setOpen(false);
   };
+
+  useEffect(() => {
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+    if (success) {
+      alert.success("Profile updated");
+      dispatch(clearErrors());
+    }
+  }, [dispatch, error, success, alert]);
 
   return (
     <div>

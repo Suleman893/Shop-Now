@@ -112,7 +112,10 @@ export const searchProductReducer = (
   }
 };
 
-export const productByCategory = (state = { categoryProducts: [] }, action) => {
+export const productByCategoryReducer = (
+  state = { categoryProducts: [] },
+  action
+) => {
   switch (action.type) {
     case actionTypes.PRODUCT_CATEGORY_REQUEST:
       return { loading: true, categoryProducts: [] };
@@ -210,23 +213,63 @@ export const adminProductReducer = (state = { products: [] }, action) => {
   }
 };
 
-export const deleteSpecificProductReducer = (state = {}, action) => {
+export const deleteSpecificProductReducer = (
+  state = { product: {} },
+  action
+) => {
   switch (action.type) {
     case actionTypes.ADMIN_DELETE_PRODUCT_REQUEST:
-      return { loading: true };
+      return {
+        ...state,
+        delLoading: true,
+      };
     case actionTypes.ADMIN_DELETE_PRODUCT_SUCCESS:
       return {
-        loading: false,
-        success: true,
+        ...state,
+        delLoading: false,
+        delSuccess: true,
       };
     case actionTypes.ADMIN_DELETE_PRODUCT_FAIL:
       return {
-        loading: false,
-        error: action.payload,
+        ...state,
+        delLoading: false,
+        delError: action.payload,
       };
     case actionTypes.CLEAR_ERRORS:
-      return { error: null };
+      return {
+        ...state,
+        delSuccess: false,
+        delError: null,
+      };
     default:
-      return;
+      return state;
+  }
+};
+
+export const adminEditProductReducer = (state = { product: {} }, action) => {
+  switch (action.type) {
+    case actionTypes.ADMIN_EDIT_PRODUCT_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case actionTypes.ADMIN_EDIT_PRODUCT_SUCCESS:
+      return {
+        loading: false,
+        product: action.payload,
+        ...state,
+        success: true,
+      };
+    case actionTypes.ADMIN_EDIT_PRODUCT_FAIL:
+      return {
+        ...state,
+        loading: false,
+        success: false,
+      };
+
+    case actionTypes.CLEAR_ERRORS:
+      return { ...state, error: null, success: false };
+    default:
+      return state;
   }
 };

@@ -14,9 +14,13 @@ import { useAlert } from "react-alert";
 const UsersList = () => {
   const alert = useAlert();
   const { currentUser } = useSelector((state) => state.loginUser);
-  const { users, loading, error } = useSelector((state) => state.getAllUsers);
+  const { users, loading, error, success } = useSelector(
+    (state) => state.getAllUsers
+  );
   const dispatch = useDispatch();
-  // const {  delLoading,delError , delSuccess} = useSelector((state) => state.deleteSpecificUser);
+  const { delError, delSuccess } = useSelector(
+    (state) => state.deleteSpecificUser
+  );
 
   useEffect(() => {
     dispatch(getAllUsers(currentUser));
@@ -24,7 +28,15 @@ const UsersList = () => {
       alert.error(error);
       dispatch(clearErrors());
     }
-  }, [dispatch, error, alert]);
+    if (delError) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+    if (delSuccess) {
+      alert.success("User deleted");
+      dispatch(clearErrors());
+    }
+  }, [dispatch, error, alert, delSuccess, delError]);
 
   const [open, setOpen] = React.useState(false);
 
@@ -70,8 +82,6 @@ const UsersList = () => {
                         userName={curr.name}
                         userEmail={curr.email}
                         userRole={curr.role}
-                        userPassword={curr.password}
-                        userConfirmPassword={curr.confirmPassword}
                       />
                     </td>
                     <td data-label="Delete">
