@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import "./Signup.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { registerUser, clearErrors } from "../../redux/actions/userActions";
-import signup from "../../images/signup.jpg";
-import { Validate } from "../../validation/SignUpValidation";
 import { useAlert } from "react-alert";
+import { Validate } from "../../validation/SignUpValidation";
+import signup from "../../images/signup.jpg";
 import MetaData from "../../component/Layout/MetaData";
+import Loader from "../../component/Layout/Loader/Loader";
+import "./Signup.css";
 
 const Signup = () => {
   const alert = useAlert();
@@ -35,6 +36,11 @@ const Signup = () => {
   };
 
   useEffect(() => {
+    if (localStorage.getItem("currentUser")) {
+      alert.info("Already LoggedIn");
+      navigate("/myProfile");
+    }
+
     if (error) {
       alert.error(error);
       dispatch(clearErrors());
@@ -42,11 +48,7 @@ const Signup = () => {
     if (success) {
       alert.success("Registered successfully");
       dispatch(clearErrors());
-
-    }
-
-    if (localStorage.getItem("currentUser")) {
-      navigate("/myProfile");
+      navigate("/signin");
     }
   }, [error, alert, success]);
 
@@ -59,7 +61,7 @@ const Signup = () => {
           <img src={signup} />
         </div>
         {loading ? (
-          <h1>Loading</h1>
+          <Loader />
         ) : (
           <div className="contentBx">
             <div className="formBx">

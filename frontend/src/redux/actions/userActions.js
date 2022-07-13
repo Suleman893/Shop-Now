@@ -1,5 +1,4 @@
 import * as actionTypes from "../constants/userConstant";
-
 import {
   registerUserApi,
   loginUserApi,
@@ -7,9 +6,9 @@ import {
   getAllUsersApi,
   deleteSpecificUserApi,
   adminCanUpdateUser,
+  userCanUpdateItsPassword,
 } from "../../api/Apis";
 import axios from "axios";
-// import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export const registerUser = (user) => async (dispatch) => {
@@ -29,9 +28,9 @@ export const loginUser = (userinfo) => async (dispatch) => {
   try {
     dispatch({ type: actionTypes.USER_LOGIN_REQUEST });
     const { data } = await axios.post(loginUserApi, userinfo);
-    localStorage.setItem("loggedInUserInfo", JSON.stringify(data.user));
-    localStorage.setItem("currentUser", JSON.stringify(data.token));
 
+    localStorage.setItem("currentUser", JSON.stringify(data.token));
+    localStorage.setItem("loggedInUserInfo", JSON.stringify(data.user));
     dispatch({ type: actionTypes.USER_LOGIN_SUCCESS, payload: data.user });
   } catch (error) {
     dispatch({
@@ -50,6 +49,7 @@ export const loadUser = () => async (dispatch) => {
       "http://localhost:2000/api/user/userInfo",
       { headers }
     );
+    localStorage.setItem("loggedInUserInfo", JSON.stringify(data.user));
     dispatch({ type: actionTypes.LOAD_USER_SUCCESS, payload: data.user });
   } catch (error) {
     dispatch({
@@ -111,6 +111,7 @@ export const updateMySelf = (updatedUser, currentUser) => async (dispatch) => {
     });
     dispatch({ type: actionTypes.EDIT_MY_PROFILE_SUCCESS, payload: data.user });
     localStorage.setItem("loggedInUserInfo", JSON.stringify(data.user));
+    localStorage.setItem("currentUser", JSON.stringify(currentUser));
   } catch (error) {
     dispatch({
       type: actionTypes.EDIT_MY_PROFILE_FAIL,
@@ -118,6 +119,31 @@ export const updateMySelf = (updatedUser, currentUser) => async (dispatch) => {
     });
   }
 };
+
+export const updateMyPassword =
+  (updatedPassword, currentUser) => async (dispatch) => {
+    try {
+      const headers = { authorization: currentUser };
+      dispatch({ type: actionTypes.EDIT_MY_PASSWORD_REQUEST });
+      const { data } = await axios.put(
+        `${userCanUpdateItsPassword}`,
+        updatedPassword,
+        {
+          headers,
+        }
+      );
+      console.log("The data updateMyPassword", data);
+      dispatch({
+        type: actionTypes.EDIT_MY_PASSWORD_SUCCESS,
+        payload: data.user,
+      });
+    } catch (error) {
+      dispatch({
+        type: actionTypes.EDIT_MY_PASSWORD_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
 
 export const adminEditUser = (updatedUser, currentUser) => async (dispatch) => {
   try {

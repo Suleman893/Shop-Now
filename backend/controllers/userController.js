@@ -61,7 +61,8 @@ const UserLogin = async (req, res) => {
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(205).send({
+      console.log("The ");
+      return res.status(401).send({
         message: "Invalid Credientials",
       });
     }
@@ -75,20 +76,6 @@ const UserLogin = async (req, res) => {
       message: "Login successfull",
       token,
       user,
-    });
-  } catch (error) {
-    return res.status(500).send({
-      message: error.message,
-    });
-  }
-};
-
-const UserLogout = async (req, res) => {
-  try {
-    res.cookie("token", null);
-    res.status(200).send({
-      success: true,
-      message: "User logged out",
     });
   } catch (error) {
     return res.status(500).send({
@@ -122,10 +109,7 @@ const UserDetails = async (req, res) => {
 
 const UpdateDetails = async (req, res) => {
   const specficUser = req.userId;
-  const { name, email, password, confirmPassword } = req.body;
 
-  let salt = await bcrypt.genSalt(10); //round 10 out of total 12 round
-  let encryptedPassword = await bcrypt.hash(password, salt);
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).send({
@@ -136,8 +120,6 @@ const UpdateDetails = async (req, res) => {
     let user = await userSchema.findOneAndUpdate(
       { _id: specficUser },
       {
-        password: encryptedPassword,
-        confirmPassword: encryptedPassword,
         ...req.body,
       },
       {
@@ -242,13 +224,51 @@ const AdminUpdateUser = async (req, res) => {
   }
 };
 
+// update User password
+const UpdatePassword = async (req, res) => {
+  const { oldPassword, newPassword, confirmNewPassword } = req.body;
+  console.log(
+    "In update password",
+    oldPassword,
+    newPassword,
+    confirmNewPassword
+  );
+  try {
+    const user = await userSchema.findById(req.userId);
+    console.log("The user", user);
+    const isPasswordMatched = await bcrypt.compare(oldPassword, user.password);
+    if (!isPasswordMatched) {
+      return res.status(400).send({
+        message: "Old password is incorrect",
+      });
+    }
+    if (newPassword !== confirmNewPassword) {
+      return res.status(400).send({
+        message: "Password does not match",
+      });
+    }
+    let salt = await bcrypt.genSalt(10); //round 10 out of total 12 round
+    let encryptedPassword = await bcrypt.hash(newPassword, salt);
+    user.password = encryptedPassword;
+    user.confirmNewPassword = encryptedPassword;
+    await user.save();
+    return res.status(200).send({
+      message: "Password updated successfully",
+    });
+  } catch (error) {
+    return res.status(500).send({
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   UserRegistration,
   UserLogin,
-  UserLogout,
   UserDetails,
   UpdateDetails,
   GetAllUsers,
   RemoveUserById,
   AdminUpdateUser,
+  UpdatePassword,
 };

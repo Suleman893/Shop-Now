@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from "react";
-import Loader from "../../component/Layout/Loader/Loader";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, clearErrors } from "../../redux/actions/userActions";
+import Loader from "../../component/Layout/Loader/Loader";
 import signin from "../../images/signin.jpg";
-import "./Signin.css";
 import { Validate } from "../../validation/SignInValidation";
 import { useAlert } from "react-alert";
 import MetaData from "../../component/Layout/MetaData";
+import "./Signin.css";
 
 const Signin = () => {
   const alert = useAlert();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { loading, error, success, user, isAuthenticated } = useSelector(
-    (state) => state.loginUser
-  );
+  const { loading, error, success } = useSelector((state) => state.loginUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [formErrors, setFormErrors] = useState({});
@@ -30,17 +28,19 @@ const Signin = () => {
   };
 
   useEffect(() => {
+    if (localStorage.getItem("currentUser")) {
+      alert.info("Already LoggedIn");
+    }
     if (error) {
+      console.log("The error", error);
       alert.error(error);
       dispatch(clearErrors());
     }
-    // if(success)
-    // {
-    //   alert.success("Login successfully");
-    // }
-    console.log("I render");
-    isAuthenticated && navigate("/myProfile");
-  }, [error, alert, navigate, isAuthenticated]);
+    if (success) {
+      alert.success("Login successfully");
+      dispatch(clearErrors());
+    }
+  }, [dispatch, error, alert, success, navigate]);
 
   return (
     <>
@@ -51,9 +51,9 @@ const Signin = () => {
           <img src={signin} />
         </div>
         {loading ? (
-          <h1>loading</h1>
+          <Loader />
         ) : (
-          <>
+          <React.Fragment>
             <div className="contentBx">
               <div className="formBx">
                 <h2>Login</h2>
@@ -94,7 +94,7 @@ const Signin = () => {
                 </form>
               </div>
             </div>
-          </>
+          </React.Fragment>
         )}
       </section>
     </>

@@ -1,21 +1,23 @@
 import React, { useEffect } from "react";
 import "./Profile.css";
 import { useSelector, useDispatch } from "react-redux";
-import FormDialog from "../../component/Modals/EditProfileModal";
+import EditProfileModal from "../../component/Modals/EditProfileModal";
 import { clearErrors } from "../../redux/actions/userActions";
 import Loader from "../../component/Layout/Loader/Loader";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
 import MetaData from "../../component/Layout/MetaData";
+import EditPasswordModal from "../../component/Modals/EditPasswordModal";
 
 const MyProfile = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
-  const { loggedInUserInfo, error, loading, currentUser } = useSelector(
+  const { loggedInUserInfo, error, loading } = useSelector(
     (state) => state.loginUser
   );
+
   const handleEditProfileModal = () => {
     setOpen(!open);
   };
@@ -27,17 +29,20 @@ const MyProfile = () => {
       alert.error(error);
       dispatch(clearErrors());
     }
-  }, [error, alert, navigate]);
+  }, [error, alert]);
 
   return (
     <React.Fragment>
-      <MetaData title="My Profile" />
+      <MetaData title={`${loggedInUserInfo.name} Profile `} />
       <div className="container">
         {loading ? (
           <Loader />
         ) : (
           <div>
-            <h1 className="page-title"> {loggedInUserInfo.name} Profile </h1>
+            <h1 className="page-title">
+              {" "}
+              Welcome {loggedInUserInfo.name} to your Account{" "}
+            </h1>
             <div className="row">
               <div className="profile-left">
                 <div>
@@ -71,8 +76,13 @@ const MyProfile = () => {
               <div className="profile-right">
                 <div>
                   <button onClick={handleEditProfileModal}>
-                    <FormDialog setOpen={setOpen} open={open} />
+                    <EditProfileModal setOpen={setOpen} open={open} />
                   </button>
+
+                  <button onClick={handleEditProfileModal}>
+                    <EditPasswordModal setOpen={setOpen} open={open} />
+                  </button>
+
                   <button onClick={myOrderHandler}>My Orders</button>
                 </div>
               </div>

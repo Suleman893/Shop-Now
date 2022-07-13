@@ -6,6 +6,8 @@ export const userCanUpdateItselfApi = "http://localhost:2000/api/user/userInfo/u
 export const deleteSpecificUserApi =
   "http://localhost:2000/api/user/admin/deleteUser";
 export const adminCanUpdateUser = "http://localhost:2000/api/user/admin/updateUser"
+export const userCanUpdateItsPassword = "http://localhost:2000/api/user/updatePassword"
+
 //Product Api's
 export const getlatestProductsApi =
   "http://localhost:2000/api/product/latestProduct";

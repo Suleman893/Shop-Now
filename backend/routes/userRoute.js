@@ -6,12 +6,12 @@ const { checkIsAdmin } = require("../middlewares/isAdmin");
 const {
   UserRegistration,
   UserLogin,
-  UserLogout,
   UserDetails,
   UpdateDetails,
   GetAllUsers,
   RemoveUserById,
   AdminUpdateUser,
+  UpdatePassword,
 } = require("../controllers/userController");
 
 //UserRegistration
@@ -33,9 +33,6 @@ router.post(
   UserLogin
 );
 
-//LogoutUser
-router.post("/logout", UserLogout);
-
 //GetLoggedInUser
 router.get("/userInfo", checkToken, UserDetails);
 
@@ -50,5 +47,8 @@ router.put("/admin/updateUser", checkIsAdmin, AdminUpdateUser);
 
 //AdminCanDeleteUser
 router.delete("/admin/deleteUser", checkIsAdmin, RemoveUserById);
+
+//UserCanUpdateItsPassword
+router.put("/updatePassword", checkToken, UpdatePassword);
 
 module.exports = router;

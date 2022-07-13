@@ -20,17 +20,23 @@ import MyOrders from "./screens/Profile/MyOrders";
 import NotFound from "./screens/NotFound/NotFound";
 import AdminScreen from "./screens/AdminPanel/AdminScreen";
 import About from "./screens/About/About";
-
+import { useDispatch, useSelector } from "react-redux";
 //ProtectedRouteComponent
 import ProtectedRoute from "./ProtectedRoute";
+import store from "../src/redux/store";
+import { loadUser } from "./redux/actions/userActions";
+
 function App() {
+  const dispatch = useDispatch();
   useEffect(() => {
     webfontloader.load({
       google: {
         families: ["Montserrat.", "Lato"],
       },
     });
-  }, []);
+
+    store.dispatch(loadUser());
+  }, [dispatch]);
 
   return (
     <Router>

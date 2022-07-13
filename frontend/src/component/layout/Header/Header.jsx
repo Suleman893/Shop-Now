@@ -4,9 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../../redux/actions/userActions";
 import logo from "../../../images/logo.png";
 import "./Header.css";
+
 const Header = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { loggedInUserInfo, currentUser } = useSelector(
     (state) => state.loginUser
   );
@@ -61,7 +63,6 @@ const Header = () => {
                 </Link>
               )
             : " "}
-
           <Link to="/myProfile">
             <i className="fa fa-user  mr-8"></i>
           </Link>

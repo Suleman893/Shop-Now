@@ -7,6 +7,7 @@ export const registerUserReducer = (state = { user: {} }, action) => {
     case actionTypes.USER_REGISTER_SUCCESS:
       return {
         ...state,
+        user: action.payload,
         loading: false,
         success: true,
       };
@@ -34,6 +35,7 @@ export const loginUserReducer = (state = { user: {} }, action) => {
       return {
         ...state,
         loading: false,
+        isAuthenticated: true,
         success: true,
         user: action.payload,
       };
@@ -41,6 +43,7 @@ export const loginUserReducer = (state = { user: {} }, action) => {
       return {
         ...state,
         loading: false,
+        isAuthenticated: false,
         user: null,
         error: action.payload,
       };
@@ -135,6 +138,33 @@ export const editMySelf = (state = { user: {} }, action) => {
         success: true,
       };
     case actionTypes.EDIT_MY_PROFILE_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case actionTypes.CLEAR_ERRORS:
+      return { ...state, error: null, success: false };
+    default:
+      return state;
+  }
+};
+
+export const editMyPassword = (state = { user: {} }, action) => {
+  switch (action.type) {
+    case actionTypes.EDIT_MY_PASSWORD_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case actionTypes.EDIT_MY_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        user: action.payload,
+        success: true,
+      };
+    case actionTypes.EDIT_MY_PASSWORD_FAIL:
       return {
         ...state,
         loading: false,

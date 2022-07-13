@@ -6,9 +6,12 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useDispatch, useSelector } from "react-redux";
-import { updateMySelf } from "../../redux/actions/userActions";
+import {
+  updateMyPassword,
+  updateMySelf,
+} from "../../redux/actions/userActions";
 
-const EditProfileModal = () => {
+const EditPasswordModal = () => {
   const { currentUser, loggedInUserInfo } = useSelector(
     (state) => state.loginUser
   );
@@ -23,59 +26,75 @@ const EditProfileModal = () => {
     setOpen(false);
   };
 
-  const initialValue = loggedInUserInfo;
-  const [updatedUser, setUpdatedUser] = useState(initialValue);
+  const initialValue = {
+    oldPassword: "",
+    newPassword: "",
+    confirmNewPassword: "",
+  };
+
+  const [updatedPassword, setUpdatedPassword] = useState(initialValue);
 
   const editonChangeHandler = (e) => {
     const { name, value } = e.target;
-    setUpdatedUser({
-      ...updatedUser,
+    setUpdatedPassword({
+      ...updatedPassword,
       [name]: value,
     });
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(updateMySelf(updatedUser, currentUser));
+    dispatch(updateMyPassword(updatedPassword, currentUser));
     setOpen(false);
   };
 
   return (
     <div>
-      <button onClick={handleClickOpen}>Edit Profile</button>
+      <button onClick={handleClickOpen}>Edit Password</button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Update Profile</DialogTitle>
+        <DialogTitle>Update Passowrd</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
             margin="dense"
-            name="name"
-            label="Name"
-            type="name"
+            name="oldPassword"
+            label="Enter Old Password"
+            type="text"
             fullWidth
             variant="standard"
-            value={updatedUser.name}
+            value={updatedPassword.oldPassword}
             onChange={editonChangeHandler}
           />
           <TextField
             autoFocus
             margin="dense"
-            name="email"
-            label="Email"
-            type="email"
+            name="newPassword"
+            label="Enter New Password"
+            type="text"
             fullWidth
             variant="standard"
-            value={updatedUser.email}
+            value={updatedPassword.newPassword}
+            onChange={editonChangeHandler}
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            name="confirmNewPassword"
+            label="Confirm New Password"
+            type="text"
+            fullWidth
+            variant="standard"
+            value={updatedPassword.confirmNewPassword}
             onChange={editonChangeHandler}
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={submitHandler}>Update Profile</Button>
+          <Button onClick={submitHandler}>Update Password</Button>
         </DialogActions>
       </Dialog>
     </div>
   );
 };
 
-export default EditProfileModal;
+export default EditPasswordModal;
