@@ -23,7 +23,7 @@
 .product-detail-container {
   max-width: 1300px;
   width: 90%;
-  margin: 10px auto;
+  margin: 80px auto;
   padding-left: 25px;
   padding-right: 25px;
 }
@@ -38,6 +38,11 @@
 
 .product-detail-right {
   flex-basis: 50%;
+}
+
+.product-detail-right h1 {
+  color: red;
+  font-size: 1.2rem;
 }
 
 .product-add-to-cart {
@@ -62,7 +67,7 @@
 
 .product-card-price {
   color: #ff7f50;
-  font-size: 20px;
+  font-size: 1rem;
 }
 
 .review-card {
@@ -103,6 +108,16 @@
 
 .image-gallery-content .image-gallery-slide .image-gallery-image {
   max-height: 50vh;
+}
+
+.no-of-reviews {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.no-of-reviews p {
+  padding-left: 2px;
+  font-size: 0.7rem;
 }
 
 @media screen and (max-width: 778px) {

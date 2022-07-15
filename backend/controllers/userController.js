@@ -4,7 +4,7 @@ const jwtHelper = require("../middlewares/jwt");
 const { validationResult } = require("express-validator");
 
 const UserRegistration = async (req, res) => {
-  const { name, email, password, confirmPassword, role } = req.body;
+  const { email, password, confirmPassword } = req.body;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).send({
@@ -23,7 +23,7 @@ const UserRegistration = async (req, res) => {
       });
     } else if (password !== confirmPassword) {
       return res.status(409).send({
-        message: "Password and Confirm password don't match",
+        message: "Password and confirm password don't match",
       });
     } else {
       let salt = await bcrypt.genSalt(10); //round 10 out of total 12 round
@@ -63,7 +63,7 @@ const UserLogin = async (req, res) => {
     if (!isMatch) {
       console.log("The ");
       return res.status(401).send({
-        message: "Invalid Credientials",
+        message: "Invalid credientials",
       });
     }
     const token = jwtHelper.issue({
@@ -145,7 +145,7 @@ const GetAllUsers = async (req, res) => {
     let allUsers = await userSchema.find().sort({ _id: "-1" });
     if (allUsers.length < 0) {
       return res.status.send({
-        message: "No User Found",
+        message: "No user found",
         allUser: [],
       });
     }
@@ -204,7 +204,7 @@ const AdminUpdateUser = async (req, res) => {
     );
     if (!user) {
       return res.status(404).send({
-        message: "The User not found and not updated",
+        message: "The user not found and not updated",
       });
     }
     return res.status(200).send({
@@ -230,7 +230,6 @@ const UpdatePassword = async (req, res) => {
   );
   try {
     const user = await userSchema.findById(req.userId);
-    console.log("The user", user);
     const isPasswordMatched = await bcrypt.compare(oldPassword, user.password);
     if (!isPasswordMatched) {
       return res.status(400).send({

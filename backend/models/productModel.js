@@ -4,18 +4,19 @@ const productSchema = mongoose.Schema(
   {
     productName: {
       type: String,
-      required: [true, "Please enter product name"],
-      maxLength: [30, "Name cannot exceed 30 characters"],
-      minLength: [5, "Name should have more than 4 characters"],
+      required: [true, "Enter product name"],
+      maxLength: [30, "Name shouldnt exceed 30 characters"],
+      minLength: [5, "Name should have more than 5 characters"],
       trim: true,
     },
     description: {
       type: String,
-      required: [true, "Please enter product description"],
+      required: [true, "Enter product description"],
+      maxLength: [200, "Name shouldnt exceed 200 characters"],
     },
     price: {
       type: Number,
-      required: [true, "Please enter product price"],
+      required: [true, "Enter product price"],
       maxLength: [8, "Price cannot exceed 8 character"],
     },
     category: {
@@ -30,12 +31,12 @@ const productSchema = mongoose.Schema(
         "Groceries & Pets",
         "Health & Beauty",
       ],
-      required: [true, "Please enter product category"],
+      required: [true, "Show correct product category"],
     },
     stock: {
       type: Number,
       required: [true, "Please enter product stock"],
-      maxLength: [4, "Stock cannot exceed 4 characters"],
+      maxLength: [4, "Stock cannot exceed 4 "],
       default: 1,
     },
     featured: {

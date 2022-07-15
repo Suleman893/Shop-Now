@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import buy1 from "../../images/product.jpg";
+import buy1 from "../../images/product2.jpg";
 import user from "../../images/user.png";
 import ReactStars from "react-rating-stars-component";
 import { useNavigate, useParams } from "react-router-dom";
@@ -74,6 +74,7 @@ const ProductDetail = () => {
   const addToCartHandler = () => {
     if (product.stock > 0) {
       dispatch(addToCart(product._id, qty));
+      alert.success(`${product.productName} added to card`);
       navigate(`/cart/${param.id}?qty=${qty}`);
     } else {
       alert.error("Not added to cart");
@@ -95,49 +96,46 @@ const ProductDetail = () => {
     },
   ];
   return (
-    <div>
+    <React.Fragment>
       <MetaData title={product.productName} />
-
       {loading ? (
         <Loader />
       ) : (
-        <>
+        <React.Fragment>
           <div className="product-detail-container">
-            <h2 className="page-title ">{product.productName}</h2>
             <div className="product-detail-row">
               <div className="product-detail-left">
                 {/*<div className="product-detail-img">
               <img src={buy1} alt="product-detail-img" />
-  </div> */}
+              </div> */}
                 <ImageGallery items={images} />
               </div>
               <div className="product-detail-right">
-                <div className="product-detail-content">
-                  <h1 className="mx-10" style={{ textTransform: "capitalize" }}>
-                    {product.name}
-                  </h1>
-                  <hr />
-                  <div>
-                    <ReactStars
-                      edit={false}
-                      color="rgba(20,20,20,0.1)"
-                      activeColor="#ffd700"
-                      size={window.innerWidth < 600 ? 20 : 25}
-                      value={product.ratings}
-                      isHalf={true}
-                    />
-                    {product.numOfReviews} (No of reviews)
-                  </div>
+                <h1 className="mx-10" style={{ textTransform: "capitalize" }}>
+                  {product.productName}
+                  <p>{product._id}</p>
+                  <p>{product.category}</p>
+                </h1>
+                <hr />
+                <div className="no-of-reviews">
+                  <ReactStars
+                    edit={false}
+                    color="rgba(20,20,20,0.1)"
+                    activeColor="#ffd700"
+                    size={window.innerWidth < 600 ? 20 : 25}
+                    value={product.ratings}
+                    isHalf={true}
+                  />
+                  <p>({product.numOfReviews} reviews) </p>
+                </div>
 
-                  <hr />
-                  <p className="mx-10 product-card-price">
-                    Rs: {product.price}
-                  </p>
-                  <div className="product-add-to-cart">
-                    <button onClick={decreaseQuantity}>-</button>
-                    <input readOnly type="number" value={qty} />
-                    <button onClick={increaseQuantity}>+</button>
-                    {/*
+                <hr />
+                <p className="mx-10 product-card-price">Rs: {product.price}</p>
+                <div className="product-add-to-cart">
+                  <button onClick={decreaseQuantity}>-</button>
+                  <input readOnly type="number" value={qty} />
+                  <button onClick={increaseQuantity}>+</button>
+                  {/*
                     <select
                       value={qty}
                       onChange={(e) => setQty(e.target.value)}
@@ -150,23 +148,20 @@ const ProductDetail = () => {
                     </select>
 
                       */}
-                  </div>
-                  <button
-                    className="add-to-cart mx-10"
-                    onClick={addToCartHandler}
-                  >
-                    Add to cart
-                  </button>
-                  <hr />
-                  <h3
-                    className={"mx-10" && product.stock > 0 ? "green" : "red"}
-                  >
-                    {product.stock > 0 ? `In stock ` : "Out of stock"}
-                  </h3>
-                  <p className="mx-10">
-                    <b>Description:</b> {product.description}
-                  </p>
                 </div>
+                <button
+                  className="add-to-cart mx-10"
+                  onClick={addToCartHandler}
+                >
+                  Add to cart
+                </button>
+                <hr />
+                <h3 className={"mx-10" && product.stock > 0 ? "green" : "red"}>
+                  {product.stock > 0 ? `In stock ` : "Out of stock"}
+                </h3>
+                <p className="mx-10">
+                  <b>Description:</b> {product.description}
+                </p>
               </div>
             </div>
           </div>
@@ -213,9 +208,9 @@ const ProductDetail = () => {
               <button onClick={submitReview}></button>
             </div>
           </div>
-        </>
+        </React.Fragment>
       )}
-    </div>
+    </React.Fragment>
   );
 };
 

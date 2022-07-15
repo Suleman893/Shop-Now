@@ -25,7 +25,7 @@ const CreateProduct = async (req, res) => {
       });
       return res.status(201).send({
         success: true,
-        message: "New Product Created Successfully",
+        message: "New product created successfully",
         product: newProduct,
       });
     }
@@ -37,7 +37,7 @@ const CreateProduct = async (req, res) => {
 };
 
 const GetAllProducts = async (req, res) => {
-  const pageSize = 15;
+  const pageSize = 9;
   const page = parseInt(req.query.page) || "0";
   try {
     const total = await productSchema.countDocuments({});
@@ -48,7 +48,7 @@ const GetAllProducts = async (req, res) => {
 
     if (allProducts.length < 0) {
       return res.status.send({
-        message: "No Product Found",
+        message: "No product found",
         products: [],
       });
     }
@@ -70,7 +70,7 @@ const AdminGetAllProducts = async (req, res) => {
     let allProducts = await productSchema.find().sort({ _id: "-1" });
     if (allProducts.length < 0) {
       return res.status.send({
-        message: "No Product Found",
+        message: "No product found",
         products: [],
       });
     }
@@ -95,7 +95,7 @@ const GetLatestProducts = async (req, res) => {
       .limit(limitProduct);
     if (allLatestProducts.length < 0) {
       return res.status.send({
-        message: "No Product Found",
+        message: "No product found",
         latestProducts: [],
       });
     }
@@ -120,7 +120,7 @@ const GetFeaturedProduct = async (req, res) => {
       .limit(limitProduct);
     if (featuredProducts.length < 0) {
       return res.status.send({
-        message: "No Product Found",
+        message: "No product found",
         featuredProducts: [],
       });
     }
@@ -222,11 +222,11 @@ const SearchProduct = async (req, res) => {
   try {
     let searchedProduct = await productSchema.find({
       $or: [{ productName: { $regex: req.params.productName, $options: "i" } }],
-      $or: [{ productName: { $regex: req.params.productName, $options: "i" } }],
+      // $or: [{ productName: { $regex: req.params.productName, $options: "i" } }],
     });
     return res.status(200).send({
       success: true,
-      message: "The Product searched",
+      message: "The product searched",
       searchedProduct: searchedProduct,
     });
   } catch (error) {

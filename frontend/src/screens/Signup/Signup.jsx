@@ -53,13 +53,12 @@ const Signup = () => {
   }, [error, alert, success]);
 
   return (
-    <>
+    <React.Fragment>
       <MetaData title="Signup" />
-
       <section>
-        <div className="imgBx">
+        {/* <div className="imgBx">
           <img src={signup} />
-        </div>
+        </div> */}
         {loading ? (
           <Loader />
         ) : (
@@ -68,7 +67,7 @@ const Signup = () => {
               <h2>Signup</h2>
               <form>
                 <div className="inputBx">
-                  <span>Name</span>
+                  <span>* Name</span>
                   <input
                     type="text"
                     placeholder="Name"
@@ -78,7 +77,7 @@ const Signup = () => {
                 </div>
                 <p>{formErrors.name ? formErrors.name : " "}</p>
                 <div className="inputBx">
-                  <span>Email</span>
+                  <span>* Email</span>
                   <input
                     type="email"
                     placeholder="Email"
@@ -88,7 +87,7 @@ const Signup = () => {
                 </div>
                 <p>{formErrors.email ? formErrors.email : " "}</p>
                 <div className="inputBx">
-                  <span>Password</span>
+                  <span>* Password</span>
                   <input
                     type="password"
                     placeholder="Password"
@@ -98,7 +97,7 @@ const Signup = () => {
                 </div>
                 <p>{formErrors.password ? formErrors.password : " "}</p>
                 <div className="inputBx">
-                  <span>Confirm Password</span>
+                  <span>* Confirm Password</span>
                   <input
                     type="password"
                     placeholder="Confirm Password"
@@ -118,14 +117,16 @@ const Signup = () => {
 
                 <div className="inputBx">
                   <p>Already have account?</p>
-                  <Link to="/signin">Sign In</Link>
+                  <Link to="/signin">
+                    <p> Sign In </p>
+                  </Link>
                 </div>
               </form>
             </div>
           </div>
         )}
       </section>
-    </>
+    </React.Fragment>
   );
 };
 

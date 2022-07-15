@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Products.css";
 import buy1 from "../../images/product.jpg";
+import buy2 from "../../images/product2.jpg";
 import ReactStars from "react-rating-stars-component";
 import {
   clearErrors,
@@ -32,9 +33,7 @@ const Products = () => {
   const dispatch = useDispatch();
   const [setTheCategory, setSetTheCategory] = useSearchParams();
   const { categoryProducts } = useSelector((state) => state.productByCategory);
-  const { searchedProducts } = useSelector(
-    (state) => state.searchProduct
-  );
+  const { searchedProducts } = useSelector((state) => state.searchProduct);
 
   useEffect(() => {
     if (error) {
@@ -137,12 +136,12 @@ const Products = () => {
                   <div className="product-card">
                     <Link to={`/productdetail/${product._id}`}>
                       <div className="product-card-img">
-                        <img src={buy1} alt="product-card" />
+                        <img src={buy2} alt="product-card" />
                       </div>
                       <div className="product-card-content">
                         <h1>{product.productName}</h1>
                         <p>{product.category}</p>
-                        <div style={{ display: "flex" }}>
+                        <div className="no-of-reviews">
                           <ReactStars
                             edit={false}
                             color="rgba(20,20,20,0.1)"
@@ -151,11 +150,11 @@ const Products = () => {
                             value={product.ratings}
                             isHalf={true}
                           />
-                          {product.numOfReviews}
+                          <p>({product.numOfReviews} reviews) </p>
                         </div>
-                        <p className="product-card-price">
-                          Rs. {product.price}
-                        </p>
+                        <span className="product-card-price">
+                          Rs {product.price}
+                        </span>
                       </div>
                     </Link>
                   </div>

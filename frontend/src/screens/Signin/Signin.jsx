@@ -43,61 +43,59 @@ const Signin = () => {
   }, [dispatch, error, alert, success, navigate]);
 
   return (
-    <>
+    <React.Fragment>
       <MetaData title="Signin" />
-
       <section>
-        <div className="imgBx">
+        {/*  <div className="imgBx">
           <img src={signin} />
-        </div>
+        </div> */}
         {loading ? (
           <Loader />
         ) : (
-          <React.Fragment>
-            <div className="contentBx">
-              <div className="formBx">
-                <h2>Login</h2>
-                <form>
-                  <div className="inputBx">
-                    <span>Email</span>
-                    <input
-                      type="text"
-                      placeholder="Email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                  </div>
-                  <p>{formErrors.email ? formErrors.email : " "}</p>
-                  <div className="inputBx">
-                    <span>Password</span>
-                    <input
-                      type="password"
-                      placeholder="Password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                  </div>
-                  <p>{formErrors.password ? formErrors.password : " "}</p>
-                  <div className="inputBx">
-                    <input
-                      type="submit"
-                      value="Signin"
-                      name="Signin"
-                      onClick={loginHandler}
-                    ></input>
-                  </div>
+          <div className="contentBx">
+            <div className="formBx">
+              <h2>Signin</h2>
+              <p>Welcome back, you’ve been missed!</p>
+              <form>
+                <div className="inputBx">
+                  <span> * Email</span>
+                  <input
+                    type="text"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <p>{formErrors.email ? formErrors.email : " "}</p>
+                <div className="inputBx">
+                  <span>* Password</span>
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+                <p>{formErrors.password ? formErrors.password : " "}</p>
+                <div className="inputBx">
+                  <input
+                    type="submit"
+                    value="Signin"
+                    name="Signin"
+                    onClick={loginHandler}
+                  ></input>
+                </div>
 
-                  <div className="inputBx">
-                    <p>Dont have account?</p>
-                    <Link to="/signup">Sign up</Link>
-                  </div>
-                </form>
-              </div>
+                <div className="inputBx">
+                  <p>Dont have account?</p>
+                  <Link to="/signup">Sign up</Link>
+                </div>
+              </form>
             </div>
-          </React.Fragment>
+          </div>
         )}
       </section>
-    </>
+    </React.Fragment>
   );
 };
 

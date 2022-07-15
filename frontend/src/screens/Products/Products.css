@@ -25,11 +25,12 @@
 }
 
 .product-card-img img {
-  object-fit: cover;
   border-top-right-radius: 15px;
   border-top-left-radius: 15px;
   width: 100%;
-  object-position: center;
+  height: 320px;
+  /* object-fit: cover; */
+  /* object-position: center; */
 }
 
 .product-card-content {
@@ -43,8 +44,11 @@
 }
 
 .product-card-price {
+  font-size: 1rem;
   color: #ff7f50;
+  font-weight: 700;
 }
+
 .product-search {
   padding: 11px 20px;
   border: none;
@@ -52,6 +56,16 @@
   width: 40%;
   outline: none;
   background: #f1f3f4;
+}
+
+.no-of-reviews {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.no-of-reviews p {
+  padding-left: 2px;
+  font-size: 0.7rem;
 }
 
 .product-top {

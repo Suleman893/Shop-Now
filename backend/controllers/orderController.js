@@ -72,11 +72,11 @@ const GetOrders = async (req, res) => {
 
 const GetAllOrders = async (req, res) => {
   try {
-    let allOrders = await orderSchema.find().sort({ _id: "-1" });;
+    let allOrders = await orderSchema.find().sort({ _id: "-1" });
     const totalOrders = await orderSchema.countDocuments();
     if (allOrders.length < 0) {
       return res.status.send({
-        message: "No Order Found",
+        message: "No order found",
         orders: [],
       });
     }
