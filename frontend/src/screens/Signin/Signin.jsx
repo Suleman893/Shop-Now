@@ -8,7 +8,8 @@ import { Validate } from "../../validation/SignInValidation";
 import { useAlert } from "react-alert";
 import MetaData from "../../component/Layout/MetaData";
 import "./Signin.css";
-
+import EmailIcon from "@mui/icons-material/Email";
+import KeyIcon from "@mui/icons-material/Key";
 const Signin = () => {
   const alert = useAlert();
   const [email, setEmail] = useState("");
@@ -58,7 +59,8 @@ const Signin = () => {
               <p>Welcome back, you’ve been missed!</p>
               <form>
                 <div className="inputBx">
-                  <span> * Email</span>
+                  <span className="required">*</span> <span>Email</span>
+                  <EmailIcon />
                   <input
                     type="text"
                     placeholder="Email"
@@ -68,7 +70,8 @@ const Signin = () => {
                 </div>
                 <p>{formErrors.email ? formErrors.email : " "}</p>
                 <div className="inputBx">
-                  <span>* Password</span>
+                  <span className="required">*</span> <span> Password</span>
+                  <KeyIcon />
                   <input
                     type="password"
                     placeholder="Password"

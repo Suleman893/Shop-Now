@@ -8,6 +8,9 @@ import signup from "../../images/signup.jpg";
 import MetaData from "../../component/Layout/MetaData";
 import Loader from "../../component/Layout/Loader/Loader";
 import "./Signup.css";
+import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
+import EmailIcon from "@mui/icons-material/Email";
+import KeyIcon from "@mui/icons-material/Key";
 
 const Signup = () => {
   const alert = useAlert();
@@ -67,40 +70,45 @@ const Signup = () => {
               <h2>Signup</h2>
               <form>
                 <div className="inputBx">
-                  <span>* Name</span>
+                  <span className="required">*</span> <span>Name</span>
+                  <SentimentSatisfiedAltIcon />
                   <input
                     type="text"
-                    placeholder="Name"
+                    placeholder="Your Name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                   />
                 </div>
                 <p>{formErrors.name ? formErrors.name : " "}</p>
                 <div className="inputBx">
-                  <span>* Email</span>
+                  <span className="required">*</span> <span> Email</span>
+                  <EmailIcon />
                   <input
                     type="email"
-                    placeholder="Email"
+                    placeholder="Your Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <p>{formErrors.email ? formErrors.email : " "}</p>
                 <div className="inputBx">
-                  <span>* Password</span>
+                  <span className="required">*</span> <span>Password</span>
+                  <KeyIcon />
                   <input
                     type="password"
-                    placeholder="Password"
+                    placeholder="Your Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
                 <p>{formErrors.password ? formErrors.password : " "}</p>
                 <div className="inputBx">
-                  <span>* Confirm Password</span>
+                  <span className="required">*</span>{" "}
+                  <span> Confirm Password</span>
+                  <KeyIcon />
                   <input
                     type="password"
-                    placeholder="Confirm Password"
+                    placeholder="Your Confirm Password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   />

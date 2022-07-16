@@ -1,40 +1,47 @@
+.profile-wrapper {
+  justify-content: space-between;
+  align-items: center;
+}
+
 .profile-left {
-  flex-basis: 50%;
+  flex-basis: 31%;
+}
+
+.profile-middle {
+  flex-basis: 31%;
 }
 
 .profile-right {
-  flex-basis: 50%;
+  flex-basis: 31%;
 }
 
-/* .admin-right-screen {
-    display: flex;
-    justify-items: center;
-  } */
+.profile-btns-container button {
+  display: block;
+}
+
+.profile-left-image img {
+  width: 50%;
+  height: auto;
+  border-radius: 50%;
+}
 
 .profile-panel-sidebar {
   display: flex;
   flex-direction: column;
 }
 
-.profile-panel-sidebar button {
-  font-size: 1.2rem;
-  border: none;
-  background: none;
-  width: 30%;
-  height: auto;
-  text-align: left;
-  padding: 10px 0px;
+.profile-panel-sidebar li {
+  margin: 10px 0px;
 }
 
 @media screen and (max-width: 448px) {
-  .profile-panel-sidebar {
-    flex-direction: row;
-  }
-
   .profile-panel-sidebar li {
     margin-left: 6px;
   }
-  .profile-panel-sidebar button {
-    font-size: 14px;
+}
+
+@media screen and (max-width: 610px) {
+  .profile-wrapper {
+    flex-direction: column;
   }
 }

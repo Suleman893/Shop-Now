@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Products.css";
 import buy1 from "../../images/product.jpg";
-import buy2 from "../../images/product2.jpg";
+import buy2 from "../../images/product.jpg";
 import ReactStars from "react-rating-stars-component";
 import {
   clearErrors,
@@ -97,22 +97,20 @@ const Products = () => {
   };
 
   return (
-    <>
+    <React.Fragment>
       <MetaData title="Product" />
       <div className="container">
-        <div className="product-top">
-          <h2 className="page-title">Products</h2>
-          <input
-            type="text"
-            name="searchbar"
-            placeholder="Search product..."
-            className="product-search"
-            onChange={setProductSearchHandler}
-          />
-        </div>
-        <div className="row">
+        <h2 className="page-title">Products</h2>
+        <div className="row mx-20">
           <div className="left">
             <div className="filter-section">
+              <input
+                type="text"
+                name="searchbar"
+                placeholder="Search product..."
+                className="product-search"
+                onChange={setProductSearchHandler}
+              />
               <h5>Categories</h5>
               <ul>
                 <li onClick={categoryHandlerOne}>Men Fashion</li>
@@ -126,7 +124,6 @@ const Products = () => {
               </ul>
             </div>
           </div>
-
           <div className="right">
             {loading ? (
               <Loader />
@@ -174,7 +171,7 @@ const Products = () => {
           <button onClick={goToNext}>Next</button>
         </div>
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

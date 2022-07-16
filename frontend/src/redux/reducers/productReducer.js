@@ -67,14 +67,14 @@ export const latestProductReducer = (
 };
 
 export const featuredProductReducer = (
-  state = { featuredProduct: [] },
+  state = { featuredProducts: [] },
   action
 ) => {
   switch (action.type) {
     case actionTypes.FEATURED_PRODUCT_REQUEST:
-      return { loading: true, featuredProduct: [] };
+      return { loading: true, featuredProducts: [] };
     case actionTypes.FEATURED_PRODUCT_SUCCESS:
-      return { loading: false, featuredProduct: action.payload };
+      return { loading: false, featuredProducts: action.payload };
     case actionTypes.FEATURED_PRODUCT_FAIL:
       return { loading: false, error: action.payload };
     case actionTypes.CLEAR_ERRORS:

@@ -8,6 +8,7 @@ import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
 import MetaData from "../../component/Layout/MetaData";
 import EditPasswordModal from "../../component/Modals/EditPasswordModal";
+import user from "../../images/user.png";
 
 const MyProfile = () => {
   const dispatch = useDispatch();
@@ -39,12 +40,15 @@ const MyProfile = () => {
           <Loader />
         ) : (
           <div>
-            <h1 className="page-title">
-              {" "}
-              Welcome {loggedInUserInfo.name} to your Account{" "}
-            </h1>
-            <div className="row">
+            <h1 className="page-title"> My Profile</h1>
+            <div className="row profile-wrapper">
               <div className="profile-left">
+                <div className="profile-left-image">
+                  <img src={user} alt="profile-pic" />
+                </div>
+              </div>
+
+              <div className="profile-middle">
                 <div>
                   <ul className="profile-panel-sidebar">
                     <li>
@@ -74,7 +78,7 @@ const MyProfile = () => {
                 </div>
               </div>
               <div className="profile-right">
-                <div>
+                <div className="profile-btns-container">
                   <button onClick={handleEditProfileModal}>
                     <EditProfileModal setOpen={setOpen} open={open} />
                   </button>

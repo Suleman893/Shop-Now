@@ -1,0 +1,30 @@
+.not-found-wrapper {
+  width: 100%;
+  text-align: center;
+  color: #343434;
+}
+
+.not-found-wrapper h1 {
+  font-size: 160px;
+  margin: 0;
+  font-weight: 900;
+  letter-spacing: 20px;
+  background: url(../../images/landingpage.jpg) center no-repeat;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.not-found-wrapper a {
+  text-decoration: none;
+  background: #e55039aa;
+  color: #fff;
+  padding: 12px 24px;
+  display: inline-block;
+  border-radius: 25px;
+  font-size: 14px;
+  text-transform: uppercase;
+  transition: 0.4s;
+}
+.not-found-wrapper a:hover {
+  background: red;
+}

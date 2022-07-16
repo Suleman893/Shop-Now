@@ -50,41 +50,38 @@
 }
 
 .product-search {
-  padding: 11px 20px;
-  border: none;
-  border-radius: 2px;
-  width: 40%;
+  padding: 10px;
+  border: 1px solid rgba(21, 21, 21, 0.5);
+  border-radius: 8px;
+  width: 80%;
   outline: none;
-  background: #f1f3f4;
-}
-
-.no-of-reviews {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-.no-of-reviews p {
-  padding-left: 2px;
-  font-size: 0.7rem;
-}
-
-.product-top {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-.filter-section {
+  background: #607d8b;
   margin: 20px 0px;
+  color: #fff;
+}
+
+.product-search::placeholder {
+  color: #fff;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+}
+
+.filter-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .filter-section h5 {
   font-size: 22px;
   text-decoration: underline;
-  color: #ff7f50;
+  color: #607d8b;
 }
 
 .filter-section ul {
   padding: 0px;
+  display: flex;
+  flex-direction: column;
 }
 
 .filter-section ul li {
@@ -96,6 +93,17 @@
   color: #ff7f50;
 }
 
+.no-of-reviews {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.no-of-reviews p {
+  padding-left: 2px;
+  font-size: 0.7rem;
+}
+
 .page-btn {
   display: flex;
   justify-content: center;
@@ -104,7 +112,7 @@
 
 .page-btn button {
   display: inline-block;
-  border: 1px solid #ff7f50;
+  border: 1px solid #607d8b;
   margin-left: 10px;
   border-radius: 5px;
   width: 40px;
@@ -112,7 +120,10 @@
   text-align: center;
   line-height: 40px;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 0.8rem;
+  background: #607d8b;
+  color: #fff;
+  font-weight: 500;
 }
 
 .page-btn button:hover {
@@ -128,17 +139,34 @@
     flex-basis: 100%;
   }
 
-  .filter-section {
-    margin: 10px 38%;
+  .product-search {
+    margin: 10px 10%;
   }
 
   .right {
     flex-basis: 100%;
+  }
+
+  .filter-section ul {
+    display: flex;
+    flex-direction: row;
   }
 }
 
 @media screen and (max-width: 448px) {
   .product-card {
     width: 100%;
+  }
+}
+
+@media screen and (max-width: 998px) {
+  .product-card {
+    width: 45%;
+  }
+}
+
+@media screen and (max-width: 596px) {
+  .product-card {
+    width: 45%;
   }
 }

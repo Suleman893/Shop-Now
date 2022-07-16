@@ -8,6 +8,7 @@
 
 body {
   font-family: "Poppins", sans-serif;
+  /* cursor: url("./images/cursor.png"), auto; */
 }
 
 .container {
@@ -23,14 +24,23 @@ a {
   color: #000;
 }
 
+button {
+  cursor: pointer;
+  text-align: center;
+  font-weight: 600;
+}
+
 .page-title {
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   text-align: center;
   padding: 20px;
   font-size: 2rem;
   text-transform: capitalize;
-  color: #ff7f50;
-  font-weight: 600;
+  color: #607d8b;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(21, 21, 21, 0.5);
+  width: 30%;
+  margin: auto;
 }
 
 .page-title-small {
@@ -38,7 +48,7 @@ a {
   padding: 20px;
   font-size: 1.4rem;
   text-transform: capitalize;
-  color: #ff7f50;
+  color: #607d8b;
   font-weight: 600;
 }
 
@@ -53,6 +63,16 @@ a {
   cursor: pointer;
 }
 
+.mx-20 {
+  margin-top: 20px;
+}
+
 .mr-8 {
   margin-right: 8px;
+}
+
+@media screen and (max-width: 770px) {
+  .page-title {
+    width: 50%;
+  }
 }

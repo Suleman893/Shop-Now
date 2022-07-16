@@ -11,6 +11,8 @@ let checkToken = (req, res, next) => {
       console.log("Is verified", isVerified);
       req.userId = isVerified.id;
       req.name = isVerified.name;
+      req.email = isVerified.email;
+
       next();
     } else {
       return res.json({

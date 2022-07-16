@@ -87,7 +87,7 @@ const AdminGetAllProducts = async (req, res) => {
 };
 
 const GetLatestProducts = async (req, res) => {
-  const limitProduct = 8;
+  const limitProduct = 3;
   try {
     let allLatestProducts = await productSchema
       .find()
@@ -112,7 +112,7 @@ const GetLatestProducts = async (req, res) => {
 };
 
 const GetFeaturedProduct = async (req, res) => {
-  const limitProduct = 4;
+  const limitProduct = 3;
   try {
     let featuredProducts = await productSchema
       .find({ featured: true })
@@ -271,11 +271,13 @@ const GetProductByCategory = async (req, res) => {
 };
 
 const CreateProductReview = async (req, res) => {
+  console.log("tHe req", req.email);
   const { rating, comment, productId } = req.body;
   try {
     const review = {
       user: req.userId,
       name: req.name,
+      email: req.name,
       rating: Number(rating),
       comment,
     };

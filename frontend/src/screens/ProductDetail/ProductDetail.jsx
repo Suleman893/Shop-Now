@@ -111,11 +111,11 @@ const ProductDetail = () => {
                 <ImageGallery items={images} />
               </div>
               <div className="product-detail-right">
-                <h1 className="mx-10" style={{ textTransform: "capitalize" }}>
-                  {product.productName}
+                <div className="product-detail-productinfo">
+                  <h2>{product.productName} </h2>
                   <p>{product._id}</p>
                   <p>{product.category}</p>
-                </h1>
+                </div>
                 <hr />
                 <div className="no-of-reviews">
                   <ReactStars
@@ -128,13 +128,16 @@ const ProductDetail = () => {
                   />
                   <p>({product.numOfReviews} reviews) </p>
                 </div>
-
                 <hr />
-                <p className="mx-10 product-card-price">Rs: {product.price}</p>
-                <div className="product-add-to-cart">
-                  <button onClick={decreaseQuantity}>-</button>
-                  <input readOnly type="number" value={qty} />
-                  <button onClick={increaseQuantity}>+</button>
+                <div className="product-detail-price-add-cart">
+                  <p className="product-detail-card-price">
+                    Rs: {product.price}
+                  </p>
+                  <div className="inc-dec">
+                    <button onClick={decreaseQuantity}>-</button>
+                    <input readOnly type="number" value={qty} />
+                    <button onClick={increaseQuantity}>+</button>
+                  </div>
                   {/*
                     <select
                       value={qty}
@@ -146,7 +149,6 @@ const ProductDetail = () => {
                         </option>
                       ))}
                     </select>
-
                       */}
                 </div>
                 <button
@@ -157,6 +159,7 @@ const ProductDetail = () => {
                 </button>
                 <hr />
                 <h3 className={"mx-10" && product.stock > 0 ? "green" : "red"}>
+                  Availablity:{" "}
                   {product.stock > 0 ? `In stock ` : "Out of stock"}
                 </h3>
                 <p className="mx-10">
@@ -173,21 +176,27 @@ const ProductDetail = () => {
               product.reviews.map((curr) => (
                 <HeadShake>
                   <div className="review-card mx-10">
-                    <div className="review-card-info">
-                      <img src={user} alt="user" />
-                      <h5 className="mx-10">{curr.name}</h5>
+                    <div className="review-card-content">
+                      <div className="review-card-info">
+                        <img src={user} alt="user" />
+                        <div>
+                          <h5 className="mx-10">{curr.name}</h5>
+                          <p className="mx-10">{curr.name}</p>
+                          <p className="mx-10">{curr.date}</p>
+                        </div>
+                      </div>
+                      <div >
+                        <ReactStars
+                          edit={false}
+                          color="rgba(20,20,20,0.1)"
+                          activeColor="#ffd700"
+                          size={window.innerWidth < 600 ? 20 : 25}
+                          value={curr.rating}
+                          isHalf={true}
+                        />
+                      </div>
+                      <p className="mx-10">{curr.comment}</p>
                     </div>
-                    <div>
-                      <ReactStars
-                        edit={false}
-                        color="rgba(20,20,20,0.1)"
-                        activeColor="#ffd700"
-                        size={window.innerWidth < 600 ? 20 : 25}
-                        value={curr.rating}
-                        isHalf={true}
-                      />
-                    </div>
-                    <p className="mx-10">{curr.comment}</p>
                   </div>
                 </HeadShake>
               ))}
@@ -204,8 +213,9 @@ const ProductDetail = () => {
                 placeholder="Leave a comment..."
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
+                className="mx-10"
               />
-              <button onClick={submitReview}></button>
+              <button onClick={submitReview}> Leave a comment</button>
             </div>
           </div>
         </React.Fragment>
