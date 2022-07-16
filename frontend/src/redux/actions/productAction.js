@@ -156,7 +156,6 @@ export const adminAddProduct =
         payload: { products: res.data },
       });
     } catch (error) {
-      console.log("The error", error.response.data.message);
       dispatch({
         type: actionTypes.ADMIN_CREATE_PRODUCT_FAIL,
         payload: error.response.data.message,

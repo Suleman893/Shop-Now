@@ -61,7 +61,6 @@ const UserLogin = async (req, res) => {
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      console.log("The ");
       return res.status(401).send({
         message: "Invalid credientials",
       });
@@ -222,12 +221,6 @@ const AdminUpdateUser = async (req, res) => {
 // update User password
 const UpdatePassword = async (req, res) => {
   const { oldPassword, newPassword, confirmNewPassword } = req.body;
-  console.log(
-    "In update password",
-    oldPassword,
-    newPassword,
-    confirmNewPassword
-  );
   try {
     const user = await userSchema.findById(req.userId);
     const isPasswordMatched = await bcrypt.compare(oldPassword, user.password);

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -75,10 +75,14 @@ export const AdminEditProductModal = ({
   }, [dispatch, error, success, alert]);
 
   return (
-    <div>
-      <button onClick={handleClickOpen}>
-        <AiFillEdit />
-      </button>
+    <React.Fragment>
+      <AiFillEdit
+        onClick={handleClickOpen}
+        style={{
+          fontSize: "1.2rem",
+          color: "blue",
+        }}
+      />
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Update Product</DialogTitle>
         <DialogContent>
@@ -154,6 +158,6 @@ export const AdminEditProductModal = ({
           <Button onClick={submitHandler}>Update</Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </React.Fragment>
   );
 };

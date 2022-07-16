@@ -101,7 +101,7 @@ const Products = () => {
       <MetaData title="Product" />
       <div className="container">
         <h2 className="page-title">Products</h2>
-        <div className="row mx-20">
+        <div className="row my-20">
           <div className="left">
             <div className="filter-section">
               <input

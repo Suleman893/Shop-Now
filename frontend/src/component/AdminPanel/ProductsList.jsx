@@ -88,6 +88,10 @@ const ProductsList = () => {
                     </td>
                     <td data-label="Delete">
                       <AiFillDelete
+                        style={{
+                          fontSize: "1.2rem",
+                          color: "red",
+                        }}
                         onClick={() =>
                           dispatch(deleteProduct(curr._id, currentUser))
                         }
@@ -96,7 +100,7 @@ const ProductsList = () => {
                   </tr>
                 ))
               ) : (
-                <h1>No products</h1>
+                <h1>No products found</h1>
               )}
             </tbody>
           </table>

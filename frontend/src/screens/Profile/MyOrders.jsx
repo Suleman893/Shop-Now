@@ -27,12 +27,12 @@ const MyOrders = () => {
   return (
     <div>
       <MetaData title="My Orders" />
-
-      <div className="table-container">
+      <div className="container">
+        <h2 className="page-title">My Orders</h2>
         {loading ? (
           <Loader />
         ) : (
-          <table className="table">
+          <table className="table my-20">
             <thead>
               <tr>
                 <th>Total Bill</th>
@@ -61,8 +61,13 @@ const MyOrders = () => {
                 ))
               ) : (
                 <h1>
-                  {" "}
-                  NO orders yet <Link to="/products"> Buy some products </Link>
+                  No product ordered,
+                  <Link to="/products">
+                    <h1 style={{ color: "blue", display: "inline" }}>
+                      {" "}
+                      Buy products here
+                    </h1>
+                  </Link>
                 </h1>
               )}
             </tbody>

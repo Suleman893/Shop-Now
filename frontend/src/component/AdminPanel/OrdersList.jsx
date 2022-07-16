@@ -18,7 +18,7 @@ const OrderList = () => {
     (state) => state.adminGetAllOrder
   );
   const { currentUser } = useSelector((state) => state.loginUser);
-  const {delError, delSuccess } = useSelector(
+  const { delError, delSuccess } = useSelector(
     (state) => state.deleteSpecificOrder
   );
 
@@ -77,6 +77,10 @@ const OrderList = () => {
                     </td>*/}
                     <td data-label="Delete">
                       <AiFillDelete
+                        style={{
+                          fontSize: "1.2rem",
+                          color: "red",
+                        }}
                         onClick={() =>
                           dispatch(deleteOrder(curr._id, currentUser))
                         }
@@ -85,7 +89,7 @@ const OrderList = () => {
                   </tr>
                 ))
               ) : (
-                <h1>No orders</h1>
+                <h1>No orders found</h1>
               )}
             </tbody>
           </table>

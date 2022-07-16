@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateMySelf, clearErrors } from "../../redux/actions/userActions";
 import Loader from "../Layout/Loader/Loader";
 import { useAlert } from "react-alert";
+import "./ModalStyling.css";
 
 const EditProfileModal = () => {
   const alert = useAlert();
@@ -59,12 +60,14 @@ const EditProfileModal = () => {
   }, [dispatch, error, success, alert]);
 
   return (
-    <div>
-      <button onClick={handleClickOpen}>Edit Profile</button>
+    <React.Fragment>
+      <button onClick={handleClickOpen} className="modal-btns">
+        Edit Profile{" "}
+      </button>
       {loading ? (
         <Loader />
       ) : (
-        <>
+        <React.Fragment>
           <Dialog open={open} onClose={handleClose}>
             <DialogTitle>Update Profile</DialogTitle>
             <DialogContent>
@@ -96,9 +99,9 @@ const EditProfileModal = () => {
               <Button onClick={submitHandler}>Update Profile</Button>
             </DialogActions>
           </Dialog>
-        </>
+        </React.Fragment>
       )}
-    </div>
+    </React.Fragment>
   );
 };
 

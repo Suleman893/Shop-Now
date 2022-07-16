@@ -19,9 +19,9 @@ const MyProfile = () => {
     (state) => state.loginUser
   );
 
-  const handleEditProfileModal = () => {
-    setOpen(!open);
-  };
+  // const handleEditProfileModal = () => {
+  //   setOpen(!open);
+  // };
   const myOrderHandler = () => {
     navigate("/myOrders");
   };
@@ -41,13 +41,12 @@ const MyProfile = () => {
         ) : (
           <div>
             <h1 className="page-title"> My Profile</h1>
-            <div className="row profile-wrapper">
+            <div className="row profile-wrapper my-20">
               <div className="profile-left">
                 <div className="profile-left-image">
                   <img src={user} alt="profile-pic" />
                 </div>
               </div>
-
               <div className="profile-middle">
                 <div>
                   <ul className="profile-panel-sidebar">
@@ -79,15 +78,11 @@ const MyProfile = () => {
               </div>
               <div className="profile-right">
                 <div className="profile-btns-container">
-                  <button onClick={handleEditProfileModal}>
-                    <EditProfileModal setOpen={setOpen} open={open} />
+                  <EditProfileModal setOpen={setOpen} open={open} />
+                  <EditPasswordModal setOpen={setOpen} open={open} />
+                  <button className="modal-btns" onClick={myOrderHandler}>
+                    My Orders
                   </button>
-
-                  <button onClick={handleEditProfileModal}>
-                    <EditPasswordModal setOpen={setOpen} open={open} />
-                  </button>
-
-                  <button onClick={myOrderHandler}>My Orders</button>
                 </div>
               </div>
             </div>

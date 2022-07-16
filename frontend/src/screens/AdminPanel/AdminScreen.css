@@ -1,9 +1,9 @@
 .admin-left {
-  flex-basis: 30%;
+  flex-basis: 15%;
 }
 
 .admin-right {
-  flex-basis: 70%;
+  flex-basis: 85%;
 }
 
 /* .admin-right-screen {
@@ -17,13 +17,34 @@
 }
 
 .admin-panel-sidebar button {
+  position: relative;
   font-size: 1.2rem;
   border: none;
   background: none;
-  width: 30%;
+  width: 100%;
   height: auto;
   text-align: left;
   padding: 10px 0px;
+  font-weight: 500;
+}
+
+.admin-panel-sidebar button::after {
+  content: "";
+  position: absolute;
+  background-color: #ff7f50;
+  height: 3px;
+  width: 0px;
+  left: 0;
+  bottom: 0px;
+  transition: 0.3s;
+}
+
+.admin-panel-sidebar button:hover::after {
+  width: 70%;
+}
+
+.admin-panel-sidebar button:hover {
+  color: #ff7f50;
 }
 
 @media screen and (max-width: 448px) {
@@ -36,5 +57,24 @@
   }
   .admin-panel-sidebar button {
     font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 778px) {
+  .admin-panel-sidebar {
+    justify-content: space-between;
+    flex-direction: row;
+  }
+
+  .admin-left {
+    flex-basis: 100%;
+  }
+
+  .admin-right {
+    flex-basis: 90%;
+  }
+
+  .admin-panel-sidebar button:hover::after {
+    width: 100%;
   }
 }

@@ -33,7 +33,6 @@ const Signin = () => {
       alert.info("Already LoggedIn");
     }
     if (error) {
-      console.log("The error", error);
       alert.error(error);
       dispatch(clearErrors());
     }

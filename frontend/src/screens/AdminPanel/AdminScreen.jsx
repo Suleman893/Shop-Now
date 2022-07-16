@@ -40,7 +40,7 @@ const AdminScreen = () => {
     setShowAddProduct(true);
   };
   return (
-    <>
+    <React.Fragment>
       <MetaData title="AdminPanel" />
       <div className="container">
         <h1 className="page-title">
@@ -52,21 +52,51 @@ const AdminScreen = () => {
             ? "Orders"
             : showAddProduct && "Add Products"}
         </h1>
-        <div className="row">
+        <div className="row my-20">
           <div className="admin-left">
             <div>
               <ul className="admin-panel-sidebar">
                 <li>
-                  <button onClick={userHandler}>Users</button>
+                  <button
+                    onClick={userHandler}
+                    style={
+                      showUser ? { color: "#ff7f50" } : { color: "#607d8b" }
+                    }
+                  >
+                    Users
+                  </button>
                 </li>
                 <li>
-                  <button onClick={productHandler}>Products</button>
+                  <button
+                    onClick={productHandler}
+                    style={
+                      showProduct ? { color: "#ff7f50" } : { color: "#607d8b" }
+                    }
+                  >
+                    Products
+                  </button>
                 </li>
                 <li>
-                  <button onClick={orderHandler}>Orders</button>
+                  <button
+                    onClick={orderHandler}
+                    style={
+                      showOrder ? { color: "#ff7f50" } : { color: "#607d8b" }
+                    }
+                  >
+                    Orders
+                  </button>
                 </li>
                 <li>
-                  <button onClick={addProductHandler}>Add Products</button>
+                  <button
+                    onClick={addProductHandler}
+                    style={
+                      showAddProduct
+                        ? { color: "#ff7f50" }
+                        : { color: "#607d8b" }
+                    }
+                  >
+                    Add Products
+                  </button>
                 </li>
               </ul>
             </div>
@@ -79,7 +109,7 @@ const AdminScreen = () => {
           </div>
         </div>
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

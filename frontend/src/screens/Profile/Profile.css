@@ -34,14 +34,43 @@
   margin: 10px 0px;
 }
 
+.modal-btns {
+  width: 50%;
+  background: #ff7f50;
+  color: white;
+  border: 1px solid #ff7f50;
+  padding: 5px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
 @media screen and (max-width: 448px) {
   .profile-panel-sidebar li {
     margin-left: 6px;
   }
 }
 
-@media screen and (max-width: 610px) {
+@media screen and (max-width: 802px) {
   .profile-wrapper {
     flex-direction: column;
+  }
+  .profile-left-image img {
+    width: 100%;
+    margin: auto;
+  }
+  .modal-btns {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 998px) {
+  .profile-left-image img {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 860px) {
+  .profile-left-image img {
+    width: 75%;
   }
 }

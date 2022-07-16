@@ -30,11 +30,11 @@ const Cart = () => {
   };
 
   return (
-    <>
+    <React.Fragment>
       <MetaData title="Product Cart" />
-      <div className="cart-container">
+      <div className="cart-container ">
         <h2 className="page-title">Your Cart</h2>
-        <table>
+        <table className="my-20">
           <tr>
             <th>Product</th>
             <th>Quantity</th>
@@ -50,12 +50,13 @@ const Cart = () => {
               <tr>
                 <td>
                   <div className="cart-info">
-                    <img src={buy1} alt="cart" />
-                    <div>
+                    <img src={buy1} alt="cart-item" />
+                    <div className="cart-info-content">
                       <Link to={`/productdetail/${item.product}`}></Link>
                       <h1>{item.name}</h1>
-                      <small>PKR: {item.price}</small>
-                      <br />
+                      <small>
+                        <b>PKR:</b> {item.price}
+                      </small>
                       <small
                         onClick={() => {
                           removeFromCartHandler(item.product);
@@ -64,7 +65,11 @@ const Cart = () => {
                         <li
                           className="fa fa-trash text-danger"
                           aria-hidden="true"
-                          style={{ cursor: "pointer" }}
+                          style={{
+                            cursor: "pointer",
+                            color: "red",
+                            fontSize: "18px",
+                          }}
                         ></li>
                       </small>
                       <br />
@@ -85,7 +90,9 @@ const Cart = () => {
                     ))}
                   </select>
                 </td>
-                <td>{item.price}</td>
+                <td>
+                  <b>{item.price}</b>
+                </td>
               </tr>
             ))
           )}
@@ -93,18 +100,27 @@ const Cart = () => {
         <div className="total-price">
           <table>
             <tr>
-              <td>Total Items </td>
               <td>
-                ({cartItems.reduce((qty, item) => Number(item.qty) + qty, 0)})
+                <b>Total Items</b>{" "}
+              </td>
+              <td>
+                <b>
+                  {" "}
+                  ({cartItems.reduce((qty, item) => Number(item.qty) + qty, 0)})
+                </b>
               </td>
             </tr>
             <tr>
-              <td>Subtotal</td>
               <td>
-                PKR:
-                {cartItems
-                  .reduce((price, item) => item.price * item.qty + price, 0)
-                  .toFixed(2)}
+                <b>Subtotal</b>{" "}
+              </td>
+              <td>
+                <b>
+                  PKR:{" "}
+                  {cartItems
+                    .reduce((price, item) => item.price * item.qty + price, 0)
+                    .toFixed(2)}
+                </b>
               </td>
             </tr>
             {/*<tr>
@@ -117,20 +133,15 @@ const Cart = () => {
               </tr>  */}
           </table>
         </div>
-        <button
-          className="btn"
-          disabled={cartItems.length === 0}
-        >
+        <button className="btn" disabled={cartItems.length === 0}>
           <Checkout
             subTotal={cartItems
               .reduce((qty, item) => qty + item.qty * item.price, 0)
               .toFixed(2)}
-              
           />
-      
         </button>
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

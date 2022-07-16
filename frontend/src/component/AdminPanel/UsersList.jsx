@@ -86,6 +86,10 @@ const UsersList = () => {
                     </td>
                     <td data-label="Delete">
                       <AiFillDelete
+                        style={{
+                          fontSize: "1.2rem",
+                          color: "red",
+                        }}
                         onClick={() =>
                           dispatch(deleteUser(curr._id, currentUser))
                         }
@@ -94,7 +98,9 @@ const UsersList = () => {
                   </tr>
                 ))
               ) : (
-                <h1>No</h1>
+                <div className="no-record">
+                  <h1>No user found </h1>
+                </div>
               )}
             </tbody>
           </table>

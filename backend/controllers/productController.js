@@ -271,7 +271,6 @@ const GetProductByCategory = async (req, res) => {
 };
 
 const CreateProductReview = async (req, res) => {
-  console.log("tHe req", req.email);
   const { rating, comment, productId } = req.body;
   try {
     const review = {

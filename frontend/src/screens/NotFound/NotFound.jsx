@@ -12,7 +12,9 @@ const NotFound = () => {
           <h2>Opps ! Page not found</h2>
           <h1>404</h1>
           <p>We can't find the page you're looking for</p>
-          <Link to="/">Go back to home page</Link>
+          <Link to="/" className="my-20">
+            Go back to home page
+          </Link>
         </div>
       </div>
     </React.Fragment>

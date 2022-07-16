@@ -8,6 +8,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { useDispatch, useSelector } from "react-redux";
 import { updateMyPassword, clearErrors } from "../../redux/actions/userActions";
 import { useAlert } from "react-alert";
+import "./ModalStyling.css";
 
 const EditPasswordModal = () => {
   const alert = useAlert();
@@ -66,7 +67,7 @@ const EditPasswordModal = () => {
 
   return (
     <div>
-      <button onClick={handleClickOpen}>Edit Password</button>
+      <button onClick={handleClickOpen}  className="modal-btns">Edit Password</button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Update Passowrd</DialogTitle>
         <DialogContent>

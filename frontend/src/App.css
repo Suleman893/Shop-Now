@@ -33,7 +33,7 @@ button {
 .page-title {
   letter-spacing: 1px;
   text-align: center;
-  padding: 20px;
+  padding: 10px;
   font-size: 2rem;
   text-transform: capitalize;
   color: #607d8b;
@@ -63,7 +63,7 @@ button {
   cursor: pointer;
 }
 
-.mx-20 {
+.my-20 {
   margin-top: 20px;
 }
 

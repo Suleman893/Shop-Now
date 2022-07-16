@@ -60,7 +60,6 @@ export const getAllOrders = (currentUser) => async (dispatch) => {
   });
   try {
     const { data } = await axios.get(allOrdersApi, { headers });
-    console.log("The res", data);
     dispatch({ type: actionTypes.ALL_ORDERS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({

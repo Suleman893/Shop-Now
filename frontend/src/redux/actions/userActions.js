@@ -132,7 +132,6 @@ export const updateMyPassword =
           headers,
         }
       );
-      console.log("The data updateMyPassword", data);
       dispatch({
         type: actionTypes.EDIT_MY_PASSWORD_SUCCESS,
         payload: data.user,

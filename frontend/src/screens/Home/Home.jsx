@@ -40,7 +40,7 @@ const Home = () => {
 
       <div className="container">
         <h2 className="page-title ">Latest Products</h2>
-        <div className="home-page-products mx-20">
+        <div className="home-page-products my-20">
           {loading ? (
             <Loader />
           ) : (
@@ -77,7 +77,7 @@ const Home = () => {
         </div>
 
         <h2 className="page-title ">Featured Products</h2>
-        <div className="home-page-products mx-20">
+        <div className="home-page-products my-20">
           {loading ? (
             <Loader />
           ) : (

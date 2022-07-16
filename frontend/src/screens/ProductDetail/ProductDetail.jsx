@@ -185,7 +185,7 @@ const ProductDetail = () => {
                           <p className="mx-10">{curr.date}</p>
                         </div>
                       </div>
-                      <div >
+                      <div>
                         <ReactStars
                           edit={false}
                           color="rgba(20,20,20,0.1)"
@@ -201,7 +201,7 @@ const ProductDetail = () => {
                 </HeadShake>
               ))}
 
-            <div className="leave-comment mx-20">
+            <div className="leave-comment my-20">
               <Rating
                 onChange={(e) => setRating(e.target.value)}
                 value={rating}

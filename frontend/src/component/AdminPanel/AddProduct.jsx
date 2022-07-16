@@ -51,7 +51,6 @@ const AddProduct = () => {
     if (success) {
       alert.success("Product added");
       dispatch(clearErrors());
-
     }
   }, [dispatch, alert, error, success]);
 
@@ -129,7 +128,7 @@ const AddProduct = () => {
                 </td>
                 <td data-label="Image">
                   <input type="file" id="files" />
-                  <label htmlFor="files">Select images</label>
+                  <label htmlFor="files">Select</label>
                 </td>
                 <td data-label="Add">
                   <button onClick={submitHandler}>Add the Product</button>
