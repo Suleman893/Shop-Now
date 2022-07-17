@@ -25,12 +25,12 @@
   border-radius: 50%;
 }
 
-.profile-panel-sidebar {
+.profile-info {
   display: flex;
   flex-direction: column;
 }
 
-.profile-panel-sidebar li {
+.profile-info li {
   margin: 10px 0px;
 }
 

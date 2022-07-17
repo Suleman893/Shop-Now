@@ -105,9 +105,6 @@ const ProductDetail = () => {
           <div className="product-detail-container">
             <div className="product-detail-row">
               <div className="product-detail-left">
-                {/*<div className="product-detail-img">
-              <img src={buy1} alt="product-detail-img" />
-              </div> */}
                 <ImageGallery items={images} />
               </div>
               <div className="product-detail-right">
@@ -130,7 +127,7 @@ const ProductDetail = () => {
                 </div>
                 <hr />
                 <div className="product-detail-price-add-cart">
-                  <p className="product-detail-card-price">
+                  <p className="product-detail-price">
                     Rs: {product.price}
                   </p>
                   <div className="inc-dec">

@@ -2,6 +2,7 @@ import "./App.css";
 import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import webfontloader from "webfontloader";
+import { useDispatch, useSelector } from "react-redux";
 
 //Header&FooterComponent
 import Header from "./component/Layout/Header/Header";
@@ -20,7 +21,6 @@ import MyOrders from "./screens/Profile/MyOrders";
 import NotFound from "./screens/NotFound/NotFound";
 import AdminScreen from "./screens/AdminPanel/AdminScreen";
 import About from "./screens/About/About";
-import { useDispatch, useSelector } from "react-redux";
 //ProtectedRouteComponent
 import ProtectedRoute from "./ProtectedRoute";
 import store from "../src/redux/store";

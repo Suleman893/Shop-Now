@@ -65,13 +65,15 @@ const Signup = () => {
         {loading ? (
           <Loader />
         ) : (
-          <div className="contentBx">
-            <div className="formBx">
+          <div className="content-box">
+            <div className="form-box">
               <h2>Signup</h2>
               <form>
-                <div className="inputBx">
+                <div className="input-box">
                   <span className="required">*</span> <span>Name</span>
-                  <SentimentSatisfiedAltIcon />
+                  <span className="input-box-icon">
+                    <SentimentSatisfiedAltIcon />
+                  </span>
                   <input
                     type="text"
                     placeholder="Your Name"
@@ -80,9 +82,11 @@ const Signup = () => {
                   />
                 </div>
                 <p>{formErrors.name ? formErrors.name : " "}</p>
-                <div className="inputBx">
+                <div className="input-box">
                   <span className="required">*</span> <span> Email</span>
-                  <EmailIcon />
+                  <span className="input-box-icon">
+                    <EmailIcon />
+                  </span>
                   <input
                     type="email"
                     placeholder="Your Email"
@@ -91,9 +95,11 @@ const Signup = () => {
                   />
                 </div>
                 <p>{formErrors.email ? formErrors.email : " "}</p>
-                <div className="inputBx">
+                <div className="input-box">
                   <span className="required">*</span> <span>Password</span>
-                  <KeyIcon />
+                  <span className="input-box-icon">
+                    <KeyIcon />
+                  </span>
                   <input
                     type="password"
                     placeholder="Your Password"
@@ -102,10 +108,12 @@ const Signup = () => {
                   />
                 </div>
                 <p>{formErrors.password ? formErrors.password : " "}</p>
-                <div className="inputBx">
+                <div className="input-box">
                   <span className="required">*</span>{" "}
                   <span> Confirm Password</span>
-                  <KeyIcon />
+                  <span className="input-box-icon">
+                    <KeyIcon />
+                  </span>
                   <input
                     type="password"
                     placeholder="Your Confirm Password"
@@ -114,7 +122,7 @@ const Signup = () => {
                   />
                 </div>
                 <p>{formErrors.password ? formErrors.password : " "}</p>
-                <div className="inputBx">
+                <div className="input-box">
                   <input
                     type="submit"
                     value="Signin"
@@ -123,7 +131,7 @@ const Signup = () => {
                   ></input>
                 </div>
 
-                <div className="inputBx">
+                <div className="redirect">
                   <p>Already have account?</p>
                   <Link to="/signin">
                     <p> Sign In </p>

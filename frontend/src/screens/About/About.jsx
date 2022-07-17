@@ -6,7 +6,7 @@ const About = () => {
   return (
     <div>
       <MetaData title="About" />
-      <div className="about-background">
+      <div className="about-bg">
         <div className="about-box">
           <h1 className="page-title">About Us</h1>
           <div className="about-box-wrapper">

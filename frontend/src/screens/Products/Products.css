@@ -85,8 +85,24 @@
 }
 
 .filter-section ul li {
+  position: relative;
   padding: 4px 0px;
   cursor: pointer;
+}
+
+.filter-section ul li::after {
+  content: "";
+  position: absolute;
+  background-color: #ff7f50;
+  height: 3px;
+  width: 0px;
+  left: 0;
+  bottom: 0px;
+  transition: 0.3s;
+}
+
+.filter-section ul li:hover::after {
+  width: 20%;
 }
 
 .filter-section ul li:hover {

@@ -65,9 +65,9 @@ const Home = () => {
                         />
                         <p>({product.numOfReviews} reviews) </p>
                       </div>
-                      <span className="product-card-price">
+                      <div className="product-card-price">
                         Rs {product.price}
-                      </span>
+                      </div>
                     </div>
                   </Link>
                 </div>
@@ -102,9 +102,9 @@ const Home = () => {
                         />
                         <p>({product.numOfReviews} reviews) </p>
                       </div>
-                      <span className="product-card-price">
+                      <div className="product-card-price">
                         Rs {product.price}
-                      </span>
+                      </div>
                     </div>
                   </Link>
                 </div>

@@ -19,9 +19,6 @@ const MyProfile = () => {
     (state) => state.loginUser
   );
 
-  // const handleEditProfileModal = () => {
-  //   setOpen(!open);
-  // };
   const myOrderHandler = () => {
     navigate("/myOrders");
   };
@@ -48,8 +45,7 @@ const MyProfile = () => {
                 </div>
               </div>
               <div className="profile-middle">
-                <div>
-                  <ul className="profile-panel-sidebar">
+                  <ul className="profile-info">
                     <li>
                       <b>Name:</b>{" "}
                       <span style={{ textTransform: "capitalize" }}>
@@ -74,7 +70,6 @@ const MyProfile = () => {
                       </span>
                     </li>
                   </ul>
-                </div>
               </div>
               <div className="profile-right">
                 <div className="profile-btns-container">

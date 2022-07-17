@@ -1,4 +1,6 @@
-* {
+*,
+*::before,
+*::after {
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
@@ -8,7 +10,11 @@
 
 body {
   font-family: "Poppins", sans-serif;
-  /* cursor: url("./images/cursor.png"), auto; */
+  cursor: url("./images/cursor.png"), auto;
+  /* Variables*/
+  --whitecolor: #ffffff;
+  --graycolor: #607d8b;
+  --themecolor: #ff7f50;
 }
 
 .container {
@@ -41,6 +47,7 @@ button {
   border-bottom: 1px solid rgba(21, 21, 21, 0.5);
   width: 30%;
   margin: auto;
+  text-shadow: 2px 2px #f1f3f4;
 }
 
 .page-title-small {
@@ -50,6 +57,7 @@ button {
   text-transform: capitalize;
   color: #607d8b;
   font-weight: 600;
+  text-shadow: 2px 2px #f1f3f4;
 }
 
 .btn {
