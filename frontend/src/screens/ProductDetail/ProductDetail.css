@@ -39,12 +39,12 @@
 }
 
 .product-detail-right h2 {
-  color: #ff7f50;
+  color: var(--themecolor);
   font-size: 1.5rem;
 }
 
 .product-detail-right p {
-  color: #607d8b;
+  color: var(--graycolor);
   font-size: 0.9rem;
 }
 
@@ -69,15 +69,11 @@
   font-weight: 600;
 }
 
-.add-to-cart {
-  display: flex;
-}
-
 .inc-dec button {
   width: 6%;
-  background: #ff7f50;
+  background: var(--themecolor);
   color: white;
-  border: 1px solid #ff7f50;
+  border: 1px solid var(--themecolor);
   padding: 5px;
   border-radius: 20px;
 }
@@ -89,20 +85,10 @@
   border-radius: 20px;
   width: 10%;
   outline: none;
-  background: #ff7f50;
+  background: var(--themecolor);
   margin: 20px 0px;
-  color: #fff;
+  color: var(--whitecolor);
   text-align: center;
-}
-
-.add-to-cart {
-  width: 125px;
-  height: 39px;
-  background: #ff7f50;
-  color: white;
-  border: 1px solid #ff7f50;
-  padding: 10px;
-  border-radius: 20px;
 }
 
 /* Review-Card */
@@ -123,7 +109,8 @@
 }
 
 .review-card-info h5 {
-  color: #607d8b;
+  color: var(--graycolor);
+
   margin-left: 10px;
   font-size: 1.2rem;
   font-weight: 500;
@@ -131,7 +118,8 @@
 }
 
 .review-card-info p {
-  color: #607d8b;
+  color: var(--graycolor);
+
   margin-left: 10px;
   font-size: 1rem;
   text-transform: capitalize;
@@ -152,19 +140,10 @@
 }
 
 .leave-comment textarea::placeholder {
-  color: #607d8b;
+  color: var(--graycolor);
+
   font-weight: 500;
   font-family: "Poppins", sans-serif;
-}
-
-.leave-comment button {
-  width: 20%;
-  height: 40px;
-  background: #ff7f50;
-  color: white;
-  border: 1px solid #ff7f50;
-  padding: 10px;
-  border-radius: 20px;
 }
 
 .review-card img {

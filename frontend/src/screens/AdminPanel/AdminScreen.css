@@ -31,7 +31,7 @@
 .admin-panel-sidebar button::after {
   content: "";
   position: absolute;
-  background-color: #ff7f50;
+  background-color: var(--themecolor);
   height: 3px;
   width: 0px;
   left: 0;
@@ -44,7 +44,7 @@
 }
 
 .admin-panel-sidebar button:hover {
-  color: #ff7f50;
+  color: var(--themecolor);
 }
 
 @media screen and (max-width: 448px) {

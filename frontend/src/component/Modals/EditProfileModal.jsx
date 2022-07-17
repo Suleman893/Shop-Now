@@ -61,7 +61,7 @@ const EditProfileModal = () => {
 
   return (
     <React.Fragment>
-      <button onClick={handleClickOpen} className="modal-btns">
+      <button onClick={handleClickOpen} className="btn">
         Edit Profile{" "}
       </button>
       {loading ? (

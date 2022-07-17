@@ -14,8 +14,8 @@ table {
 th {
   text-align: left;
   padding: 5px;
-  color: #fff;
-  background: #ff7f50;
+  color: var(--whitecolor);
+  background: var(--themecolor);
   font-weight: normal;
 }
 
@@ -30,7 +30,7 @@ td input {
 }
 
 td a {
-  color: #ff7f50;
+  color: var(--themecolor);
   font-size: 12px;
 }
 
@@ -40,9 +40,9 @@ td img {
 
 td select {
   border: none;
-  background: #ff7f50;
+  background: var(--themecolor);
   padding: 5px;
-  color: #fff;
+  color: var(--whitecolor);
 }
 
 .total-price {
@@ -51,7 +51,7 @@ td select {
 }
 
 .total-price table {
-  border-top: 3px solid #ff7f50;
+  border-top: 3px solid var(--themecolor);
   width: 100%;
   max-width: 400px;
 }

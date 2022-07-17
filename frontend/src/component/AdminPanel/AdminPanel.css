@@ -54,7 +54,7 @@
 .table tbody tr td button {
   border-radius: 10px;
   background: none;
-  border: 1px solid #ff7f50;
+  border: 1px solid var(--themecolor);
 }
 
 .no-record {

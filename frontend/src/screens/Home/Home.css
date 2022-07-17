@@ -27,19 +27,19 @@
 
 .banner-img-content h2 {
   font-size: 2rem;
-  color: #fff;
+  color: var(--whitecolor);
 }
 
 .banner-img-content p {
   font-size: 1rem;
-  color: #fff;
+  color: var(--whitecolor);
 }
 
 .banner-img-content button {
   border: none;
   width: 40%;
   height: 45px;
-  color: #fff;
+  color: var(--whitecolor);
   font-size: 1rem;
   background-color: #fbb034;
   box-shadow: 0 13px 27px 0 rgb(198 121 227 / 25%);
@@ -51,6 +51,3 @@
   justify-content: space-between;
   align-items: center;
 }
-
-
-

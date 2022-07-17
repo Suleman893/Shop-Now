@@ -72,7 +72,7 @@ const Signup = () => {
                 <div className="input-box">
                   <span className="required">*</span> <span>Name</span>
                   <span className="input-box-icon">
-                    <SentimentSatisfiedAltIcon />
+                    <SentimentSatisfiedAltIcon style={{ color: "#ff7f50" }} />
                   </span>
                   <input
                     type="text"
@@ -85,7 +85,7 @@ const Signup = () => {
                 <div className="input-box">
                   <span className="required">*</span> <span> Email</span>
                   <span className="input-box-icon">
-                    <EmailIcon />
+                    <EmailIcon style={{ color: "#ff7f50" }} />
                   </span>
                   <input
                     type="email"
@@ -98,7 +98,7 @@ const Signup = () => {
                 <div className="input-box">
                   <span className="required">*</span> <span>Password</span>
                   <span className="input-box-icon">
-                    <KeyIcon />
+                    <KeyIcon style={{ color: "#ff7f50" }} />
                   </span>
                   <input
                     type="password"
@@ -112,7 +112,7 @@ const Signup = () => {
                   <span className="required">*</span>{" "}
                   <span> Confirm Password</span>
                   <span className="input-box-icon">
-                    <KeyIcon />
+                    <KeyIcon style={{ color: "#ff7f50" }} />
                   </span>
                   <input
                     type="password"

@@ -127,9 +127,7 @@ const ProductDetail = () => {
                 </div>
                 <hr />
                 <div className="product-detail-price-add-cart">
-                  <p className="product-detail-price">
-                    Rs: {product.price}
-                  </p>
+                  <p className="product-detail-price">Rs: {product.price}</p>
                   <div className="inc-dec">
                     <button onClick={decreaseQuantity}>-</button>
                     <input readOnly type="number" value={qty} />
@@ -149,7 +147,7 @@ const ProductDetail = () => {
                       */}
                 </div>
                 <button
-                  className="add-to-cart mx-10"
+                  className="add-to-cart btn mx-10 "
                   onClick={addToCartHandler}
                 >
                   Add to cart
@@ -212,7 +210,10 @@ const ProductDetail = () => {
                 onChange={(e) => setComment(e.target.value)}
                 className="mx-10"
               />
-              <button onClick={submitReview}> Leave a comment</button>
+              <button onClick={submitReview} className="btn">
+                {" "}
+                Leave a comment
+              </button>
             </div>
           </div>
         </React.Fragment>

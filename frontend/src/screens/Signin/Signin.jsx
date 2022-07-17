@@ -60,7 +60,7 @@ const Signin = () => {
                 <div className="input-box">
                   <span className="required">*</span> <span>Email</span>
                   <span className="input-box-icon">
-                    <EmailIcon />
+                    <EmailIcon style={{ color: "#ff7f50" }} />
                   </span>
                   <input
                     type="text"
@@ -73,7 +73,7 @@ const Signin = () => {
                 <div className="input-box">
                   <span className="required">*</span> <span> Password</span>
                   <span className="input-box-icon">
-                    <KeyIcon />
+                    <KeyIcon style={{ color: "#ff7f50" }} />
                   </span>
                   <input
                     type="password"
@@ -94,7 +94,9 @@ const Signin = () => {
 
                 <div className="redirect">
                   <p>Dont have account?</p>
-                  <Link to="/signup"><p>Sign up</p></Link>
+                  <Link to="/signup">
+                    <p>Sign up</p>
+                  </Link>
                 </div>
               </form>
             </div>

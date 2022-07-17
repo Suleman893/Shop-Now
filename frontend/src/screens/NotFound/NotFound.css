@@ -1,7 +1,7 @@
 .not-found-wrapper {
   width: 100%;
   text-align: center;
-  color: #607d8b;
+  color: var(--graycolor);
 }
 
 .not-found-wrapper h2 {
@@ -13,7 +13,7 @@
   margin: 0;
   font-weight: 900;
   letter-spacing: 20px;
-  background: #ff7f50;
+  background: var(--themecolor);
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
@@ -21,13 +21,13 @@
 .not-found-wrapper p {
   font-size: 1rem;
   font-weight: 500;
-  color: #607d8b;
+  color: var(--graycolor);
 }
 
 .not-found-wrapper a {
   text-decoration: none;
-  background: #ff7f50;
-  color: #fff;
+  background: var(--themecolor);
+  color: var(--whitecolor);
   padding: 12px 24px;
   display: inline-block;
   border-radius: 25px;
@@ -36,7 +36,8 @@
   transition: 0.4s;
 }
 .not-found-wrapper a:hover {
-  background: red;
+  background: var(--themecolor);
+
 }
 
 @media screen and (max-width: 600px) {

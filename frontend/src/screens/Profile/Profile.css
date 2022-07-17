@@ -36,9 +36,9 @@
 
 .modal-btns {
   width: 50%;
-  background: #ff7f50;
+  background: var(--themecolor);
   color: white;
-  border: 1px solid #ff7f50;
+  border: 1px solid var(--themecolor);
   padding: 5px;
   border-radius: 20px;
   margin-bottom: 10px;
