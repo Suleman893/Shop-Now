@@ -18,6 +18,7 @@ import { Rating } from "@material-ui/lab";
 import Loader from "../../component/Layout/Loader/Loader";
 import { useAlert } from "react-alert";
 import MetaData from "../../component/Layout/MetaData";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 const ProductDetail = () => {
   const alert = useAlert();
@@ -146,12 +147,11 @@ const ProductDetail = () => {
                     </select>
                       */}
                 </div>
-                <button
-                  className="add-to-cart btn mx-10 "
-                  onClick={addToCartHandler}
-                >
-                  Add to cart
+                <div className="add-to-card-btn">
+                <button className="btn mx-10 " onClick={addToCartHandler}>
+                  Add to cart <ShoppingCartIcon style={{ fontSize: "15px" }} />
                 </button>
+                </div>
                 <hr />
                 <h3 className={"mx-10" && product.stock > 0 ? "green" : "red"}>
                   Availablity:{" "}
@@ -210,10 +210,12 @@ const ProductDetail = () => {
                 onChange={(e) => setComment(e.target.value)}
                 className="mx-10"
               />
+              <div className="leave-comment-btn">
               <button onClick={submitReview} className="btn">
                 {" "}
                 Leave a comment
               </button>
+              </div>
             </div>
           </div>
         </React.Fragment>

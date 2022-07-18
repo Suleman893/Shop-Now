@@ -69,8 +69,8 @@ section {
   color: var(--graycolor);
   background: transparent;
   border-radius: 5px;
-  transition: 0.7s;
-  -webkit-transition: 0.7s;
+  transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
 }
 
 .input-box input:focus {

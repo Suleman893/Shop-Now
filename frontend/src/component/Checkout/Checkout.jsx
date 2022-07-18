@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useAlert } from "react-alert";
 import { clearCart } from "../../redux/actions/cartActions";
 import { useNavigate } from "react-router-dom";
+import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 
 const Checkout = ({ subTotal }) => {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ const Checkout = ({ subTotal }) => {
   }, [dispatch, error, alert, success]);
 
   return (
-    <>
+    <React.Fragment>
       <StripeCheckout
         amount={subTotal * 100}
         shippingAddress
@@ -44,19 +45,13 @@ const Checkout = ({ subTotal }) => {
         stripeKey="pk_test_51KwisUAehaVXR4RDRowYrQHZDZGMSY5AMf8ssCH5l4ut7a0bZDHk5jtSF4fWyAaDHYNw8ovHxPJthWjMojMycoj400XcN3HN9P"
         currency="PKR"
       >
-        <button
-          disabled={cartItems.length === 0}
-          style={{
-            background: "transparent",
-            border: "none",
-            paddingRight: "8px",
-            cursor: "pointer",
-          }}
-        >
-          Pay now &#8594;
-        </button>
+        <div style={{ width: "15%" }}>
+          <button disabled={cartItems.length === 0} className="btn">
+            Checkout <ShoppingCartCheckoutIcon style={{ fontSize: "17px" }} />
+          </button>
+        </div>
       </StripeCheckout>
-    </>
+    </React.Fragment>
   );
 };
 

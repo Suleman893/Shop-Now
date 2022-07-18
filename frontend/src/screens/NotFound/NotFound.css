@@ -33,11 +33,10 @@
   border-radius: 25px;
   font-size: 14px;
   text-transform: uppercase;
-  transition: 0.4s;
+  transition: 0.5s ease-in-out;
 }
 .not-found-wrapper a:hover {
   background: var(--themecolor);
-
 }
 
 @media screen and (max-width: 600px) {

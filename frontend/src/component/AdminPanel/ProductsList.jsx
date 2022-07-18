@@ -6,7 +6,8 @@ import {
   deleteProduct,
   clearErrors,
 } from "../../redux/actions/productAction";
-import { AiFillDelete } from "react-icons/ai";
+import DeleteIcon from '@mui/icons-material/Delete';
+
 import { AdminEditProductModal } from "../Modals/AdminEditProductModal";
 import Loader from "../Layout/Loader/Loader";
 import { useAlert } from "react-alert";
@@ -87,11 +88,12 @@ const ProductsList = () => {
                       />
                     </td>
                     <td data-label="Delete">
-                      <AiFillDelete
-                        style={{
-                          fontSize: "1.2rem",
-                          color: "red",
-                        }}
+                    <DeleteIcon
+                    style={{
+                      cursor: "pointer",
+                      fontSize: "1.2rem",
+                      color: "red",
+                    }}
                         onClick={() =>
                           dispatch(deleteProduct(curr._id, currentUser))
                         }

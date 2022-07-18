@@ -91,6 +91,13 @@
   text-align: center;
 }
 
+.add-to-card-btn {
+  width: 25%;
+}
+
+.leave-comment-btn {
+  width: 15%;
+}
 /* Review-Card */
 .review-card {
   border-radius: 10px;
@@ -174,9 +181,7 @@
     height: 300px;
     margin: 15px 0px;
   }
-  .leave-comment button {
-    width: 50%;
-  }
+
   .leave-comment textarea {
     width: 100%;
   }

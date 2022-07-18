@@ -67,7 +67,7 @@ const EditPasswordModal = () => {
 
   return (
     <div>
-      <button onClick={handleClickOpen}  className="modal-btns">Edit Password</button>
+      <button onClick={handleClickOpen}  className="btn">Edit Password</button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Update Passowrd</DialogTitle>
         <DialogContent>

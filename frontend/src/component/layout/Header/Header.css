@@ -33,6 +33,7 @@ header {
   color: var(--themecolor);
 }
 
-.logo img {
-  width: 100px;
+.logo h1 {
+  font-size: 2rem;
+  letter-spacing: 2px;
 }

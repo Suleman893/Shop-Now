@@ -7,7 +7,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useDispatch, useSelector } from "react-redux";
 import { adminEditUser, clearErrors } from "../../redux/actions/userActions";
-import { AiFillEdit } from "react-icons/ai";
+import EditIcon from '@mui/icons-material/Edit';
 import { useAlert } from "react-alert";
 
 export const AdminEditUserModal = ({
@@ -69,12 +69,13 @@ export const AdminEditUserModal = ({
 
   return (
     <React.Fragment>
-      <AiFillEdit
-        onClick={handleClickOpen}
-        style={{
-          fontSize: "1.2rem",
-          color: "blue",
-        }}
+      <EditIcon
+      style={{
+        cursor: "pointer",
+        fontSize: "1.2rem",
+        color: "blue",
+      }}
+      onClick={handleClickOpen}
       />
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Update User Profile</DialogTitle>

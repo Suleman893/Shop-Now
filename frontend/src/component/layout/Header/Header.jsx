@@ -2,7 +2,6 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../../redux/actions/userActions";
-import logo from "../../../images/logo.png";
 import "./Header.css";
 
 const Header = () => {
@@ -20,7 +19,7 @@ const Header = () => {
       <div className="header-container">
         <div className="logo">
           <Link to="/">
-            <img src={logo} alt="logo" />
+            <h1>Shop Now</h1>
           </Link>
         </div>
         <nav>

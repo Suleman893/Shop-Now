@@ -15,18 +15,16 @@
 
 .product-card {
   width: 30%;
-  border-radius: 15px;
   margin: 20px 0px;
-  transition: all 0.5s;
+  transition: all 0.5s ease-in-out;
 }
 
 .product-card:hover {
-  box-shadow: 0px 0px 3px var(--graycolor);
+  box-shadow: 0px 0px 2px var(--graycolor);
+  transform: translateY(-1rem);
 }
 
 .product-card-img img {
-  border-top-right-radius: 15px;
-  border-top-left-radius: 15px;
   width: 100%;
   height: 320px;
   /* object-fit: cover; */
@@ -52,17 +50,16 @@
 .product-search {
   padding: 10px;
   border: 1px solid rgba(21, 21, 21, 0.5);
-  border-radius: 8px;
+  border-radius: 5px;
   width: 80%;
   outline: none;
-  background: var(--graycolor);
+  background: var(--whitecolor);
   margin: 20px 0px;
-  color: var(--whitecolor);
+  color: var(--graycolor);
 }
 
 .product-search::placeholder {
-  color: var(--whitecolor);
-
+  color: var(--graycolor);
   font-weight: 500;
   font-family: "Poppins", sans-serif;
 }
@@ -99,7 +96,7 @@
   width: 0px;
   left: 0;
   bottom: 0px;
-  transition: 0.3s;
+  transition: width 0.5s ease-in-out;
 }
 
 .filter-section ul li:hover::after {

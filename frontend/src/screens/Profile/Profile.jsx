@@ -75,7 +75,7 @@ const MyProfile = () => {
                 <div className="profile-btns-container">
                   <EditProfileModal setOpen={setOpen} open={open} />
                   <EditPasswordModal setOpen={setOpen} open={open} />
-                  <button className="modal-btns" onClick={myOrderHandler}>
+                  <button className="btn" onClick={myOrderHandler}>
                     My Orders
                   </button>
                 </div>

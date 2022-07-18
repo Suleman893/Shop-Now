@@ -2,33 +2,34 @@ export const Validate = (newProduct) => {
   const errors = {};
 
   if (!newProduct.productName) {
-    errors.productName = "productName  is required";
+    errors.productName = "Required field";
   } else if (
     newProduct.productName.length < 2 ||
     newProduct.productName.length > 15
   ) {
-    errors.productName = "productName must be between 10 - 15 digits";
+    errors.productName = "Must be 10 - 15 length";
   }
-
   if (!newProduct.description) {
-    errors.description = "description  is required";
+    errors.description = "Required Field";
   } else if (
     newProduct.description.length < 10 ||
     newProduct.description.length > 40
   ) {
-    errors.description = "description must be between 10 - 15 digits";
+    errors.description = "Must be 10 - 15 length";
   }
 
   if (!newProduct.price) {
-    errors.price = "price  is required";
+    errors.price = "Required Field";
   } else if (newProduct.price.length < 0 || newProduct.price.length > 10) {
-    errors.price = "productName must be between 10 - 3 digits";
+    errors.price = "Must be 0 - 10 length";
   }
-
+  if (!newProduct.category) {
+    errors.category = "Required Field";
+  }
   if (!newProduct.stock) {
-    errors.stock = "stock  is required";
+    errors.stock = "Required Field";
   } else if (newProduct.stock.length < 0 || newProduct.stock.length > 3) {
-    errors.stock = "stock must be between 10 - 3 digits";
+    errors.stock = "Must be 0 - 3 length";
   }
   return errors;
 };

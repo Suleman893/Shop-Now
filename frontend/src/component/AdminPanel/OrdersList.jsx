@@ -6,7 +6,7 @@ import {
   deleteOrder,
 } from "../../redux/actions/orderActions";
 import "./AdminPanel.css";
-import { AiFillDelete } from "react-icons/ai";
+import DeleteIcon from '@mui/icons-material/Delete';
 import Loader from "../Layout/Loader/Loader";
 import { useAlert } from "react-alert";
 
@@ -76,8 +76,12 @@ const OrderList = () => {
                     <AdminEditUserModal setOpen={setOpen} open={open} userId={curr._id} userName={curr.name} userEmail={curr.email} userPassword={curr.password} userConfirmPassword={curr.confirmPassword}/>
                     </td>*/}
                     <td data-label="Delete">
-                      <AiFillDelete
+
+
+
+                       <DeleteIcon
                         style={{
+                          cursor: "pointer",
                           fontSize: "1.2rem",
                           color: "red",
                         }}

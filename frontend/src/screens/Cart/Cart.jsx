@@ -130,16 +130,16 @@ const Cart = () => {
             <tr>
               <td>Total</td>
               <td>PKR:210.00</td>
+              <button className="btn" disabled={cartItems.length === 0}>
+        </button>
               </tr>  */}
           </table>
         </div>
-        <button className="btn" disabled={cartItems.length === 0}>
-          <Checkout
-            subTotal={cartItems
-              .reduce((qty, item) => qty + item.qty * item.price, 0)
-              .toFixed(2)}
-          />
-        </button>
+        <Checkout
+          subTotal={cartItems
+            .reduce((qty, item) => qty + item.qty * item.price, 0)
+            .toFixed(2)}
+        />
       </div>
     </React.Fragment>
   );

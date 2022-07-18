@@ -124,12 +124,12 @@ const Products = () => {
               </ul>
             </div>
           </div>
-          <div className="right">
-            {loading ? (
-              <Loader />
-            ) : (
-              products.map((product) => (
-                <HeadShake>
+          <HeadShake>
+            <div className="right">
+              {loading ? (
+                <Loader />
+              ) : (
+                products.map((product) => (
                   <div className="product-card">
                     <Link to={`/productdetail/${product._id}`}>
                       <div className="product-card-img">
@@ -155,10 +155,10 @@ const Products = () => {
                       </div>
                     </Link>
                   </div>
-                </HeadShake>
-              ))
-            )}
-          </div>
+                ))
+              )}
+            </div>
+          </HeadShake>
         </div>
 
         <div className="page-btn">

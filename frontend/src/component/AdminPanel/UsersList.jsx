@@ -6,7 +6,8 @@ import {
   clearErrors,
 } from "../../redux/actions/userActions";
 import "./AdminPanel.css";
-import { AiFillDelete } from "react-icons/ai";
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import { AdminEditUserModal } from "../Modals/AdminEditUserModal";
 import Loader from "../Layout/Loader/Loader";
 import { useAlert } from "react-alert";
@@ -85,11 +86,12 @@ const UsersList = () => {
                       />
                     </td>
                     <td data-label="Delete">
-                      <AiFillDelete
-                        style={{
-                          fontSize: "1.2rem",
-                          color: "red",
-                        }}
+                    <DeleteIcon
+                    style={{
+                      cursor: "pointer",
+                      fontSize: "1.2rem",
+                      color: "red",
+                    }}
                         onClick={() =>
                           dispatch(deleteUser(curr._id, currentUser))
                         }

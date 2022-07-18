@@ -7,6 +7,9 @@ import {
   clearErrors,
 } from "../../redux/actions/productAction";
 import { Validate } from "../../validation/AddProductValidation";
+import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
+import AddIcon from "@mui/icons-material/Add";
+
 const AddProduct = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
@@ -115,6 +118,7 @@ const AddProduct = () => {
                     value={newProduct.category}
                     onChange={handleChange}
                   />
+                  <p>{formErrors.category ? formErrors.category : " "}</p>
                 </td>
                 <td data-label="Stock">
                   <input
@@ -127,11 +131,28 @@ const AddProduct = () => {
                   <p>{formErrors.stock ? formErrors.stock : " "}</p>
                 </td>
                 <td data-label="Image">
-                  <input type="file" id="files" />
-                  <label htmlFor="files">Select</label>
+                  <label for="file-input">
+                    <InsertPhotoIcon
+                      style={{
+                        color: "blue",
+                        cursor: "pointer",
+                        fontSize: "1.2rem",
+                      }}
+                    />
+                  </label>
+                  <input id="file-input" type="file" />
                 </td>
-                <td data-label="Add">
-                  <button onClick={submitHandler}>Add the Product</button>
+                <td>
+                  <AddIcon
+                    style={{
+                      color: "blue",
+                      cursor: "pointer",
+                      fontSize: "1.2rem",
+                    }}
+                    onClick={submitHandler}
+                  >
+                    Add the Product
+                  </AddIcon>
                 </td>
               </tr>
             </tbody>

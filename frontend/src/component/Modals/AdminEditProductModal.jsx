@@ -7,7 +7,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useDispatch, useSelector } from "react-redux";
 import { editProduct, clearErrors } from "../../redux/actions/productAction";
-import { AiFillEdit } from "react-icons/ai";
+import EditIcon from "@mui/icons-material/Edit";
 import { useAlert } from "react-alert";
 
 export const AdminEditProductModal = ({
@@ -76,9 +76,10 @@ export const AdminEditProductModal = ({
 
   return (
     <React.Fragment>
-      <AiFillEdit
+      <EditIcon
         onClick={handleClickOpen}
         style={{
+          cursor: "pointer",
           fontSize: "1.2rem",
           color: "blue",
         }}

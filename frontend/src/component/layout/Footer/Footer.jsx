@@ -2,7 +2,8 @@ import React from "react";
 import playStore from "../../../images/playStore.png";
 import appStore from "../../../images/appStore.png";
 import "./Footer.css";
-import logo from "../../../images/logo.png";
+import { Link } from "react-router-dom";
+
 const Footer = () => {
   return (
     <footer>
@@ -23,9 +24,9 @@ const Footer = () => {
 
           <div className="footer-col-2">
             <div className="logo">
-              <a href="#">
-                <img src={logo} alt="logo" />
-              </a>
+            <Link to="/">
+            <h1>Shop Now</h1>
+          </Link>
             </div>
             <p>Our purpose is to make products available to you easily</p>
           </div>
