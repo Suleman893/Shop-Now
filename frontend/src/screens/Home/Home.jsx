@@ -7,9 +7,10 @@ import {
 } from "../../redux/actions/productAction";
 import { useSelector, useDispatch } from "react-redux";
 import Loader from "../../component/Layout/Loader/Loader";
-import { Link } from "react-router-dom";
-import ReactStars from "react-rating-stars-component";
-import buy2 from "../../images/product2.jpg";
+import CallToAction from "../../component/Home/CallToAction";
+import Collection from "../../component/Home/Collection";
+import ProductCard from "../../component/ProductCard/ProductCard";
+import HeroSection from "../../component/Home/HeroSection";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -27,83 +28,29 @@ const Home = () => {
   return (
     <React.Fragment>
       <MetaData title="Shop now" />
-      <div className="banner-img">
-        <div className="banner-wrapper">
-          <div className="banner-img-content">
-            <h2>Keep The Fashion Vibe Alive</h2>
-            <p>Explore our products</p>
-            <button>Dive Right In</button>
-          </div>
-        </div>
-      </div>
-
+      <HeroSection />
       <div className="container">
         <h2 className="page-title ">Latest Products</h2>
         <div className="home-page-products my-20">
           {loading ? (
             <Loader />
           ) : (
-            latestProducts.map((product) => (
-              <div className="product-card">
-                <Link to={`/productdetail/${product._id}`}>
-                  <div className="product-card-img">
-                    <img src={buy2} alt="product-card" />
-                  </div>
-                  <div className="product-card-content">
-                    <h1>{product.productName}</h1>
-                    <p>{product.category}</p>
-                    <div className="no-of-reviews">
-                      <ReactStars
-                        edit={false}
-                        color="rgba(20,20,20,0.1)"
-                        activeColor="#ffd700"
-                        size={window.innerWidth < 600 ? 20 : 25}
-                        value={product.ratings}
-                        isHalf={true}
-                      />
-                      <p>({product.numOfReviews} reviews) </p>
-                    </div>
-                    <div className="product-card-price">Rs {product.price}</div>
-                  </div>
-                </Link>
-              </div>
-            ))
+            latestProducts.map((product) => <ProductCard product={product} />)
           )}
         </div>
-
+      </div>
+      <Collection />
+      <div className="container">
         <h2 className="page-title ">Featured Products</h2>
         <div className="home-page-products my-20">
           {loading ? (
             <Loader />
           ) : (
-            latestProducts.map((product) => (
-              <div className="product-card">
-                <Link to={`/productdetail/${product._id}`}>
-                  <div className="product-card-img">
-                    <img src={buy2} alt="product-card" />
-                  </div>
-                  <div className="product-card-content">
-                    <h1>{product.productName}</h1>
-                    <p>{product.category}</p>
-                    <div className="no-of-reviews">
-                      <ReactStars
-                        edit={false}
-                        color="rgba(20,20,20,0.1)"
-                        activeColor="#ffd700"
-                        size={window.innerWidth < 600 ? 20 : 25}
-                        value={product.ratings}
-                        isHalf={true}
-                      />
-                      <p>({product.numOfReviews} reviews) </p>
-                    </div>
-                    <div className="product-card-price">Rs {product.price}</div>
-                  </div>
-                </Link>
-              </div>
-            ))
+            latestProducts.map((product) => <ProductCard product={product} />)
           )}
         </div>
       </div>
+      <CallToAction />
     </React.Fragment>
   );
 };

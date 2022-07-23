@@ -95,7 +95,7 @@ const Signin = () => {
                 <div className="redirect">
                   <p>Dont have account?</p>
                   <Link to="/signup">
-                    <p>Sign up</p>
+                    <p style={{ color: "#00a300" }}> Sign up</p>
                   </Link>
                 </div>
               </form>

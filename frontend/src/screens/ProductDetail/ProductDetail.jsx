@@ -19,6 +19,7 @@ import Loader from "../../component/Layout/Loader/Loader";
 import { useAlert } from "react-alert";
 import MetaData from "../../component/Layout/MetaData";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import ReviewCard from "../../component/ReviewCard/ReviewCard";
 
 const ProductDetail = () => {
   const alert = useAlert();
@@ -168,31 +169,9 @@ const ProductDetail = () => {
               What others say's about {product.productName}{" "}
             </h4>
             {product.reviews &&
-              product.reviews.map((curr) => (
+              product.reviews.map((review) => (
                 <HeadShake>
-                  <div className="review-card mx-10">
-                    <div className="review-card-content">
-                      <div className="review-card-info">
-                        <img src={user} alt="user" />
-                        <div>
-                          <h5 className="mx-10">{curr.name}</h5>
-                          <p className="mx-10">{curr.name}</p>
-                          <p className="mx-10">{curr.date}</p>
-                        </div>
-                      </div>
-                      <div>
-                        <ReactStars
-                          edit={false}
-                          color="rgba(20,20,20,0.1)"
-                          activeColor="#ffd700"
-                          size={window.innerWidth < 600 ? 20 : 25}
-                          value={curr.rating}
-                          isHalf={true}
-                        />
-                      </div>
-                      <p className="mx-10">{curr.comment}</p>
-                    </div>
-                  </div>
+                 <ReviewCard review={review}/>
                 </HeadShake>
               ))}
 

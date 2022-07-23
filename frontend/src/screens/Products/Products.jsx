@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Products.css";
-import buy1 from "../../images/product.jpg";
-import buy2 from "../../images/product.jpg";
-import ReactStars from "react-rating-stars-component";
+
 import {
   clearErrors,
   getProduct,
@@ -16,6 +14,7 @@ import { animateScroll as scroll } from "react-scroll";
 import Loader from "../../component/Layout/Loader/Loader";
 import { useAlert } from "react-alert";
 import MetaData from "../../component/Layout/MetaData";
+import ProductCard from "../../component/ProductCard/ProductCard";
 
 const Products = () => {
   const alert = useAlert();
@@ -130,31 +129,7 @@ const Products = () => {
                 <Loader />
               ) : (
                 products.map((product) => (
-                  <div className="product-card">
-                    <Link to={`/productdetail/${product._id}`}>
-                      <div className="product-card-img">
-                        <img src={buy2} alt="product-card" />
-                      </div>
-                      <div className="product-card-content">
-                        <h1>{product.productName}</h1>
-                        <p>{product.category}</p>
-                        <div className="no-of-reviews">
-                          <ReactStars
-                            edit={false}
-                            color="rgba(20,20,20,0.1)"
-                            activeColor="#ffd700"
-                            size={window.innerWidth < 600 ? 20 : 25}
-                            value={product.ratings}
-                            isHalf={true}
-                          />
-                          <p>({product.numOfReviews} reviews) </p>
-                        </div>
-                        <div className="product-card-price">
-                          Rs {product.price}
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
+              <ProductCard product={product}/>
                 ))
               )}
             </div>

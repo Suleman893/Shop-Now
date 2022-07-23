@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../../redux/actions/userActions";
 import "./Header.css";
@@ -25,56 +25,53 @@ const Header = () => {
         <nav>
           <ul className="nav">
             <li>
-              <Link to="/">Home</Link>
+              <NavLink to="/">Home</NavLink>
             </li>
             <li>
-              <Link to={`/products`}>Products</Link>
+              <NavLink to="/products" className="myactive">
+                Products
+              </NavLink>
             </li>
             <li>
-              <Link to="/about">About Us</Link>
+              <NavLink to="/about">About Us</NavLink>
             </li>
-            {loggedInUserInfo ? (
-              <div>
-                <li style={{ textTransform: "capitalize" }}>
-                  {" "}
-                  {loggedInUserInfo.name}
-                </li>
-              </div>
-            ) : (
-              <li>
-                <Link to="/signup">Signup</Link>
-              </li>
-            )}
+
+            <li>
+              <NavLink to="/cart/62c9713f070a74188a24d26">
+                <i className="fas fa-shopping-cart mr-8 cart-icon">
+                  <span className="cart-no">
+                    {cartItems.reduce((qty, item) => qty + Number(item.qty), 0)}
+                  </span>
+                </i>
+              </NavLink>
+            </li>
+            <li>
+              {loggedInUserInfo
+                ? loggedInUserInfo.role === "admin" && (
+                    <NavLink to="/admin">
+                      <li className="fa fa-users"></li>
+                    </NavLink>
+                  )
+                : " "}
+            </li>
+            <li>
+              <NavLink to="/myProfile">
+                <i className="fa fa-user  mr-8"></i>
+              </NavLink>
+            </li>
+            <li>
+              {currentUser && (
+                <i
+                  className="fa fa-sign-out "
+                  onClick={() => {
+                    dispatch(logoutUser());
+                    navigate("/signin");
+                  }}
+                ></i>
+              )}
+            </li>
           </ul>
         </nav>
-        <div className="header-btns">
-          <Link to="/cart/62c9713f070a74188a24d26">
-            <i className="fas fa-shopping-cart mr-8">
-              <span>
-                {cartItems.reduce((qty, item) => qty + Number(item.qty), 0)}
-              </span>
-            </i>
-          </Link>
-          {loggedInUserInfo
-            ? loggedInUserInfo.role === "admin" && (
-                <Link to="/admin">
-                  <li className="fa fa-users"></li>
-                </Link>
-              )
-            : " "}
-          <Link to="/myProfile">
-            <i className="fa fa-user  mr-8"></i>
-          </Link>
-          {currentUser && (
-            <i
-              className="fa fa-sign-out "
-              onClick={() => {
-                dispatch(logoutUser());
-                navigate("/signin");
-              }}
-            ></i>
-          )}
-        </div>
       </div>
     </header>
   );

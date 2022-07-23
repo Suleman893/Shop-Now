@@ -36,8 +36,11 @@ const Cart = () => {
         <h2 className="page-title">Your Cart</h2>
         <table className="my-20">
           <tr>
-            <th>Product</th>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Price</th>
             <th>Quantity</th>
+            <th>Remove</th>
             <th>Subtotal</th>
           </tr>
           {cartItems.length === 0 ? (
@@ -49,32 +52,16 @@ const Cart = () => {
             cartItems.map((item) => (
               <tr>
                 <td>
-                  <div className="cart-info">
+                  <div className="cart-img">
                     <img src={buy1} alt="cart-item" />
-                    <div className="cart-info-content">
-                      <Link to={`/productdetail/${item.product}`}></Link>
-                      <h1>{item.name}</h1>
-                      <small>
-                        <b>PKR:</b> {item.price}
-                      </small>
-                      <small
-                        onClick={() => {
-                          removeFromCartHandler(item.product);
-                        }}
-                      >
-                        <li
-                          className="fa fa-trash text-danger"
-                          aria-hidden="true"
-                          style={{
-                            cursor: "pointer",
-                            color: "red",
-                            fontSize: "18px",
-                          }}
-                        ></li>
-                      </small>
-                      <br />
-                    </div>
                   </div>
+                </td>
+                <td>
+                  <Link to={`/productdetail/${item.product}`}></Link>
+                  <h1 style={{ textTransform: "capitalize" }}>{item.name}</h1>
+                </td>
+                <td>
+                  <small>PKR: {item.price}</small>
                 </td>
                 <td>
                   <select
@@ -89,6 +76,23 @@ const Cart = () => {
                       </option>
                     ))}
                   </select>
+                </td>
+                <td>
+                  <small
+                    onClick={() => {
+                      removeFromCartHandler(item.product);
+                    }}
+                  >
+                    <li
+                      className="fa fa-trash text-danger"
+                      aria-hidden="true"
+                      style={{
+                        cursor: "pointer",
+                        color: "red",
+                        fontSize: "18px",
+                      }}
+                    ></li>
+                  </small>
                 </td>
                 <td>
                   <b>{item.price}</b>

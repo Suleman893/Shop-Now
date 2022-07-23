@@ -3,7 +3,9 @@ header {
   background: var(--whitecolor);
   position: sticky;
   top: 0;
-  z-index: 1;
+  left: 0;
+  z-index: 999;
+  box-shadow: 10 5px 15px rgba(219, 21, 21, 0);
 }
 
 .header-container {
@@ -23,17 +25,49 @@ header {
 
 .nav li {
   margin-right: 12px;
+  position: relative;
 }
 
 .nav a {
   font-size: 1.1rem;
 }
 
+.nav li::after {
+  content: "";
+  position: absolute;
+  background-color: var(--themecolor);
+  height: 3px;
+  width: 0px;
+  left: 0;
+  bottom: 0px;
+  transition: width 0.5s ease-in-out;
+}
+
+.nav li:hover::after {
+  width: 20px;
+}
+
 .nav a:hover {
   color: var(--themecolor);
+}
+
+.nav a.active.myactive {
+  color: var(--themecolor);
+
 }
 
 .logo h1 {
   font-size: 2rem;
   letter-spacing: 2px;
+}
+
+.cart-icon {
+  position: relative;
+}
+
+.cart-no {
+  position: absolute;
+  bottom: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
 }

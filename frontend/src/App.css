@@ -12,7 +12,8 @@
   /* Variables*/
   --whitecolor: #ffffff;
   --graycolor: #607d8b;
-  --themecolor: #ff7f50;
+  /* --themecolor: #ff7f50; */
+  --themecolor: #00a300;
 }
 
 body {
@@ -31,6 +32,10 @@ body {
 a {
   text-decoration: none;
   color: #000;
+}
+
+input {
+  font-family: "Poppins", sans-serif;
 }
 
 .page-title {
@@ -63,17 +68,18 @@ a {
   width: 100%;
   font-weight: 600;
   background: var(--themecolor);
-  border: 1px solid var(--themecolor);
+  /* border: 1px solid var(--themecolor); */
+  border: none;
+  outline: none;
   color: var(--whitecolor);
   text-align: center;
-  border-radius: 10px;
   font-size: 1rem;
   padding: 8px 0px;
   transition: all 0.5s ease-in-out;
 }
 
 .btn:hover {
-  box-shadow: var(--themecolor) 0px 13px 27px 0px;
+  box-shadow: 0px 0px 15px 0px var(--themecolor);
 }
 .my-20 {
   margin-top: 20px;

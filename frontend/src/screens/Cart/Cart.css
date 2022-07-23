@@ -20,6 +20,7 @@ th {
 }
 
 td {
+  width: 20%;
   padding: 10px 5px;
 }
 
@@ -56,52 +57,32 @@ td select {
   max-width: 400px;
 }
 
-td:last-child {
-  text-align: right;
-}
-
-th:last-child {
-  text-align: right;
-}
-
-.cart-info {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-}
-
-.cart-info img {
-  width: 10%;
+.cart-img img {
+  width: 35%;
   object-fit: cover;
   object-position: center;
-  height: auto;
-}
-
-.cart-info-content {
-  display: flex;
-  flex-direction: column;
 }
 
 @media screen and (max-width: 1000px) {
-  .cart-info img {
+  .cart-img img {
     width: 12%;
   }
 }
 
 @media screen and (max-width: 778px) {
-  .cart-info img {
+  .cart-img img {
     width: 16%;
   }
 }
 
 @media screen and (max-width: 550px) {
-  .cart-info img {
+  .cart-img img {
     width: 30%;
   }
 }
 
 @media screen and (max-width: 400px) {
-  .cart-info img {
+  .cart-img img {
     width: 80%;
   }
 }

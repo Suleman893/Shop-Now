@@ -24,19 +24,13 @@
   color: var(--graycolor);
 }
 
-.not-found-wrapper a {
-  text-decoration: none;
-  background: var(--themecolor);
-  color: var(--whitecolor);
-  padding: 12px 24px;
-  display: inline-block;
-  border-radius: 25px;
-  font-size: 14px;
-  text-transform: uppercase;
-  transition: 0.5s ease-in-out;
+.not-found-btn {
+  width: 20%;
+  margin: auto;
 }
-.not-found-wrapper a:hover {
-  background: var(--themecolor);
+
+.not-found-btn a {
+  color: var(--whitecolor);
 }
 
 @media screen and (max-width: 600px) {
