@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { editProduct, clearErrors } from "../../redux/actions/productAction";
 import EditIcon from "@mui/icons-material/Edit";
 import { useAlert } from "react-alert";
+import "./ModalStyling.css";
 
 export const AdminEditProductModal = ({
   productId,

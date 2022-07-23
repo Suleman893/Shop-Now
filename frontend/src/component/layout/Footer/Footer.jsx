@@ -7,9 +7,9 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <footer>
-      <div className="container ">
+      <div className="container">
         <div className="footer-row">
-          <div className="footer-col-1">
+          <div className="footer-col">
             <h3> Download Our App</h3>
             <p> Download App for Android & Ios devices</p>
             <div className="app-logo">
@@ -21,8 +21,7 @@ const Footer = () => {
               </a>
             </div>
           </div>
-
-          <div className="footer-col-2">
+          <div className="footer-col">
             <div className="logo">
             <Link to="/">
             <h1>Shop Now</h1>
@@ -30,8 +29,7 @@ const Footer = () => {
             </div>
             <p>Our purpose is to make products available to you easily</p>
           </div>
-
-          <div className="footer-col-3">
+          <div className="footer-col">
             <h3>Follow us on</h3>
             <ul>
               <li>

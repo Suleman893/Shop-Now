@@ -39,8 +39,6 @@ const OrderList = () => {
     }
   }, [dispatch, alert, error, delSuccess, delError]);
 
-  const [open, setOpen] = React.useState(false);
-
   return (
     <div>
       <div className="table-container">

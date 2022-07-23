@@ -1,17 +1,17 @@
 import React from "react";
 import "./ProductCard.css";
-import buy1 from "../../images/product.jpg";
+import buy1 from "../../images/product2.jpg";
 import buy2 from "../../images/product.jpg";
 import ReactStars from "react-rating-stars-component";
 import { Link, useSearchParams } from "react-router-dom";
 
-const ProductCard = ({product}) => {
+const ProductCard = ({ product }) => {
   return (
     <React.Fragment>
       <div className="product-card">
         <Link to={`/productdetail/${product._id}`}>
           <div className="product-card-img">
-            <img src={buy2} alt="product-card" />
+            <img src={buy1} alt="product" />
           </div>
           <div className="product-card-content">
             <h1>{product.productName}</h1>

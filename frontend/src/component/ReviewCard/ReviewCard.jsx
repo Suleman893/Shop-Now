@@ -9,7 +9,7 @@ const ReviewCard = ({ review }) => {
       <div className="review-card mx-10">
         <div className="review-card-content">
           <div className="review-card-info">
-            <img src={user} alt="user" />
+            <img src={user} alt="review" />
             <div>
               <h5 className="mx-10">{review.name}</h5>
               <p className="mx-10">{review.name}</p>

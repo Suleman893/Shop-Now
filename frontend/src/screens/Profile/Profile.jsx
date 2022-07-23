@@ -40,7 +40,7 @@ const MyProfile = () => {
             <h1 className="page-title"> My Profile</h1>
             <div className="row profile-wrapper my-20">
               <div className="profile-left">
-                <div className="profile-left-image">
+                <div className="profile-left-img">
                   <img src={user} alt="profile-pic" />
                 </div>
               </div>

@@ -3,11 +3,11 @@
 }
 
 .left {
-  flex-basis: 20%;
+  width: 20%;
 }
 
 .right {
-  flex-basis: 80%;
+  width: 80%;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -117,7 +117,7 @@
   }
 
   .left {
-    flex-basis: 100%;
+    width: 100%;
   }
 
   .product-search {
@@ -125,7 +125,7 @@
   }
 
   .right {
-    flex-basis: 100%;
+    width: 100%;
   }
 
   .filter-section ul {

@@ -1,4 +1,4 @@
-.collections-wrapper {
+.collection-wrapper {
   display: flex;
   justify-content: space-between;
   flex-flow: row wrap;
@@ -8,7 +8,6 @@
 .collection {
   height: 400px;
   width: 49.5%;
-  background-color: red;
   position: relative;
 }
 
@@ -32,7 +31,6 @@
 .collection-full {
   height: 600px;
   width: 100%;
-  background-color: red;
   position: relative;
 }
 

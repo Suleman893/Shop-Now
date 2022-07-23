@@ -15,31 +15,18 @@
   margin-bottom: 20px;
 }
 
-.footer-col-1,
-.footer-col-2,
-.footer-col-3 {
-  min-width: 250px;
+.footer-col {
+  width: 32%;
   margin-bottom: 20px;
 }
 
-.footer-col-1 {
-  flex-basis: 30%;
+.footer-col {
   text-align: center;
 }
 
-.footer-col-2 {
-  flex-basis: 30%;
-  text-align: center;
-}
-
-.footer-col-2 img {
+.footer-col img {
   width: 180px;
   margin-bottom: 20px;
-}
-
-.footer-col-3 {
-  flex-basis: 12%;
-  text-align: center;
 }
 
 ul {
@@ -67,15 +54,7 @@ hr {
 }
 
 @media screen and (max-width: 700px) {
-  .footer-col-1 {
-    flex-basis: 100%;
-  }
-
-  .footer-col-2 {
-    flex: 100%;
-  }
-
-  .footer-col-3 {
-    flex-basis: 100%;
+  .footer-col {
+    width: 100%;
   }
 }

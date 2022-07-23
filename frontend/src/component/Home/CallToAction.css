@@ -1,8 +1,4 @@
-.my40 {
-  margin: 40px 0px;
-}
-
-.call-to-action {
+.call-action {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,17 +11,18 @@
   background-position: center;
 }
 
-.call-to-action h4 {
+.call-action h4 {
   color: #fff;
   font-size: 1rem;
 }
 
-.call-to-action h2 {
+.call-action h2 {
   color: #fff;
   font-size: 1rem;
   padding: 10px 0;
 }
 
-.call-to-action h2 span {
-  color: red;
+.call-action h2 span {
+  color: #ff0000;
+
 }

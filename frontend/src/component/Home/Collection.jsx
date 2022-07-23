@@ -6,23 +6,23 @@ import electroniccollection from "../../images/electroniccollection.jpg";
 
 const Collection = () => {
   return (
-    <div className="collections-wrapper">
+    <div className="collection-wrapper">
       <div className="collection">
-        <img src={mencollection} alt="mencollection" />
+        <img  alt="mencollection" />
         <p className="collection-title">
           Men <br />
           Apparels{" "}
         </p>
       </div>
       <div className="collection">
-        <img src={womencollection} alt="womencollection" />
+        <img  alt="womencollection" />
         <p className="collection-title">
           Women <br />
           Apparels{" "}
         </p>
       </div>
       <div className="collection-full">
-        <img src={electroniccollection} alt="electroniccollection" />
+        <img  alt="electroniccollection" />
         <p className="collection-title">
           Electronic Devices <br />
           Apparels{" "}

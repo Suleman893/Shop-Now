@@ -5,11 +5,11 @@
 }
 
 .green {
-  color: green;
+  color: #008000;
 }
 
 .red {
-  color: red;
+  color: #ff0000;
 }
 
 .product-detail-row {
@@ -27,7 +27,7 @@
 }
 
 .product-detail-left {
-  flex-basis: 40%;
+  width: 40%;
 }
 
 .product-detail-left img {
@@ -35,7 +35,7 @@
 }
 
 .product-detail-right {
-  flex-basis: 50%;
+  width: 50%;
 }
 
 .product-detail-right h2 {
@@ -59,13 +59,13 @@
   font-size: 0.8rem;
 }
 
-.product-detail-price-add-cart {
+.product-detail-price-cart {
   display: flex;
   flex-direction: column;
 }
 
-.product-detail-price-add-cart p {
-  color: red;
+.product-detail-price-cart p {
+  color: #ff0000;
   font-size: 1.2rem;
   font-weight: 600;
 }
@@ -91,7 +91,7 @@
   text-align: center;
 }
 
-.add-to-card-btn {
+.add-to-cart-btn {
   width: 25%;
 }
 
@@ -126,11 +126,11 @@
 
 @media screen and (max-width: 778px) {
   .product-detail-left {
-    flex-basis: 100%;
+    width: 100%;
     margin-bottom: 30px;
   }
   .product-detail-right {
-    flex-basis: 100%;
+    width: 100%;
   }
   .review-card {
     width: 100%;

@@ -8,7 +8,7 @@ const NotFound = () => {
     <React.Fragment>
       <MetaData title="Page not found" />
       <div className="container">
-        <div className="not-found-wrapper">
+        <div className="not-found-content">
           <h2>Opps ! Page not found</h2>
           <h1>404</h1>
           <p>We can't find the page you're looking for</p>

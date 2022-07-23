@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { adminEditUser, clearErrors } from "../../redux/actions/userActions";
 import EditIcon from '@mui/icons-material/Edit';
 import { useAlert } from "react-alert";
+import "./ModalStyling.css";
 
 export const AdminEditUserModal = ({
   userId,

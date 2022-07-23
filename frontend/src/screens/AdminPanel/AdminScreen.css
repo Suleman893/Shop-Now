@@ -1,9 +1,9 @@
 .admin-left {
-  flex-basis: 15%;
+  width: 15%;
 }
 
 .admin-right {
-  flex-basis: 85%;
+  width: 85%;
 }
 
 /* .admin-right-screen {
@@ -69,11 +69,11 @@
   }
 
   .admin-left {
-    flex-basis: 100%;
+    width: 100%;
   }
 
   .admin-right {
-    flex-basis: 90%;
+    width: 90%;
   }
 
   .admin-panel-sidebar button:hover::after {

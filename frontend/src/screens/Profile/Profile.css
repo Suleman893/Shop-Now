@@ -4,26 +4,26 @@
 }
 
 .profile-left {
-  flex-basis: 31%;
+  width: 31%;
 }
 
 .profile-middle {
-  flex-basis: 31%;
+  width: 31%;
 }
 
 .profile-right {
-  flex-basis: 31%;
+  width: 31%;
 }
 
 .profile-btns-container {
-  width:50%;
+  width: 50%;
   display: flex;
   flex-direction: column;
   height: 160px;
   justify-content: space-between;
 }
 
-.profile-left-image img {
+.profile-left-img img {
   width: 50%;
   height: auto;
   border-radius: 50%;

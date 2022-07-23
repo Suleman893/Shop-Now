@@ -110,7 +110,7 @@ const ProductDetail = () => {
                 <ImageGallery items={images} />
               </div>
               <div className="product-detail-right">
-                <div className="product-detail-productinfo">
+                <div className="product-detail-content">
                   <h2>{product.productName} </h2>
                   <p>{product._id}</p>
                   <p>{product.category}</p>
@@ -128,30 +128,19 @@ const ProductDetail = () => {
                   <p>({product.numOfReviews} reviews) </p>
                 </div>
                 <hr />
-                <div className="product-detail-price-add-cart">
+                <div className="product-detail-price-cart">
                   <p className="product-detail-price">Rs: {product.price}</p>
                   <div className="inc-dec">
                     <button onClick={decreaseQuantity}>-</button>
                     <input readOnly type="number" value={qty} />
                     <button onClick={increaseQuantity}>+</button>
                   </div>
-                  {/*
-                    <select
-                      value={qty}
-                      onChange={(e) => setQty(e.target.value)}
-                    >
-                      {[...Array(product.stock).keys()].map((x) => (
-                        <option key={x + 1} value={x + 1}>
-                          {x + 1}
-                        </option>
-                      ))}
-                    </select>
-                      */}
                 </div>
-                <div className="add-to-card-btn">
-                <button className="btn mx-10 " onClick={addToCartHandler}>
-                  Add to cart <ShoppingCartIcon style={{ fontSize: "15px" }} />
-                </button>
+                <div className="add-to-cart-btn">
+                  <button className="btn mx-10 " onClick={addToCartHandler}>
+                    Add to cart{" "}
+                    <ShoppingCartIcon style={{ fontSize: "15px" }} />
+                  </button>
                 </div>
                 <hr />
                 <h3 className={"mx-10" && product.stock > 0 ? "green" : "red"}>
@@ -164,6 +153,7 @@ const ProductDetail = () => {
               </div>
             </div>
           </div>
+          {/* Review Section*/}
           <div className="product-detail-container">
             <h4 className="page-title-small">
               What others say's about {product.productName}{" "}
@@ -171,10 +161,9 @@ const ProductDetail = () => {
             {product.reviews &&
               product.reviews.map((review) => (
                 <HeadShake>
-                 <ReviewCard review={review}/>
+                  <ReviewCard review={review} />
                 </HeadShake>
               ))}
-
             <div className="leave-comment my-20">
               <Rating
                 onChange={(e) => setRating(e.target.value)}
@@ -190,10 +179,10 @@ const ProductDetail = () => {
                 className="mx-10"
               />
               <div className="leave-comment-btn">
-              <button onClick={submitReview} className="btn">
-                {" "}
-                Leave a comment
-              </button>
+                <button onClick={submitReview} className="btn">
+                  {" "}
+                  Leave a comment
+                </button>
               </div>
             </div>
           </div>

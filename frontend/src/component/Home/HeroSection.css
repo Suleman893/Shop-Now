@@ -1,4 +1,4 @@
-.hero-img {
+.hero-bg {
   background-image: url(../../images//landingpage.jpg);
   background-position: revert;
   background-size: cover;
@@ -36,12 +36,16 @@
 }
 
 .hero-img-content p {
-  font-size: 1rem;
+  font-size: 1.5rem;
   color: var(--whitecolor);
 }
 
 .hero-section-btn {
   width: 30%;
+}
+
+.hero-section-btn a {
+  color: var(--whitecolor);
 }
 
 @media screen and (max-width: 850px) {

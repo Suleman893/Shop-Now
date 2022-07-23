@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import buy1 from "../../images/product.jpg";
+import buy1 from "../../images/product2.jpg";
 import { addToCart, removeFromCart } from "../../redux/actions/cartActions";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -32,7 +32,7 @@ const Cart = () => {
   return (
     <React.Fragment>
       <MetaData title="Product Cart" />
-      <div className="cart-container ">
+      <div className="cart-container">
         <h2 className="page-title">Your Cart</h2>
         <table className="my-20">
           <tr>
@@ -127,16 +127,6 @@ const Cart = () => {
                 </b>
               </td>
             </tr>
-            {/*<tr>
-              <td>Tax</td>
-              <td>PKR:10.00</td>
-            </tr>
-            <tr>
-              <td>Total</td>
-              <td>PKR:210.00</td>
-              <button className="btn" disabled={cartItems.length === 0}>
-        </button>
-              </tr>  */}
           </table>
         </div>
         <Checkout

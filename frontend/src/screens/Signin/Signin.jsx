@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, clearErrors } from "../../redux/actions/userActions";
 import Loader from "../../component/Layout/Loader/Loader";
-import signin from "../../images/signin.jpg";
 import { Validate } from "../../validation/SignInValidation";
 import { useAlert } from "react-alert";
 import MetaData from "../../component/Layout/MetaData";
