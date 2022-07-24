@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import buy1 from "../../images/product2.jpg";
-import user from "../../images/user.png";
 import ReactStars from "react-rating-stars-component";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";

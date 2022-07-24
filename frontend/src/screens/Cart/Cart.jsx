@@ -44,8 +44,8 @@ const Cart = () => {
             <th>Subtotal</th>
           </tr>
           {cartItems.length === 0 ? (
-            <div>
-              <h1> Nothing added in cart </h1>
+            <div className="empty-cart">
+              <h1> Empty cart </h1>
               <Link to="/products"> Buy somes products</Link>
             </div>
           ) : (

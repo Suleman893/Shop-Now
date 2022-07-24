@@ -2,9 +2,11 @@ const userSchema = require("../models/userModel");
 const bcrypt = require("bcryptjs");
 const jwtHelper = require("../middlewares/jwt");
 const { validationResult } = require("express-validator");
+const { cloudinary } = require("../utils/cloudinary");
 
 const UserRegistration = async (req, res) => {
-  const { email, password, confirmPassword } = req.body;
+  const { email, password, confirmPassword, previewSource } = req.body;
+  console.log("Preview", previewSource);
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).send({
@@ -28,8 +30,14 @@ const UserRegistration = async (req, res) => {
     } else {
       let salt = await bcrypt.genSalt(10); //round 10 out of total 12 round
       let encryptedPassword = await bcrypt.hash(password, salt);
+
+      const uploadResponse = await cloudinary.uploader.upload(previewSource, {
+        upload_preset: "Shop-Now",
+      });
+      console.log("ye", uploadResponse);
       const user = await userSchema.create({
         ...req.body,
+        userPic: uploadResponse.url,
         password: encryptedPassword,
         confirmPassword: encryptedPassword,
       });
@@ -69,6 +77,7 @@ const UserLogin = async (req, res) => {
       id: user._id,
       name: user.name,
       role: user.role,
+      userPic: user.userPic,
     });
     return res.status(200).send({
       success: true,

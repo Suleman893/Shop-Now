@@ -12,7 +12,7 @@ let checkToken = (req, res, next) => {
       req.userId = isVerified.id;
       req.name = isVerified.name;
       req.email = isVerified.email;
-
+req.userPic=isVerified.userPic;
       next();
     } else {
       return res.json({

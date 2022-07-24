@@ -1,21 +1,20 @@
 import React from "react";
-import {Navigate} from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-const ProtectedRoute = ({ isAdmin,children}) => {
-   
-    const { currentUser,loggedInUserInfo} = useSelector((state) => state.loginUser);
+const ProtectedRoute = ({ isAdmin, children }) => {
+  const { currentUser, loggedInUserInfo } = useSelector(
+    (state) => state.loginUser
+  );
 
-    if(!currentUser)
-    {
-     return <Navigate to={"/signin"}/>
-    }
+  if (!currentUser) {
+    return <Navigate to={"/signin"} />;
+  }
 
-    if(isAdmin && loggedInUserInfo.role !== "admin") 
-    {
-        return <Navigate to={"/signin"}/> 
-    }
-    return children
+  if (isAdmin && loggedInUserInfo.role !== "admin") {
+    return <Navigate to={"/signin"} />;
+  }
+  return children;
 };
 
 export default ProtectedRoute;

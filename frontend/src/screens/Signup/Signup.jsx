@@ -25,10 +25,12 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
   const [formErrors, setFormErrors] = useState({});
+
   const signupHandler = (e) => {
     e.preventDefault();
-    const user = { name, email, password, confirmPassword };
+    const user = { name, email, password, confirmPassword, previewSource };
 
     const errorsCount = Validate(user);
 
@@ -55,6 +57,21 @@ const Signup = () => {
     }
   }, [error, alert, success]);
 
+  const [fileInput, setFileInput] = useState("");
+  const [previewSource, setPreviewSource] = useState("");
+
+  const handleFileInputChange = (e) => {
+    const file = e.target.files[0];
+    previewFile(file);
+  };
+
+  const previewFile = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPreviewSource(reader.result);
+    };
+  };
   return (
     <React.Fragment>
       <MetaData title="Signup" />
@@ -122,6 +139,26 @@ const Signup = () => {
                   />
                 </div>
                 <p>{formErrors.password ? formErrors.password : " "}</p>
+
+                <div className="input-box">
+                  <span className="required">*</span> <span>Upload Image</span>
+                  <span className="input-box-icon">
+                    {previewSource && (
+                      <img
+                        src={previewSource}
+                        alt="chosen"
+                        style={{ height: "30px" }}
+                      />
+                    )}
+                  </span>
+                  <input
+                    type="file"
+                    name="image"
+                    value={fileInput}
+                    onChange={handleFileInputChange}
+                  />
+                </div>
+
                 <div className="input-box">
                   <input
                     type="submit"

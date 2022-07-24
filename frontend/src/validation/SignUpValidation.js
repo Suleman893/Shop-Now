@@ -6,6 +6,8 @@ export const Validate = (user) => {
     errors.name = "Name is required";
   } else if (!nameRegex.test(user.name)) {
     errors.name = "Please enter a valid name";
+  } else if (user.name.length < 5 || user.password.length > 15) {
+    errors.name = "Name must be between 5- 15 digits";
   }
   if (!user.email) {
     errors.email = "Email is required";

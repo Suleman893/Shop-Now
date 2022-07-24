@@ -63,6 +63,9 @@ td select {
   object-position: center;
 }
 
+.empty-cart a {
+  color: blue;
+}
 @media screen and (max-width: 1000px) {
   .cart-img img {
     width: 12%;

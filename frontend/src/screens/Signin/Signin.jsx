@@ -72,7 +72,7 @@ const Signin = () => {
                 <div className="input-box">
                   <span className="required">*</span> <span> Password</span>
                   <span className="input-box-icon">
-                    <KeyIcon style={{ color: "#ff7f50" }} />
+                    <KeyIcon style={{ color: "#ff7f50", fontSize: "1.2rem" }} />
                   </span>
                   <input
                     type="password"

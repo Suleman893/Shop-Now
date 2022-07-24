@@ -3,6 +3,7 @@ const { validationResult } = require("express-validator");
 
 const CreateProduct = async (req, res) => {
   const { productName } = req.body;
+  console.log("The req", req.body);
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).send({
@@ -277,9 +278,11 @@ const CreateProductReview = async (req, res) => {
       user: req.userId,
       name: req.name,
       email: req.name,
+      userPic: req.userPic,
       rating: Number(rating),
       comment,
     };
+
     const product = await productSchema.findById(productId);
     const isReviewed = product.reviews.find(
       (rev) => rev.user.toString() === req.userId.toString()

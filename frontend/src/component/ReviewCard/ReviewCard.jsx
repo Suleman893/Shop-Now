@@ -1,5 +1,4 @@
 import React from "react";
-import user from "../../images/user.png";
 import ReactStars from "react-rating-stars-component";
 import "./ReviewCard.css";
 
@@ -9,7 +8,7 @@ const ReviewCard = ({ review }) => {
       <div className="review-card mx-10">
         <div className="review-card-content">
           <div className="review-card-info">
-            <img src={user} alt="review" />
+            <img src={review.userPic} alt="review" />
             <div>
               <h5 className="mx-10">{review.name}</h5>
               <p className="mx-10">{review.name}</p>

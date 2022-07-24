@@ -144,7 +144,7 @@ export const adminAddProduct =
   (newProduct, currentUser) => async (dispatch) => {
     try {
       const headers = { authorization: currentUser };
-
+      console.log("The newProduct", newProduct);
       dispatch({
         type: actionTypes.ADMIN_CREATE_PRODUCT_REQUEST,
       });

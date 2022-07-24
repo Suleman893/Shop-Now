@@ -8,7 +8,6 @@ import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
 import MetaData from "../../component/Layout/MetaData";
 import EditPasswordModal from "../../component/Modals/EditPasswordModal";
-import user from "../../images/user.png";
 
 const MyProfile = () => {
   const dispatch = useDispatch();
@@ -41,35 +40,35 @@ const MyProfile = () => {
             <div className="row profile-wrapper my-20">
               <div className="profile-left">
                 <div className="profile-left-img">
-                  <img src={user} alt="profile-pic" />
+                  <img src={loggedInUserInfo.userPic} alt="profile-pic" />
                 </div>
               </div>
               <div className="profile-middle">
-                  <ul className="profile-info">
-                    <li>
-                      <b>Name:</b>{" "}
-                      <span style={{ textTransform: "capitalize" }}>
-                        {loggedInUserInfo.name}
-                      </span>
-                    </li>
-                    <li>
-                      <b>Email:</b> <span>{loggedInUserInfo.email}</span>
-                    </li>
-                    <li>
-                      <b>Role:</b>{" "}
-                      <span style={{ textTransform: "capitalize" }}>
-                        {loggedInUserInfo.role}
-                      </span>
-                    </li>
-                    <li>
-                      <b>Created At:</b>{" "}
-                      <span>
-                        {new Date(
-                          loggedInUserInfo.createdAt
-                        ).toLocaleDateString("en-US")}
-                      </span>
-                    </li>
-                  </ul>
+                <ul className="profile-info">
+                  <li>
+                    <b>Name:</b>{" "}
+                    <span style={{ textTransform: "capitalize" }}>
+                      {loggedInUserInfo.name}
+                    </span>
+                  </li>
+                  <li>
+                    <b>Email:</b> <span>{loggedInUserInfo.email}</span>
+                  </li>
+                  <li>
+                    <b>Role:</b>{" "}
+                    <span style={{ textTransform: "capitalize" }}>
+                      {loggedInUserInfo.role}
+                    </span>
+                  </li>
+                  <li>
+                    <b>Created At:</b>{" "}
+                    <span>
+                      {new Date(loggedInUserInfo.createdAt).toLocaleDateString(
+                        "en-US"
+                      )}
+                    </span>
+                  </li>
+                </ul>
               </div>
               <div className="profile-right">
                 <div className="profile-btns-container">

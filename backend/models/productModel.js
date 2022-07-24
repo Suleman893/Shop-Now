@@ -66,6 +66,9 @@ const productSchema = mongoose.Schema(
           type: String,
           required: [true, "Email is required"],
         },
+        userPic: {
+          type: String,
+        },
         date: {
           type: Date,
           default: Date.now,
@@ -85,18 +88,18 @@ const productSchema = mongoose.Schema(
       ref: "User",
       // required: true,
     },
-    //   {
-    // images: [
-    //     public_id: {
-    //       type: String,
-    //       required: true,
-    //     },
-    //     url: {
-    //       type: String,
-    //       required: true,
-    //     },
-    //   },
-    // ],
+    images: [
+      {
+        public_id: {
+          type: String,
+          required: true,
+        },
+        url: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
   },
   { timestamp: true }
 );

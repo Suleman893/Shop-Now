@@ -12,7 +12,7 @@ section {
   background-color: var(--whitecolor);
   display: flex;
   width: 40%;
-  height: 90%;
+  height: 94%;
   justify-content: center;
   align-items: center;
   margin: auto;
@@ -57,11 +57,11 @@ section {
 
 .input-box input {
   width: 100%;
-  padding: 10px 40px;
+  padding: 5px 40px;
   outline: none;
   font-weight: 400;
   border: 1px solid var(--graycolor);
-  font-size: 16px;
+  font-size: 0.9rem;
   letter-spacing: 1px;
   color: var(--graycolor);
   background: transparent;
