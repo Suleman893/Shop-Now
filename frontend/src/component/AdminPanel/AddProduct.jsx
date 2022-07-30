@@ -37,6 +37,9 @@ const AddProduct = () => {
     }
   }, [dispatch, alert, error, success]);
 
+  let errorsCount;
+  const myForm = new FormData();
+
   const createProductSubmitHandler = (e) => {
     e.preventDefault();
     const newProduct = {
@@ -46,10 +49,8 @@ const AddProduct = () => {
       category,
       stock,
     };
-    const errorsCount = Validate(newProduct);
+    errorsCount = Validate(newProduct);
     setFormErrors(errorsCount);
-
-    const myForm = new FormData();
 
     myForm.set("productName", productName);
     myForm.set("description", description);
@@ -63,26 +64,26 @@ const AddProduct = () => {
   };
 
   if (Object.keys(errorsCount).length === 0) {
-    dispatch(adminAddProduct(form, currentUser));
+    dispatch(adminAddProduct(myForm, currentUser));
   }
-};
 
-const createProductImagesChange = (e) => {
-  const files = Array.from(e.target.files);
+  const createProductImagesChange = (e) => {
+    const files = Array.from(e.target.files);
 
-  setImages([]);
+    setImages([]);
 
-  files.forEach((file) => {
-    const reader = new FileReader();
+    files.forEach((file) => {
+      const reader = new FileReader();
 
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        setImages((old) => [...old, reader.result]);
-      }
-    };
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setImages((old) => [...old, reader.result]);
+        }
+      };
 
-    reader.readAsDataURL(file);
-  });
+      reader.readAsDataURL(file);
+    });
+  };
 
   return (
     <div>

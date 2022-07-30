@@ -15,10 +15,18 @@ const {
   SearchProduct,
   GetProductByCategory,
   CreateProductReview,
+  NewGetAllProducts,
+  LatestGetAllProducts,
 } = require("../controllers/productController");
+
+//LatestGetAllProducts
+router.get("/latestGetProduct/:category", LatestGetAllProducts);
 
 //GetAllProducts
 router.get("/products", GetAllProducts);
+
+//NewGetAllProducts
+router.get("/newProducts", NewGetAllProducts);
 
 //SearchProduct
 router.get("/searchProduct/:productName", SearchProduct);
@@ -34,7 +42,6 @@ router.get("/product/:id", ProductDetails);
 
 //GetProductByCategory
 router.get("/productbycategory/:category", GetProductByCategory);
-
 
 // Create New Review or Update the review
 router.put("/productreview", checkToken, CreateProductReview);

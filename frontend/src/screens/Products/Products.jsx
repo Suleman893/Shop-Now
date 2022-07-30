@@ -8,7 +8,7 @@ import {
   productByCategoryAction,
 } from "../../redux/actions/productAction";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import HeadShake from "react-reveal/HeadShake";
 import { animateScroll as scroll } from "react-scroll";
 import Loader from "../../component/Layout/Loader/Loader";
@@ -30,7 +30,7 @@ const Products = () => {
   );
 
   const dispatch = useDispatch();
-  const [setTheCategory, setSetTheCategory] = useSearchParams();
+  // const [setTheCategory, setSetTheCategory] = useSearchParams();
   const { categoryProducts } = useSelector((state) => state.productByCategory);
   const { searchedProducts } = useSelector((state) => state.searchProduct);
 
@@ -40,13 +40,25 @@ const Products = () => {
       dispatch(clearErrors());
     }
     dispatch(getProduct(pageNumber));
-    setCurrentProduct(products);
+    setCurrentProduct(
+      searchedProducts.length
+        ? searchedProducts
+        : categoryProducts.length
+        ? categoryProducts
+        : products
+    );
     setNumberOfPages(totalPages);
     scroll.scrollTo(1);
-  }, [pageNumber, setPageNumber, error, alert]);
+  }, [
+    pageNumber,
+    setPageNumber,
+    error,
+    alert,
+    searchedProducts,
+    categoryProducts,
+  ]);
 
-  const theCategoryToSearch = setTheCategory.get("categorytype");
-
+  console.log("The categoryProducts", categoryProducts);
   const goToPrevious = () => {
     setPageNumber(Math.max(0, pageNumber - 1));
   };
@@ -54,45 +66,29 @@ const Products = () => {
   const goToNext = () => {
     setPageNumber((numberOfPages - 1, pageNumber + 1));
   };
-  //Handlers
-  const categoryHandlerOne = () => {
-    setSetTheCategory({ categorytype: "Mens Fashion" });
-    dispatch(productByCategoryAction(theCategoryToSearch));
-  };
 
-  const categoryHandlerTwo = () => {
-    setSetTheCategory({ categorytype: "Women Fashion" });
-    dispatch(productByCategoryAction(theCategoryToSearch));
-  };
-  const categoryHandlerThree = () => {
-    setSetTheCategory({ categorytype: "Electronic Devices" });
-    dispatch(productByCategoryAction(theCategoryToSearch));
-  };
-  const categoryHandlerFour = () => {
-    setSetTheCategory({ categorytype: "Home & Lifestyle" });
-    dispatch(productByCategoryAction(theCategoryToSearch));
-  };
-  const categoryHandlerFive = () => {
-    setSetTheCategory({ categorytype: "Sports & Outdoor" });
-    dispatch(productByCategoryAction(theCategoryToSearch));
-  };
-  const categoryHandlerSix = () => {
-    setSetTheCategory({ categorytype: "Automotive & Motorbike" });
-    dispatch(productByCategoryAction(theCategoryToSearch));
-  };
+  const categoriesArray = [
+    "Men Fashion",
+    "Women Fashion",
+    "Electronic Devices",
+    "Home & Lifestyle",
+    "Sports & Outdoor",
+    "Automotive & Motorbike",
+    "Groceries & Pets",
+    "Health & Beauty",
+  ];
 
-  const categoryHandlerSeven = () => {
-    setSetTheCategory({ categorytype: "Groceries & Pets" });
-    dispatch(productByCategoryAction(theCategoryToSearch));
-  };
-  const categoryHandlerEight = () => {
-    setSetTheCategory({ categorytype: "Health & Beauty" });
-    dispatch(productByCategoryAction(theCategoryToSearch));
-  };
+  const [searchCategory, setSearchCategory] = useState("");
 
   const setProductSearchHandler = (e) => {
     let productSearchName = e.target.value;
     dispatch(searchProduct(productSearchName));
+  };
+
+  const categoryCall = (category) => {
+    setSearchCategory(category);
+    console.log("The searchCategory", searchCategory);
+    dispatch(productByCategoryAction(searchCategory));
   };
 
   return (
@@ -112,14 +108,11 @@ const Products = () => {
               />
               <h5>Categories</h5>
               <ul>
-                <li onClick={categoryHandlerOne}>Men Fashion</li>
-                <li onClick={categoryHandlerTwo}>Women Fashion</li>
-                <li onClick={categoryHandlerThree}>Electronic Devices</li>
-                <li onClick={categoryHandlerFour}>Home & Lifestyle</li>
-                <li onClick={categoryHandlerFive}>Sports & Outdoor</li>
-                <li onClick={categoryHandlerSix}>Automotive & Motorbike</li>
-                <li onClick={categoryHandlerSeven}>Groceries & Pets</li>
-                <li onClick={categoryHandlerEight}>Health & Beauty</li>
+                {categoriesArray.map((category) => (
+                  <li key={category} onClick={() => categoryCall(category)}>
+                    {category}
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
@@ -128,8 +121,8 @@ const Products = () => {
               {loading ? (
                 <Loader />
               ) : (
-                products.map((product) => (
-              <ProductCard product={product}/>
+                currentProduct.map((product) => (
+                  <ProductCard product={product} />
                 ))
               )}
             </div>

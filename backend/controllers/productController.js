@@ -1,5 +1,6 @@
 const productSchema = require("../models/productModel");
 const { validationResult } = require("express-validator");
+const ApiFeatures = require("../utils/apifeatures");
 
 const CreateProduct = async (req, res) => {
   const { productName } = req.body;
@@ -37,6 +38,62 @@ const CreateProduct = async (req, res) => {
   }
 };
 
+const LatestGetAllProducts = async (req, res) => {
+  const pageSize = 9;
+  const page = parseInt(req.query.page) || "0";
+  const { category } = req.params;
+  try {
+    if (category) {
+      let query = productSchema.find({ category: category }).sort({ _id: -1 });
+      const page = parseInt(req.query.page) || 1;
+      const pageSize = 16;
+      const skip = (page - 1) * pageSize;
+      const total = await productSchema.countDocuments();
+      const pages = Math.ceil(total / pageSize);
+      query = query.skip(skip).limit(pageSize);
+      if (page > pages) {
+        return res.status(404).json({
+          status: "fail",
+          message: "No page found",
+        });
+      }
+      const categorizedProducts = await query;
+    }
+    if (!req.params.productName) {
+      const total = await productSchema.countDocuments({});
+      let allProducts = await productSchema
+        .find({})
+        .sort({
+          _id: -1,
+        })
+        .limit(pageSize)
+        .skip(pageSize * page);
+      if (allProducts.length < 0) {
+        return res.status.send({
+          message: "No product found",
+          products: [],
+        });
+      }
+    } else {
+      var searchedProduct = await productSchema.find({
+        $or: [
+          { productName: { $regex: req.params.productName, $options: "i" } },
+        ],
+        // $or: [{ productName: { $regex: req.params.productName, $options: "i" } }],
+      });
+    }
+    return res.status(200).send({
+      success: true,
+      message: "Product found successfully",
+      products: searchedProduct.length ? searchedProduct : allProducts,
+      totalPages: Math.ceil(total / pageSize),
+    });
+  } catch (error) {
+    return res.status(500).send({
+      message: error.message,
+    });
+  }
+};
 const GetAllProducts = async (req, res) => {
   const pageSize = 9;
   const page = parseInt(req.query.page) || "0";
@@ -58,6 +115,83 @@ const GetAllProducts = async (req, res) => {
       message: "Product found successfully",
       products: allProducts,
       totalPages: Math.ceil(total / pageSize),
+    });
+  } catch (error) {
+    return res.status(500).send({
+      message: error.message,
+    });
+  }
+};
+
+const SearchProduct = async (req, res) => {
+  try {
+    let searchedProduct = await productSchema.find({
+      $or: [{ productName: { $regex: req.params.productName, $options: "i" } }],
+      // $or: [{ productName: { $regex: req.params.productName, $options: "i" } }],
+    });
+    return res.status(200).send({
+      success: true,
+      message: "The product searched",
+      searchedProduct: searchedProduct,
+    });
+  } catch (error) {
+    return res.status(500).send({
+      message: err.message,
+    });
+  }
+};
+
+const GetProductByCategory = async (req, res) => {
+  const { category } = req.params;
+  console.log("Category", category);
+  try {
+    let query = productSchema.find({ category: category }).sort({ _id: -1 });
+    const page = parseInt(req.query.page) || 1;
+    const pageSize = 16;
+    const skip = (page - 1) * pageSize;
+    const total = await productSchema.countDocuments();
+    const pages = Math.ceil(total / pageSize);
+    query = query.skip(skip).limit(pageSize);
+    if (page > pages) {
+      return res.status(404).json({
+        status: "fail",
+        message: "No page found",
+      });
+    }
+    const result = await query;
+    res.status(200).send({
+      sucess: true,
+      message: "Product found",
+      status: "success",
+      count: result.length,
+      page,
+      pages,
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      message: err.message,
+    });
+  }
+};
+
+const NewGetAllProducts = async (req, res) => {
+  const resultPerPage = 2;
+  const productCount = await productSchema.countDocuments();
+
+  try {
+    const apiFeature = new ApiFeatures(productSchema.find(), req.query)
+      .search()
+      .filter()
+      .pagination(resultPerPage);
+
+    let products = await apiFeature.query;
+
+    res.status(200).send({
+      success: true,
+      products,
+      productCount,
     });
   } catch (error) {
     return res.status(500).send({
@@ -219,58 +353,6 @@ const ProductDetails = async (req, res) => {
   }
 };
 
-const SearchProduct = async (req, res) => {
-  try {
-    let searchedProduct = await productSchema.find({
-      $or: [{ productName: { $regex: req.params.productName, $options: "i" } }],
-      // $or: [{ productName: { $regex: req.params.productName, $options: "i" } }],
-    });
-    return res.status(200).send({
-      success: true,
-      message: "The product searched",
-      searchedProduct: searchedProduct,
-    });
-  } catch (error) {
-    return res.status(500).send({
-      message: err.message,
-    });
-  }
-};
-
-const GetProductByCategory = async (req, res) => {
-  const { category } = req.params;
-  try {
-    let query = productSchema.find({ category: category }).sort({ _id: -1 });
-    const page = parseInt(req.query.page) || 1;
-    const pageSize = 16;
-    const skip = (page - 1) * pageSize;
-    const total = await productSchema.countDocuments();
-    const pages = Math.ceil(total / pageSize);
-    query = query.skip(skip).limit(pageSize);
-    if (page > pages) {
-      return res.status(404).json({
-        status: "fail",
-        message: "No page found",
-      });
-    }
-    const result = await query;
-    res.status(200).send({
-      sucess: true,
-      message: "Product found",
-      status: "success",
-      count: result.length,
-      page,
-      pages,
-      data: result,
-    });
-  } catch (error) {
-    res.status(500).json({
-      status: "error",
-      message: err.message,
-    });
-  }
-};
-
 const CreateProductReview = async (req, res) => {
   const { rating, comment, productId } = req.body;
   try {
@@ -325,4 +407,6 @@ module.exports = {
   ProductDetails,
   GetProductByCategory,
   CreateProductReview,
+  NewGetAllProducts,
+  LatestGetAllProducts,
 };
