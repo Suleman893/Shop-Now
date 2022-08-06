@@ -31,6 +31,8 @@ const userSchema = new mongoose.Schema(
     },
     userPic: {
       type: String,
+      default:
+        "https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg",
     },
   },
   { timestamps: true }

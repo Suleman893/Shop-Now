@@ -38,69 +38,78 @@ const CreateProduct = async (req, res) => {
   }
 };
 
-const LatestGetAllProducts = async (req, res) => {
-  const pageSize = 9;
-  const page = parseInt(req.query.page) || "0";
-  const { category } = req.params;
-  try {
-    if (category) {
-      let query = productSchema.find({ category: category }).sort({ _id: -1 });
-      const page = parseInt(req.query.page) || 1;
-      const pageSize = 16;
-      const skip = (page - 1) * pageSize;
-      const total = await productSchema.countDocuments();
-      const pages = Math.ceil(total / pageSize);
-      query = query.skip(skip).limit(pageSize);
-      if (page > pages) {
-        return res.status(404).json({
-          status: "fail",
-          message: "No page found",
-        });
-      }
-      const categorizedProducts = await query;
-    }
-    if (!req.params.productName) {
-      const total = await productSchema.countDocuments({});
-      let allProducts = await productSchema
-        .find({})
-        .sort({
-          _id: -1,
-        })
-        .limit(pageSize)
-        .skip(pageSize * page);
-      if (allProducts.length < 0) {
-        return res.status.send({
-          message: "No product found",
-          products: [],
-        });
-      }
-    } else {
-      var searchedProduct = await productSchema.find({
-        $or: [
-          { productName: { $regex: req.params.productName, $options: "i" } },
-        ],
-        // $or: [{ productName: { $regex: req.params.productName, $options: "i" } }],
-      });
-    }
-    return res.status(200).send({
-      success: true,
-      message: "Product found successfully",
-      products: searchedProduct.length ? searchedProduct : allProducts,
-      totalPages: Math.ceil(total / pageSize),
-    });
-  } catch (error) {
-    return res.status(500).send({
-      message: error.message,
-    });
-  }
-};
 const GetAllProducts = async (req, res) => {
-  const pageSize = 9;
-  const page = parseInt(req.query.page) || "0";
+  let query;
+
+  let uiValues = {
+    filtering: {},
+    sorting: {},
+  };
+
+  const reqQuery = { ...req.query }; //Spread the original query so we dont make deletion in original query.
+  const removeFields = ["sort", "page"];
+
+  removeFields.forEach((val) => delete reqQuery[val]);
+
+  const filterKeys = Object.keys(reqQuery);
+  const filterValues = Object.values(reqQuery);
+
+  filterKeys.forEach(
+    (val, idx) => (uiValues.filtering[val] = filterValues[idx])
+  );
+
+  let queryStr = JSON.stringify(reqQuery);
+
+  queryStr = queryStr.replace(
+    /\b(gt|gte|lt|lte|in)\b/g,
+    (match) => `$${match}`
+  );
+
   try {
+    query = productSchema.find(JSON.parse(queryStr));
+
+    if (req.query.sort) {
+      const sortByArr = req.query.sort.split(",");
+
+      sortByArr.forEach((val) => {
+        let order;
+
+        if (val[0] === "-") {
+          order = "descending";
+        } else {
+          order = "ascending";
+        }
+
+        uiValues.sorting[val.replace("-", "")] = order;
+      });
+      const sortByStr = sortByArr.join(" ");
+
+      query = query.sort(sortByStr);
+    } else {
+      query = query.sort("-price");
+    }
+
+    const products = await query;
+    const maxPrice = await productSchema
+      .find()
+      .sort({ price: -1 })
+      .limit(1)
+      .select("-_id price");
+    const minPrice = await productSchema
+      .find()
+      .sort({ price: 1 })
+      .limit(1)
+      .select("-_id price");
+    uiValues.maxPrice = maxPrice[0].price;
+    uiValues.minPrice = minPrice[0].price;
+
+    //Pagination
+    const pageSize = 9;
+    const page = parseInt(req.query.page) || "0";
+
     const total = await productSchema.countDocuments({});
     let allProducts = await productSchema
-      .find({})
+      .find(JSON.parse(queryStr))
       .limit(pageSize)
       .skip(pageSize * page);
 
@@ -110,10 +119,13 @@ const GetAllProducts = async (req, res) => {
         products: [],
       });
     }
+    console.log("The all products", allProducts);
     return res.status(200).send({
+      uiValues,
       success: true,
       message: "Product found successfully",
       products: allProducts,
+      // newProducts: products,
       totalPages: Math.ceil(total / pageSize),
     });
   } catch (error) {
@@ -192,6 +204,63 @@ const NewGetAllProducts = async (req, res) => {
       success: true,
       products,
       productCount,
+    });
+  } catch (error) {
+    return res.status(500).send({
+      message: error.message,
+    });
+  }
+};
+
+const LatestGetAllProducts = async (req, res) => {
+  const pageSize = 9;
+  const page = parseInt(req.query.page) || "0";
+  const { category } = req.params;
+  try {
+    if (category) {
+      let query = productSchema.find({ category: category }).sort({ _id: -1 });
+      const page = parseInt(req.query.page) || 1;
+      const pageSize = 16;
+      const skip = (page - 1) * pageSize;
+      const total = await productSchema.countDocuments();
+      const pages = Math.ceil(total / pageSize);
+      query = query.skip(skip).limit(pageSize);
+      if (page > pages) {
+        return res.status(404).json({
+          status: "fail",
+          message: "No page found",
+        });
+      }
+      const categorizedProducts = await query;
+    }
+    if (!req.params.productName) {
+      const total = await productSchema.countDocuments({});
+      let allProducts = await productSchema
+        .find({})
+        .sort({
+          _id: -1,
+        })
+        .limit(pageSize)
+        .skip(pageSize * page);
+      if (allProducts.length < 0) {
+        return res.status.send({
+          message: "No product found",
+          products: [],
+        });
+      }
+    } else {
+      var searchedProduct = await productSchema.find({
+        $or: [
+          { productName: { $regex: req.params.productName, $options: "i" } },
+        ],
+        // $or: [{ productName: { $regex: req.params.productName, $options: "i" } }],
+      });
+    }
+    return res.status(200).send({
+      success: true,
+      message: "Product found successfully",
+      products: searchedProduct.length ? searchedProduct : allProducts,
+      totalPages: Math.ceil(total / pageSize),
     });
   } catch (error) {
     return res.status(500).send({

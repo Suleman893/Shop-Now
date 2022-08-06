@@ -24,6 +24,13 @@
   color: var(--graycolor);
 }
 
+.price-filters {
+  max-width: 80%;
+  display: flex;
+  justify-content: space-between;
+}
+
+
 .product-search::placeholder {
   color: var(--graycolor);
   font-weight: 500;

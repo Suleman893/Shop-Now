@@ -76,103 +76,75 @@ const Signup = () => {
     <React.Fragment>
       <MetaData title="Signup" />
       <section>
-        {/* <div className="imgBx">
-          <img src={signup} />
-        </div> */}
         {loading ? (
           <Loader />
         ) : (
-          <div className="content-box">
-            <div className="form-box">
-              <h2>Signup</h2>
+          <div className="signup-bg">
+            <div className="signup-box">
+              <img
+                src={
+                  previewSource
+                    ? previewSource
+                    : "https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"
+                }
+                alt="chosen"
+                className="avatar"
+              />
+              <h1>Signup</h1>
               <form>
-                <div className="input-box">
-                  <span className="required">*</span> <span>Name</span>
-                  <span className="input-box-icon">
-                    <SentimentSatisfiedAltIcon style={{ color: "#ff7f50" }} />
-                  </span>
-                  <input
-                    type="text"
-                    placeholder="Your Name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </div>
+                <p>Name</p>
+                <input
+                  type="text"
+                  placeholder="Enter Name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
                 <p>{formErrors.name ? formErrors.name : " "}</p>
-                <div className="input-box">
-                  <span className="required">*</span> <span> Email</span>
-                  <span className="input-box-icon">
-                    <EmailIcon style={{ color: "#ff7f50" }} />
-                  </span>
-                  <input
-                    type="email"
-                    placeholder="Your Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
+
+                <p>Email</p>
+                <input
+                  type="email"
+                  placeholder="Your Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
                 <p>{formErrors.email ? formErrors.email : " "}</p>
-                <div className="input-box">
-                  <span className="required">*</span> <span>Password</span>
-                  <span className="input-box-icon">
-                    <KeyIcon style={{ color: "#ff7f50" }} />
-                  </span>
-                  <input
-                    type="password"
-                    placeholder="Your Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-                <p>{formErrors.password ? formErrors.password : " "}</p>
-                <div className="input-box">
-                  <span className="required">*</span>{" "}
-                  <span> Confirm Password</span>
-                  <span className="input-box-icon">
-                    <KeyIcon style={{ color: "#ff7f50" }} />
-                  </span>
-                  <input
-                    type="password"
-                    placeholder="Your Confirm Password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                  />
-                </div>
+
+                <p>Password</p>
+                <input
+                  type="password"
+                  placeholder="Enter Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
                 <p>{formErrors.password ? formErrors.password : " "}</p>
 
-                <div className="input-box">
-                  <span className="required">*</span> <span>Upload Image</span>
-                  <span className="input-box-icon">
-                    {previewSource && (
-                      <img
-                        src={previewSource}
-                        alt="chosen"
-                        style={{ height: "30px" }}
-                      />
-                    )}
-                  </span>
-                  <input
-                    type="file"
-                    name="image"
-                    value={fileInput}
-                    onChange={handleFileInputChange}
-                  />
-                </div>
+                <p>Confirm Password</p>
+                <input
+                  type="password"
+                  placeholder="Your Confirm Password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+                <p>{formErrors.password ? formErrors.password : " "}</p>
 
-                <div className="input-box">
-                  <input
-                    type="submit"
-                    value="Signin"
-                    name="Signin"
-                    onClick={signupHandler}
-                  ></input>
-                </div>
+                <input
+                  type="file"
+                  name="image"
+                  value={fileInput}
+                  onChange={handleFileInputChange}
+                />
+
+                <input
+                  type="submit"
+                  value="Signin"
+                  name="Signin"
+                  onClick={signupHandler}
+                ></input>
 
                 <div className="redirect">
-                  <p>Already have account?</p>
-                  <Link to="/signin">
-                    <p style={{ color: "#00a300" }}> Sign in </p>
-                  </Link>
+                  <span>Already have account ? </span>
+                  <Link to="/signin">Sign in</Link>
                 </div>
               </form>
             </div>

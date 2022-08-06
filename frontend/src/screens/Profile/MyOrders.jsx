@@ -6,6 +6,8 @@ import { useAlert } from "react-alert";
 import Loader from "../../component/Layout/Loader/Loader";
 import MetaData from "../../component/Layout/MetaData";
 import { Link } from "react-router-dom";
+import Header from "../../component/Layout/Header/Header";
+import Footer from "../../component/Layout/Footer/Footer";
 
 const MyOrders = () => {
   const alert = useAlert();
@@ -27,6 +29,7 @@ const MyOrders = () => {
   return (
     <div>
       <MetaData title="My Orders" />
+      <Header/>
       <div className="container">
         <h2 className="page-title">My Orders</h2>
         {loading ? (
@@ -74,6 +77,7 @@ const MyOrders = () => {
           </table>
         )}
       </div>
+      <Footer/>
     </div>
   );
 };

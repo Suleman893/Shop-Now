@@ -51,51 +51,38 @@ const Signin = () => {
         {loading ? (
           <Loader />
         ) : (
-          <div className="content-box">
-            <div className="form-box">
-              <h2>Signin</h2>
-              <p>Welcome back, you’ve been missed!</p>
+          <div className="signin-bg">
+            <div className="signin-box">
+              <h1>Signup</h1>
               <form>
-                <div className="input-box">
-                  <span className="required">*</span> <span>Email</span>
-                  <span className="input-box-icon">
-                    <EmailIcon style={{ color: "#ff7f50" }} />
-                  </span>
-                  <input
-                    type="text"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
+                <p>Name</p>
+                <input
+                  type="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+
                 <p>{formErrors.email ? formErrors.email : " "}</p>
-                <div className="input-box">
-                  <span className="required">*</span> <span> Password</span>
-                  <span className="input-box-icon">
-                    <KeyIcon style={{ color: "#ff7f50", fontSize: "1.2rem" }} />
-                  </span>
-                  <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
+                <p>Password</p>
+
+                <input
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
                 <p>{formErrors.password ? formErrors.password : " "}</p>
-                <div className="input-box">
-                  <input
-                    type="submit"
-                    value="Signin"
-                    name="Signin"
-                    onClick={loginHandler}
-                  ></input>
-                </div>
+                <input
+                  type="submit"
+                  value="Signin"
+                  name="Signin"
+                  onClick={loginHandler}
+                ></input>
 
                 <div className="redirect">
-                  <p>Dont have account?</p>
-                  <Link to="/signup">
-                    <p style={{ color: "#00a300" }}> Sign up</p>
-                  </Link>
+                  <span>Dont have account?</span>
+                  <Link to="/signup"> Sign up</Link>
                 </div>
               </form>
             </div>

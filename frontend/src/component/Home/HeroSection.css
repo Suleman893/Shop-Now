@@ -45,7 +45,23 @@
 }
 
 .hero-section-btn a {
+  cursor: pointer;
+  height: 40px;
+  width: 100%;
+  font-weight: 600;
+  background: var(--themecolor);
+  /* border: 1px solid var(--themecolor); */
+  border: none;
+  outline: none;
   color: var(--whitecolor);
+  text-align: center;
+  font-size: 1rem;
+  padding: 8px 0px;
+  transition: all 0.5s ease-in-out;
+}
+
+.hero-section-btn a:hover {
+  box-shadow: 0px 0px 15px 0px var(--themecolor);
 }
 
 @media screen and (max-width: 850px) {

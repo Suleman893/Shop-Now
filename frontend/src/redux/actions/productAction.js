@@ -13,18 +13,25 @@ import {
   adminGetAllProductsApi,
 } from "../../api/Apis";
 
-export const getProduct = (page) => async (dispatch) => {
+export const getProduct = (page, query) => async (dispatch) => {
+  let productUrl;
+  if (query) {
+    productUrl = `http://localhost:2000/api/product/products${query}&page=${page}`;
+  } else {
+    productUrl = `http://localhost:2000/api/product/products?page=${page}`;
+  }
   try {
     dispatch({
       type: actionTypes.ALL_PRODUCT_REQUEST,
     });
-    const res = await axios.get(
-      `http://localhost:2000/api/product/products?page=${page}`
-    );
+    const res = await axios.get(productUrl);
     const { data } = res;
+    console.log("The data in porduct", data);
     dispatch({
       type: actionTypes.ALL_PRODUCT_SUCCESS,
-      payload: { products: data.products, totalPages: data.totalPages },
+      payload: { products: data.products, totalPages: data.totalPages,
+        uiValues:data.uiValues
+      },
     });
   } catch (error) {
     dispatch({

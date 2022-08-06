@@ -8,6 +8,8 @@ import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
 import MetaData from "../../component/Layout/MetaData";
 import EditPasswordModal from "../../component/Modals/EditPasswordModal";
+import Header from "../../component/Layout/Header/Header";
+import Footer from "../../component/Layout/Footer/Footer";
 
 const MyProfile = () => {
   const dispatch = useDispatch();
@@ -31,6 +33,7 @@ const MyProfile = () => {
   return (
     <React.Fragment>
       <MetaData title={`${loggedInUserInfo.name} Profile `} />
+      <Header />
       <div className="container">
         {loading ? (
           <Loader />
@@ -83,6 +86,7 @@ const MyProfile = () => {
           </div>
         )}
       </div>
+      <Footer />
     </React.Fragment>
   );
 };

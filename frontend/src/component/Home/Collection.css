@@ -9,6 +9,11 @@
   height: 400px;
   width: 49.5%;
   position: relative;
+  transition: all 0.5s ease-in-out;
+}
+
+.collection:hover {
+  transform: translateY(-1rem);
 }
 
 .collection img {

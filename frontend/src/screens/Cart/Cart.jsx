@@ -1,13 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import buy1 from "../../images/product2.jpg";
 import { addToCart, removeFromCart } from "../../redux/actions/cartActions";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import MetaData from "../../component/Layout/MetaData";
 import Checkout from "../../component/Checkout/Checkout";
+import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import "../Cart/Cart.css";
+import { useAlert } from "react-alert";
+import Header from "../../component/Layout/Header/Header";
+import Footer from "../../component/Layout/Footer/Footer";
 
 const Cart = () => {
+  const { currentUser } = useSelector((state) => state.loginUser);
+  const alert = useAlert();
+
   const param = useParams();
 
   const productId = param.id;
@@ -29,9 +36,20 @@ const Cart = () => {
     dispatch(removeFromCart(id));
   };
 
+  const [loginCheck, setLoginCheck] = useState(false);
+
+  const loginChecker = () => {
+    if (!currentUser) {
+      alert.error("Please login before checkout");
+    } else {
+      setLoginCheck(true);
+    }
+  };
+
   return (
     <React.Fragment>
       <MetaData title="Product Cart" />
+      <Header/>
       <div className="cart-container">
         <h2 className="page-title">Your Cart</h2>
         <table className="my-20">
@@ -58,7 +76,7 @@ const Cart = () => {
                 </td>
                 <td>
                   <Link to={`/productdetail/${item.product}`}></Link>
-                  <h1 style={{ textTransform: "capitalize" }}>{item.name}</h1>
+                  <h3 style={{ textTransform: "capitalize" }}>{item.name}</h3>
                 </td>
                 <td>
                   <small>PKR: {item.price}</small>
@@ -129,12 +147,24 @@ const Cart = () => {
             </tr>
           </table>
         </div>
-        <Checkout
-          subTotal={cartItems
-            .reduce((qty, item) => qty + item.qty * item.price, 0)
-            .toFixed(2)}
-        />
+        {loginCheck ? (
+          <Checkout
+            subTotal={cartItems
+              .reduce((qty, item) => qty + item.qty * item.price, 0)
+              .toFixed(2)}
+          />
+        ) : (
+          cartItems.length !== 0 && (
+            <div style={{ width: "15%" }}>
+              <button onClick={loginChecker} className="btn">
+                Checkout{" "}
+                <ShoppingCartCheckoutIcon style={{ fontSize: "17px" }} />
+              </button>
+            </div>
+          )
+        )}
       </div>
+      <Footer/>
     </React.Fragment>
   );
 };

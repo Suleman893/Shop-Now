@@ -9,8 +9,10 @@ import { useSelector, useDispatch } from "react-redux";
 import Loader from "../../component/Layout/Loader/Loader";
 import CallToAction from "../../component/Home/CallToAction";
 import Collection from "../../component/Home/Collection";
-import ProductCard from "../../component/ProductCard/ProductCard";
+import HomeProductCard from "../../component/ProductCard/HomeProductCard";
 import HeroSection from "../../component/Home/HeroSection";
+import Header from "../../component/Layout/Header/Header";
+import Footer from "../../component/Layout/Footer/Footer";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -28,6 +30,7 @@ const Home = () => {
   return (
     <React.Fragment>
       <MetaData title="Shop now" />
+      <Header />
       <HeroSection />
       <div className="container">
         <h2 className="page-title ">Latest Products</h2>
@@ -35,7 +38,9 @@ const Home = () => {
           {loading ? (
             <Loader />
           ) : (
-            latestProducts.map((product) => <ProductCard product={product} />)
+            latestProducts.map((product) => (
+              <HomeProductCard product={product} />
+            ))
           )}
         </div>
       </div>
@@ -46,11 +51,14 @@ const Home = () => {
           {loading ? (
             <Loader />
           ) : (
-            latestProducts.map((product) => <ProductCard product={product} />)
+            latestProducts.map((product) => (
+              <HomeProductCard product={product} />
+            ))
           )}
         </div>
       </div>
       <CallToAction />
+      <Footer />
     </React.Fragment>
   );
 };

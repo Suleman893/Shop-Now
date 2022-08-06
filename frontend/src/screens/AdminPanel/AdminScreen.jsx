@@ -5,6 +5,8 @@ import ProductsList from "../../component/AdminPanel/ProductsList";
 import OrderList from "../../component/AdminPanel/OrdersList";
 import AddProduct from "../../component/AdminPanel/AddProduct";
 import "./AdminScreen.css";
+import Header from "../../component/Layout/Header/Header";
+import Footer from "../../component/Layout/Footer/Footer";
 
 const AdminScreen = () => {
   const [showUser, setShowUser] = useState(true);
@@ -42,6 +44,7 @@ const AdminScreen = () => {
   return (
     <React.Fragment>
       <MetaData title="AdminPanel" />
+      <Header/>
       <div className="container">
         <h1 className="page-title">
           {showUser
@@ -109,6 +112,7 @@ const AdminScreen = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </React.Fragment>
   );
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import "./ProductCard.css";
+import "./HomeProductCard.css";
 import buy1 from "../../images/product2.jpg";
 import buy2 from "../../images/product.jpg";
 import ReactStars from "react-rating-stars-component";
@@ -8,12 +8,12 @@ import { Link, useSearchParams } from "react-router-dom";
 const ProductCard = ({ product }) => {
   return (
     <React.Fragment>
-      <div className="product-card">
+      <div className="home-product-card">
         <Link to={`/productdetail/${product._id}`}>
-          <div className="product-card-img">
-            <img src={buy1} alt="product" />
+          <div className="home-product-card-img">
+            <img src={buy1} alt="homeproduct" />
           </div>
-          <div className="product-card-content">
+          <div className="home-product-card-content">
             <h3>{product.productName}</h3>
             <p>{product.category}</p>
             <div className="no-of-reviews">
@@ -27,7 +27,7 @@ const ProductCard = ({ product }) => {
               />
               <p>({product.numOfReviews} reviews) </p>
             </div>
-            <div className="product-card-price">Rs {product.price}</div>
+            <div className="home-product-card-price">Rs {product.price}</div>
           </div>
         </Link>
       </div>

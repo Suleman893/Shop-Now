@@ -19,6 +19,8 @@ import { useAlert } from "react-alert";
 import MetaData from "../../component/Layout/MetaData";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import ReviewCard from "../../component/ReviewCard/ReviewCard";
+import Header from "../../component/Layout/Header/Header";
+import Footer from "../../component/Layout/Footer/Footer";
 
 const ProductDetail = () => {
   const alert = useAlert();
@@ -103,6 +105,7 @@ const ProductDetail = () => {
         <Loader />
       ) : (
         <React.Fragment>
+          <Header />
           <div className="product-detail-container">
             <div className="product-detail-row">
               <div className="product-detail-left">
@@ -185,6 +188,7 @@ const ProductDetail = () => {
               </div>
             </div>
           </div>
+          <Footer />
         </React.Fragment>
       )}
     </React.Fragment>

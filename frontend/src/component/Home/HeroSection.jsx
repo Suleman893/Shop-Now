@@ -11,9 +11,8 @@ const HeroSection = () => {
             <h2>Keep The Fashion Vibe Alive</h2>
             <p>Explore our products</p>
             <div className="hero-section-btn">
-              <button className="btn">
+              
                 <Link to="/products">Dive Right In</Link>
-              </button>
             </div>
           </div>
         </div>

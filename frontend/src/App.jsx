@@ -40,7 +40,6 @@ function App() {
 
   return (
     <Router>
-      <Header />
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/signin" element={<Signin />} />
@@ -78,7 +77,6 @@ function App() {
         />
         <Route path="*" element={<NotFound />} />
       </Routes>
-      <Footer />
     </Router>
   );
 }

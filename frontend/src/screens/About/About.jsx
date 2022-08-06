@@ -4,6 +4,8 @@ import aboutpic from "../../images/logo.png";
 import { animateScroll as scroll } from "react-scroll";
 
 import React from "react";
+import Header from "../../component/Layout/Header/Header";
+import Footer from "../../component/Layout/Footer/Footer";
 
 const About = () => {
   scroll.scrollTo(1);
@@ -11,6 +13,7 @@ const About = () => {
   return (
     <React.Fragment>
       <MetaData title="About" />
+      <Header/>
       <div className="about-bg">
         <h1>About Us</h1>
       </div>
@@ -19,10 +22,7 @@ const About = () => {
           <div className="about-left-col">
             <h1>Shop Now</h1>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Error
-              modi voluptates sit assumenda ducimus est sunt amet iste, impedit
-              repudiandae laborum quod labore itaque officia unde. Eum fuga ad
-              aliquam?
+            Shop now is digital platform that allows the user to register themselve, add products to card and order them using stripe payment method. The admin dashboard allows the admin to perform CRUD operations related to user,products,orders.
             </p>
           </div>
 
@@ -33,6 +33,7 @@ const About = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </React.Fragment>
   );
 };

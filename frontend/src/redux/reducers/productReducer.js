@@ -9,6 +9,7 @@ export const productReducer = (state = { products: [] }, action) => {
         loading: false,
         products: action.payload.products,
         totalPages: action.payload.totalPages,
+        uiValues:action.payload.uiValues
         // productsCount: action.payload.productsCount,
       };
     case actionTypes.ALL_PRODUCT_FAIL:

@@ -5,14 +5,14 @@ const productSchema = mongoose.Schema(
     productName: {
       type: String,
       required: [true, "Enter product name"],
-      maxLength: [30, "Name shouldnt exceed 30 characters"],
+      maxLength: [80, "Name shouldnt exceed 50 characters"],
       minLength: [5, "Name should have more than 5 characters"],
       trim: true,
     },
     description: {
       type: String,
       required: [true, "Enter product description"],
-      maxLength: [200, "Name shouldnt exceed 200 characters"],
+      maxLength: [400, "Name shouldnt exceed 200 characters"],
     },
     price: {
       type: Number,

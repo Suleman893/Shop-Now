@@ -6,7 +6,6 @@ const { cloudinary } = require("../utils/cloudinary");
 
 const UserRegistration = async (req, res) => {
   const { email, password, confirmPassword, previewSource } = req.body;
-  console.log("Preview", previewSource);
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).send({
