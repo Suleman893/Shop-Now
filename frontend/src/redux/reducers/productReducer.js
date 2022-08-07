@@ -8,7 +8,6 @@ export const productReducer = (state = { products: [] }, action) => {
       return {
         loading: false,
         products: action.payload.products,
-        totalPages: action.payload.totalPages,
         uiValues:action.payload.uiValues
         // productsCount: action.payload.productsCount,
       };

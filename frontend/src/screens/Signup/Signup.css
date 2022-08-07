@@ -4,13 +4,17 @@
   background-repeat: no-repeat;
   height: 100vh;
 }
+.formErrors {
+  font-size: 2px;
+  color: red;
+}
 
 .signup-box {
   /* width: 320px; */
   /* height: 420px; */
   width: 380px;
   height: 84vh;
-  padding: 65px 30px;
+  padding: 0px 30px;
   color: var(--whitecolor);
   position: absolute;
   top: 50%;
@@ -27,9 +31,21 @@
   position: absolute;
   top: -50px;
   left: calc(50% - 50px);
+  position: relative;
 }
 
-h1 {
+.round {
+  position: absolute;
+  top: 22px;
+  right: 38%;
+}
+
+.round input[type="file"] {
+  position: absolute;
+  opacity: 0;
+}
+
+.signup-box h1 {
   margin: 0;
   padding: 0 0 20px;
   text-align: center;
@@ -48,7 +64,16 @@ h1 {
 }
 
 .signup-box input[type="text"],
-input[type="email"],
+input[type="email"] {
+  border: none;
+  border-bottom: 1px solid #fff;
+  background: transparent;
+  outline: none;
+  height: 40px;
+  color: #fff;
+  font-size: 16px;
+}
+
 input[type="password"] {
   border: none;
   border-bottom: 1px solid #fff;
@@ -57,6 +82,14 @@ input[type="password"] {
   height: 40px;
   color: #fff;
   font-size: 16px;
+  position: relative;
+}
+
+.signup-password-hide-show {
+  position: absolute;
+  right: 34px;
+  top: 58%;
+  cursor: pointer;
 }
 
 .signup-box input[type="submit"] {

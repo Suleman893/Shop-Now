@@ -45,9 +45,10 @@ const GetAllProducts = async (req, res) => {
     filtering: {},
     sorting: {},
   };
-
   const reqQuery = { ...req.query }; //Spread the original query so we dont make deletion in original query.
-  const removeFields = ["sort", "page"];
+  console.log("the reqQuery", reqQuery);
+
+  const removeFields = ["sort"];
 
   removeFields.forEach((val) => delete reqQuery[val]);
 
@@ -70,26 +71,22 @@ const GetAllProducts = async (req, res) => {
 
     if (req.query.sort) {
       const sortByArr = req.query.sort.split(",");
-
       sortByArr.forEach((val) => {
         let order;
-
         if (val[0] === "-") {
           order = "descending";
         } else {
           order = "ascending";
         }
-
         uiValues.sorting[val.replace("-", "")] = order;
       });
       const sortByStr = sortByArr.join(" ");
-
       query = query.sort(sortByStr);
     } else {
       query = query.sort("-price");
     }
 
-    const products = await query;
+    const allProducts = await query;
     const maxPrice = await productSchema
       .find()
       .sort({ price: -1 })
@@ -103,30 +100,17 @@ const GetAllProducts = async (req, res) => {
     uiValues.maxPrice = maxPrice[0].price;
     uiValues.minPrice = minPrice[0].price;
 
-    //Pagination
-    const pageSize = 9;
-    const page = parseInt(req.query.page) || "0";
-
-    const total = await productSchema.countDocuments({});
-    let allProducts = await productSchema
-      .find(JSON.parse(queryStr))
-      .limit(pageSize)
-      .skip(pageSize * page);
-
     if (allProducts.length < 0) {
       return res.status.send({
         message: "No product found",
         products: [],
       });
     }
-    console.log("The all products", allProducts);
     return res.status(200).send({
-      uiValues,
       success: true,
       message: "Product found successfully",
       products: allProducts,
-      // newProducts: products,
-      totalPages: Math.ceil(total / pageSize),
+      uiValues,
     });
   } catch (error) {
     return res.status(500).send({
@@ -158,16 +142,10 @@ const GetProductByCategory = async (req, res) => {
   console.log("Category", category);
   try {
     let query = productSchema.find({ category: category }).sort({ _id: -1 });
-    const page = parseInt(req.query.page) || 1;
-    const pageSize = 16;
-    const skip = (page - 1) * pageSize;
-    const total = await productSchema.countDocuments();
-    const pages = Math.ceil(total / pageSize);
-    query = query.skip(skip).limit(pageSize);
-    if (page > pages) {
+    if (query.length < 0) {
       return res.status(404).json({
         status: "fail",
-        message: "No page found",
+        message: "No product found",
       });
     }
     const result = await query;
@@ -175,9 +153,6 @@ const GetProductByCategory = async (req, res) => {
       sucess: true,
       message: "Product found",
       status: "success",
-      count: result.length,
-      page,
-      pages,
       data: result,
     });
   } catch (error) {

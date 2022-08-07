@@ -40,10 +40,6 @@
   color: var(--whitecolor);
 }
 
-.hero-section-btn {
-  width: 30%;
-}
-
 .hero-section-btn a {
   cursor: pointer;
   height: 40px;
@@ -56,7 +52,7 @@
   color: var(--whitecolor);
   text-align: center;
   font-size: 1rem;
-  padding: 8px 0px;
+  padding: 10px 60px;
   transition: all 0.5s ease-in-out;
 }
 

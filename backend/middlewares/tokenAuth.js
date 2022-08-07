@@ -8,7 +8,6 @@ let checkToken = (req, res, next) => {
   if (token) {
     const isVerified = jwtHelper.verify(token);
     if (isVerified) {
-      console.log("Is verified", isVerified);
       req.userId = isVerified.id;
       req.name = isVerified.name;
       req.email = isVerified.email;

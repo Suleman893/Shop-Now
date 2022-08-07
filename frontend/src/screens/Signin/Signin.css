@@ -20,6 +20,13 @@
   padding: 70px 30px;
 }
 
+.signin-box h1 {
+  margin: 0;
+  padding: 0 0 20px;
+  text-align: center;
+  font-size: 22px;
+}
+
 .avatar {
   width: 100px;
   height: 100px;
@@ -27,13 +34,6 @@
   position: absolute;
   top: -50px;
   left: calc(50% - 50px);
-}
-
-h1 {
-  margin: 0;
-  padding: 0 0 20px;
-  text-align: center;
-  font-size: 22px;
 }
 
 .signin-box p {
@@ -48,7 +48,16 @@ h1 {
 }
 
 .signin-box input[type="text"],
-input[type="email"],
+input[type="email"] {
+  border: none;
+  border-bottom: 1px solid #fff;
+  background: transparent;
+  outline: none;
+  height: 40px;
+  color: #fff;
+  font-size: 16px;
+}
+
 input[type="password"] {
   border: none;
   border-bottom: 1px solid #fff;
@@ -57,6 +66,14 @@ input[type="password"] {
   height: 40px;
   color: #fff;
   font-size: 16px;
+  position: relative;
+}
+
+.password-hide-show {
+  position: absolute;
+  right: 42px;
+  top: 43%;
+  cursor: pointer;
 }
 
 .signin-box input[type="submit"] {

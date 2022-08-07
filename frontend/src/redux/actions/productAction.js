@@ -13,24 +13,21 @@ import {
   adminGetAllProductsApi,
 } from "../../api/Apis";
 
-export const getProduct = (page, query) => async (dispatch) => {
-  let productUrl;
-  if (query) {
-    productUrl = `http://localhost:2000/api/product/products${query}&page=${page}`;
-  } else {
-    productUrl = `http://localhost:2000/api/product/products?page=${page}`;
-  }
+export const getProduct = (query) => async (dispatch) => {
+  console.log("The query", query);
+  const productUrl = `http://localhost:2000/api/product/products${query}`;
+
   try {
     dispatch({
       type: actionTypes.ALL_PRODUCT_REQUEST,
     });
     const res = await axios.get(productUrl);
     const { data } = res;
-    console.log("The data in porduct", data);
     dispatch({
       type: actionTypes.ALL_PRODUCT_SUCCESS,
-      payload: { products: data.products, totalPages: data.totalPages,
-        uiValues:data.uiValues
+      payload: {
+        products: data.products,
+        uiValues: data.uiValues,
       },
     });
   } catch (error) {
@@ -151,7 +148,6 @@ export const adminAddProduct =
   (newProduct, currentUser) => async (dispatch) => {
     try {
       const headers = { authorization: currentUser };
-      console.log("The newProduct", newProduct);
       dispatch({
         type: actionTypes.ADMIN_CREATE_PRODUCT_REQUEST,
       });

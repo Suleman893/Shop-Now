@@ -1,11 +1,10 @@
 header {
   font-size: 14px;
-  background: var(--whitecolor);
+  background: #f1f1f1;
   position: sticky;
   top: 0;
   left: 0;
   z-index: 999;
-  box-shadow: 10 5px 15px rgba(219, 21, 21, 0);
 }
 
 .header-container {
@@ -26,6 +25,7 @@ header {
 .nav li {
   margin-right: 12px;
   position: relative;
+  letter-spacing: 2px;
 }
 
 .nav a {

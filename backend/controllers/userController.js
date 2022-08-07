@@ -33,7 +33,6 @@ const UserRegistration = async (req, res) => {
       const uploadResponse = await cloudinary.uploader.upload(previewSource, {
         upload_preset: "Shop-Now",
       });
-      console.log("ye", uploadResponse);
       const user = await userSchema.create({
         ...req.body,
         userPic: uploadResponse.url,

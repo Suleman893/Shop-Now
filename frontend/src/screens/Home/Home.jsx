@@ -13,6 +13,7 @@ import HomeProductCard from "../../component/ProductCard/HomeProductCard";
 import HeroSection from "../../component/Home/HeroSection";
 import Header from "../../component/Layout/Header/Header";
 import Footer from "../../component/Layout/Footer/Footer";
+import Features from "../../component/Home/Features";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -57,7 +58,7 @@ const Home = () => {
           )}
         </div>
       </div>
-      <CallToAction />
+      <Features />
       <Footer />
     </React.Fragment>
   );

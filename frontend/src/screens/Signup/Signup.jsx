@@ -4,14 +4,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { registerUser, clearErrors } from "../../redux/actions/userActions";
 import { useAlert } from "react-alert";
 import { Validate } from "../../validation/SignUpValidation";
-import signup from "../../images/signup.jpg";
 import MetaData from "../../component/Layout/MetaData";
 import Loader from "../../component/Layout/Loader/Loader";
 import "./Signup.css";
-import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
-import EmailIcon from "@mui/icons-material/Email";
-import KeyIcon from "@mui/icons-material/Key";
-
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 const Signup = () => {
   const alert = useAlert();
 
@@ -25,16 +23,17 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
+  const [showPass, setShowPass] = useState(false);
   const [formErrors, setFormErrors] = useState({});
 
   const signupHandler = (e) => {
     e.preventDefault();
     const user = { name, email, password, confirmPassword, previewSource };
-
     const errorsCount = Validate(user);
-
     setFormErrors(errorsCount);
+    if (!previewSource) {
+      alert.error("Image is required");
+    }
     if (Object.keys(errorsCount).length === 0) {
       dispatch(registerUser(user));
     }
@@ -44,6 +43,15 @@ const Signup = () => {
     if (localStorage.getItem("currentUser")) {
       alert.info("Already LoggedIn");
       navigate("/myProfile");
+    }
+    if (formErrors.name) {
+      alert.error(formErrors.name);
+    }
+    if (formErrors.email) {
+      alert.error(formErrors.email);
+    }
+    if (formErrors.password) {
+      alert.error(formErrors.password);
     }
 
     if (error) {
@@ -55,7 +63,7 @@ const Signup = () => {
       dispatch(clearErrors());
       navigate("/signin");
     }
-  }, [error, alert, success]);
+  }, [error, alert, success, formErrors]);
 
   const [fileInput, setFileInput] = useState("");
   const [previewSource, setPreviewSource] = useState("");
@@ -81,17 +89,26 @@ const Signup = () => {
         ) : (
           <div className="signup-bg">
             <div className="signup-box">
-              <img
-                src={
-                  previewSource
-                    ? previewSource
-                    : "https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"
-                }
-                alt="chosen"
-                className="avatar"
-              />
-              <h1>Signup</h1>
               <form>
+                <img
+                  src={
+                    previewSource
+                      ? previewSource
+                      : "https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"
+                  }
+                  alt="chosen"
+                  className="avatar"
+                />
+                <div className="round">
+                  <input
+                    type="file"
+                    name="image"
+                    value={fileInput}
+                    onChange={handleFileInputChange}
+                  />
+                  <AddAPhotoIcon />
+                </div>
+                <h1>Signup</h1>
                 <p>Name</p>
                 <input
                   type="text"
@@ -99,8 +116,6 @@ const Signup = () => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
-                <p>{formErrors.name ? formErrors.name : " "}</p>
-
                 <p>Email</p>
                 <input
                   type="email"
@@ -108,33 +123,33 @@ const Signup = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                <p>{formErrors.email ? formErrors.email : " "}</p>
-
                 <p>Password</p>
                 <input
-                  type="password"
+                  type={showPass ? "text" : "password"}
                   placeholder="Enter Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                <p>{formErrors.password ? formErrors.password : " "}</p>
-
+                <span>
+                  {!showPass ? (
+                    <VisibilityIcon
+                      onClick={() => setShowPass(!showPass)}
+                      className="signup-password-hide-show"
+                    />
+                  ) : (
+                    <VisibilityOffIcon
+                      onClick={() => setShowPass(!showPass)}
+                      className="signup-password-hide-show"
+                    />
+                  )}
+                </span>
                 <p>Confirm Password</p>
                 <input
-                  type="password"
+                  type={showPass ? "text" : "password"}
                   placeholder="Your Confirm Password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
-                <p>{formErrors.password ? formErrors.password : " "}</p>
-
-                <input
-                  type="file"
-                  name="image"
-                  value={fileInput}
-                  onChange={handleFileInputChange}
-                />
-
                 <input
                   type="submit"
                   value="Signin"

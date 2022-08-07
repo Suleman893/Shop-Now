@@ -7,12 +7,15 @@ import { Validate } from "../../validation/SignInValidation";
 import { useAlert } from "react-alert";
 import MetaData from "../../component/Layout/MetaData";
 import "./Signin.css";
-import EmailIcon from "@mui/icons-material/Email";
-import KeyIcon from "@mui/icons-material/Key";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+
 const Signin = () => {
   const alert = useAlert();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPass, setShowPass] = useState(false);
+
   const { loading, error, success } = useSelector((state) => state.loginUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -28,8 +31,11 @@ const Signin = () => {
   };
 
   useEffect(() => {
-    if (localStorage.getItem("currentUser")) {
-      alert.info("Already LoggedIn");
+    if (formErrors.email) {
+      alert.error(formErrors.email);
+    }
+    if (formErrors.password) {
+      alert.error(formErrors.password);
     }
     if (error) {
       alert.error(error);
@@ -38,8 +44,12 @@ const Signin = () => {
     if (success) {
       alert.success("Login successful");
       dispatch(clearErrors());
+      navigate("/myProfile");
     }
-  }, [dispatch, error, alert, success, navigate]);
+    if (localStorage.getItem("currentUser")) {
+      alert.info("Already LoggedIn");
+    }
+  }, [dispatch, error, alert, success, navigate, formErrors]);
 
   return (
     <React.Fragment>
@@ -53,26 +63,37 @@ const Signin = () => {
         ) : (
           <div className="signin-bg">
             <div className="signin-box">
-              <h1>Signup</h1>
+              <h1>Signin</h1>
               <form>
-                <p>Name</p>
+                <p>Email</p>
                 <input
                   type="email"
                   placeholder="Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-
-                <p>{formErrors.email ? formErrors.email : " "}</p>
                 <p>Password</p>
 
                 <input
-                  type="password"
+                  type={showPass ? "text" : "password"}
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                <p>{formErrors.password ? formErrors.password : " "}</p>
+                <span>
+                  {!showPass ? (
+                    <VisibilityIcon
+                      onClick={() => setShowPass(!showPass)}
+                      className="password-hide-show"
+                    />
+                  ) : (
+                    <VisibilityOffIcon
+                      onClick={() => setShowPass(!showPass)}
+                      className="password-hide-show"
+                    />
+                  )}
+                </span>
+
                 <input
                   type="submit"
                   value="Signin"

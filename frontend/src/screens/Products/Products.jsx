@@ -27,47 +27,45 @@ import Header from "../../component/Layout/Header/Header";
 import Footer from "../../component/Layout/Footer/Footer";
 
 const Products = () => {
+  const categoriesArray = [
+    "Men Fashion",
+    "Women Fashion",
+    "Electronic Devices",
+    "Home & Lifestyle",
+    "Sports & Outdoor",
+    "Automotive & Motorbike",
+    "Groceries & Pets",
+    "Health & Beauty",
+  ];
+
+  //ForPaginationState
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(6);
+  const [pageNumberLimit, setPageNumberLimit] = useState(5);
+  const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(5);
+  const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
+  //
   const alert = useAlert();
   const navigate = useNavigate();
   const location = useLocation();
   const params = location.search ? location.search : null;
-
-  const [pageNumber, setPageNumber] = useState(0);
-  const [numberOfPages, setNumberOfPages] = useState(0);
   const [currentProduct, setCurrentProduct] = useState([]);
   const [searchCategory, setSearchCategory] = useState("");
   const [sliderMax, setSliderMax] = useState(100000);
   const [priceRange, setPriceRange] = useState([0, 100000]);
-  const [filter, setFilter] = useState("");
   const [priceOrder, setPriceOrder] = useState("descending");
+  const [filter, setFilter] = useState("");
   const [sorting, setSorting] = useState("");
-  const { loading, error, products, totalPages, uiValues } = useSelector(
+
+  const { loading, error, products, uiValues } = useSelector(
     (state) => state.products
   );
 
-  const pages = new Array(numberOfPages).fill(null).map((v, i) => i);
-
   const dispatch = useDispatch();
-  // const [setTheCategory, setSetTheCategory] = useSearchParams();
   const { categoryProducts } = useSelector((state) => state.productByCategory);
   const { searchedProducts } = useSelector((state) => state.searchProduct);
 
-  let query;
-  if (params && !filter) {
-    query = params;
-  } else {
-    query = filter;
-  }
-
-  if (sorting) {
-    if (query.length === 0) {
-      query = `?sorting=${sorting}`;
-    } else {
-      query = query + "&sort=" + sorting;
-    }
-  }
-
-  const updateUIValues = () => {
+  const updateUIValues = (uiValues) => {
     setSliderMax(uiValues?.maxPrice);
 
     if (uiValues?.filtering.price) {
@@ -81,26 +79,68 @@ const Products = () => {
     }
   };
 
+  const handlePagination = (e) => {
+    setCurrentPage(Number(e.target.id));
+  };
+
+  const pages = [];
+  for (let i = 1; i <= Math.ceil(products.length / itemsPerPage); i++) {
+    pages.push(i);
+  }
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
+
+  const renderPageNumber = pages.map((number) => {
+    if (number < maxPageNumberLimit + 1 && number > minPageNumberLimit) {
+      return (
+        <li
+          key={number}
+          id={number}
+          onClick={handlePagination}
+          className={currentPage == number ? "active" : null}
+        >
+          {number}
+        </li>
+      );
+    } else {
+      return null;
+    }
+  });
+
   useEffect(() => {
     if (error) {
       alert.error(error);
       dispatch(clearErrors());
     }
-    dispatch(getProduct(pageNumber, query));
-    setNumberOfPages(totalPages);
+
+    let query;
+    if (params && !filter) {
+      query = params;
+    } else {
+      query = filter;
+    }
+
+    if (sorting) {
+      if (query.length === 0) {
+        query = `?sorting=${sorting}`;
+      } else {
+        query = query + "&sort=" + sorting;
+      }
+    }
+    dispatch(getProduct(query));
     setCurrentProduct(
       searchedProducts.length > 0
         ? searchedProducts
         : categoryProducts.length > 0
         ? categoryProducts
-        : products
+        : currentItems
     );
-    updateUIValues();
+    updateUIValues(uiValues);
     scroll.scrollTo(1);
   }, [
     dispatch,
-    pageNumber,
-    setPageNumber,
     error,
     alert,
     searchedProducts,
@@ -108,26 +148,8 @@ const Products = () => {
     filter,
     params,
     sorting,
+    currentPage,
   ]);
-
-  const goToPrevious = () => {
-    setPageNumber(Math.max(0, pageNumber - 1));
-  };
-
-  const goToNext = () => {
-    setPageNumber((numberOfPages - 1, pageNumber + 1));
-  };
-
-  const categoriesArray = [
-    "Men Fashion",
-    "Women Fashion",
-    "Electronic Devices",
-    "Home & Lifestyle",
-    "Sports & Outdoor",
-    "Automotive & Motorbike",
-    "Groceries & Pets",
-    "Health & Beauty",
-  ];
 
   const setProductSearchHandler = (e) => {
     let productSearchName = e.target.value;
@@ -175,6 +197,7 @@ const Products = () => {
     } else if (e.target.value === "descending") {
       setSorting("-price");
     }
+    console.log("The sorting", sorting);
   };
 
   const clearAllFilters = () => {
@@ -184,10 +207,35 @@ const Products = () => {
     navigate("/products");
   };
 
+  const handleNextBtn = () => {
+    setCurrentPage(currentPage + 1);
+    if (currentPage + 1 > maxPageNumberLimit) {
+      setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
+      setMinPageNumberLimit(minPageNumberLimit + pageNumberLimit);
+    }
+  };
+
+  const handlePrevBtn = () => {
+    setCurrentPage(currentPage - 1);
+    if ((currentPage - 1) % pageNumberLimit == 0) {
+      setMaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
+      setMinPageNumberLimit(minPageNumberLimit - pageNumberLimit);
+    }
+  };
+
+  let pageIncrementBtn = null;
+  if (pages.length > maxPageNumberLimit) {
+    pageIncrementBtn = <li onClick={handleNextBtn}>&hellip;</li>;
+  }
+
+  let pageDecrementBtn = null;
+  if (minPageNumberLimit >= 1) {
+    pageDecrementBtn = <li onClick={handlePrevBtn}>&hellip;</li>;
+  }
   return (
     <React.Fragment>
       <MetaData title="Product" />
-      <Header/>
+      <Header />
       <div className="container">
         <h2 className="page-title">Products</h2>
         <div className="row my-20">
@@ -211,13 +259,13 @@ const Products = () => {
               <Slider
                 style={{ maxWidth: "80%" }}
                 size="small"
-                min={1}
+                min={0}
                 max={sliderMax}
                 value={priceRange}
                 valueLabelDisplay="auto"
+                disabled={loading}
                 onChange={(e, newValue) => setPriceRange(newValue)}
                 onChangeCommitted={onSliderCommitHandler}
-                disabled={loading}
               />
               <div className="price-filters">
                 <TextField
@@ -275,26 +323,43 @@ const Products = () => {
             <div className="right">
               {loading ? (
                 <Loader />
-              ) : (
+              ) : currentProduct.length > 0 ? (
                 currentProduct.map((product) => (
                   <ProductCard product={product} />
                 ))
+              ) : (
+                <div className="no-product-found">
+                  <h1>No Product Found</h1>
+                </div>
               )}
             </div>
           </HeadShake>
         </div>
-
         <div className="page-btn">
-          <button onClick={goToPrevious}>Back</button>
-          {pages.map((pageIndex) => (
-            <button key={pageIndex} onClick={() => setPageNumber(pageIndex)}>
-              {pageIndex + 1}
-            </button>
-          ))}
-          <button onClick={goToNext}>Next</button>
+          <ul className="page-numbers">
+            <li>
+              <button
+                disabled={currentPage == pages[0] ? true : false}
+                onClick={handlePrevBtn}
+              >
+                Prev
+              </button>
+            </li>
+            {pageDecrementBtn}
+            {renderPageNumber}
+            {pageIncrementBtn}
+            <li>
+              <button
+                disabled={currentPage == pages[pages.length - 1] ? true : false}
+                onClick={handleNextBtn}
+              >
+                Next
+              </button>
+            </li>
+          </ul>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </React.Fragment>
   );
 };

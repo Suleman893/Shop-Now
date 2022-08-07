@@ -3,11 +3,6 @@ import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import webfontloader from "webfontloader";
 import { useDispatch, useSelector } from "react-redux";
-
-//Header&FooterComponent
-import Header from "./component/Layout/Header/Header";
-import Footer from "./component/Layout/Footer/Footer";
-
 //Screens
 import Home from "./screens/Home/Home";
 import Products from "./screens/Products/Products";

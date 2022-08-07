@@ -9,8 +9,8 @@ export const Validate = (user) => {
   }
   if (!user.password) {
     errors.password = "Password  is required";
-  } else if (user.password.length < 2 || user.password.length > 15) {
-    errors.password = "Password must be between 10 - 15 digits";
+  } else if (user.password.length < 8 || user.password.length > 15) {
+    errors.password = "Password must be between 8 - 15 digits";
   }
   return errors;
 };

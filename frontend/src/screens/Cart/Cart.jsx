@@ -49,7 +49,7 @@ const Cart = () => {
   return (
     <React.Fragment>
       <MetaData title="Product Cart" />
-      <Header/>
+      <Header />
       <div className="cart-container">
         <h2 className="page-title">Your Cart</h2>
         <table className="my-20">
@@ -164,7 +164,7 @@ const Cart = () => {
           )
         )}
       </div>
-      <Footer/>
+      <Footer />
     </React.Fragment>
   );
 };
