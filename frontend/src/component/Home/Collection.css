@@ -34,7 +34,7 @@
 }
 
 .collection-full {
-  height: 600px;
+  height: 500px;
   width: 100%;
   position: relative;
 }
@@ -72,13 +72,15 @@
   .collection-full p {
     font-size: 2rem;
   }
+  .collection-full img {
+    height: 80%;
+    width: 100%;
+    object-fit: cover;
+  }
 }
 
 @media screen and (max-width: 500px) {
   .collection {
-    width: 100%;
-  }
-  .collection-full {
     width: 100%;
   }
 }

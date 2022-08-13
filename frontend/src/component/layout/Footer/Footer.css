@@ -1,13 +1,13 @@
 footer {
   background: #f1f1f1;
+  margin-top: 20px;
 }
 
 .footer-container {
   max-width: 1300px;
   width: 90%;
-  margin: 50px auto;
-  padding-left: 25px;
-  padding-right: 25px;
+  margin: 0px auto;
+  padding: 50px 25px;
 }
 
 .footer-row {

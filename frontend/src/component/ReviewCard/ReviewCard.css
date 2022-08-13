@@ -1,53 +1,69 @@
 .review-card {
-    border-radius: 10px;
-    width: 50%;
-    min-height: 135px;
-    height: auto;
-    justify-content: center;
-    box-shadow: 0px 0px 2px gainsboro;
-    overflow-x: auto;
-    padding: 10px 0px;
-  }
-  
-  .review-card-content {
-    width: 90%;
-    margin: auto;
-  }
-  
-  .review-card-info h5 {
-    color: var(--graycolor);
-  
-    margin-left: 10px;
-    font-size: 1.2rem;
-    font-weight: 500;
-    text-transform: capitalize;
-  }
-  
-  .review-card-info p {
-    color: var(--graycolor);
-  
-    margin-left: 10px;
-    font-size: 1rem;
-    text-transform: capitalize;
-  }
-  
-  .review-card img {
-    width: 20%;
-    border-radius: 50%;
-  }
-  
-  .review-card-info {
-    margin: auto;
-    display: flex;
-    justify-content: flex-start;
-  }
+  margin-bottom: 20px;
+  border-radius: 10px;
+  width: 50%;
+  min-height: 135px;
+  max-height: 300px;
+  justify-content: center;
+  box-shadow: 0px 0px 10px gainsboro;
+  overflow-y: auto;
+  padding: 10px 0px;
+}
 
-  @media screen and (max-width: 778px) {
+.review-card-content {
+  width: 90%;
+  margin: auto;
+}
 
-    .review-card {
-      width: 100%;
-      height: 300px;
-      margin: 15px 0px;
-    }
+.reviews-by-wrapper {
+  display: flex;
+  align-items: center;
+}
 
+.review-card-content h5 {
+  font-weight: 500;
+}
+
+.review-card-info h5 {
+  color: var(--graycolor);
+  margin-left: 10px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.review-card-info p {
+  color: var(--graycolor);
+  margin-left: 10px;
+  font-size: 1rem;
+  text-transform: capitalize;
+}
+
+.user-review-info {
+  margin: auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.user-review-info-img {
+  min-width: 15%;
+  max-width: 15%;
+}
+
+.user-review-info-img img {
+  width: 100%;
+  border-radius: 50%;
+}
+
+.user-review-info-desc {
+  padding-left: 10px;
+}
+
+@media screen and (max-width: 778px) {
+  .review-card {
+    width: 100%;
+    height: 300px;
+    margin: 15px 0px;
   }
+}

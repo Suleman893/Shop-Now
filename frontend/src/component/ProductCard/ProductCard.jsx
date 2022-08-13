@@ -3,7 +3,7 @@ import "./ProductCard.css";
 import buy1 from "../../images/product2.jpg";
 import buy2 from "../../images/product.jpg";
 import ReactStars from "react-rating-stars-component";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
   return (
@@ -11,7 +11,10 @@ const ProductCard = ({ product }) => {
       <div className="product-card">
         <Link to={`/productdetail/${product._id}`}>
           <div className="product-card-img">
-            <img src={buy1} alt="product" />
+            <img
+              src="https://static-01.daraz.pk/p/4b8a12407bdaf4e478f2b45703ae5209.jpg"
+              alt="product"
+            />
           </div>
           <div className="product-card-content">
             <h3>{product.productName}</h3>

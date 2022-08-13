@@ -10,17 +10,17 @@ import "../Cart/Cart.css";
 import { useAlert } from "react-alert";
 import Header from "../../component/Layout/Header/Header";
 import Footer from "../../component/Layout/Footer/Footer";
+import { animateScroll as scroll } from "react-scroll";
 
 const Cart = () => {
+  scroll.scrollTo(0);
+
   const { currentUser } = useSelector((state) => state.loginUser);
   const alert = useAlert();
-
   const param = useParams();
-
   const productId = param.id;
   let [searchParams, setSearchParams] = useSearchParams();
   const qty = searchParams.get("qty");
-
   const dispatch = useDispatch();
 
   useEffect(() => {

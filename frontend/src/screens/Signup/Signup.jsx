@@ -99,7 +99,7 @@ const Signup = () => {
                   alt="chosen"
                   className="avatar"
                 />
-                <div className="round">
+                <div className="add-image">
                   <input
                     type="file"
                     name="image"
@@ -131,7 +131,7 @@ const Signup = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <span>
-                  {!showPass ? (
+                  {showPass ? (
                     <VisibilityIcon
                       onClick={() => setShowPass(!showPass)}
                       className="signup-password-hide-show"

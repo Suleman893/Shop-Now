@@ -7,17 +7,15 @@ import {
 } from "../../redux/actions/productAction";
 import { useSelector, useDispatch } from "react-redux";
 import Loader from "../../component/Layout/Loader/Loader";
-import CallToAction from "../../component/Home/CallToAction";
 import Collection from "../../component/Home/Collection";
 import HomeProductCard from "../../component/ProductCard/HomeProductCard";
 import HeroSection from "../../component/Home/HeroSection";
 import Header from "../../component/Layout/Header/Header";
 import Footer from "../../component/Layout/Footer/Footer";
-import Features from "../../component/Home/Features";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { loading, error, latestProducts } = useSelector(
+  const { loading, latestProducts } = useSelector(
     (state) => state.latestProducts
   );
 
@@ -34,7 +32,7 @@ const Home = () => {
       <Header />
       <HeroSection />
       <div className="container">
-        <h2 className="page-title ">Latest Products</h2>
+        <h2 className="page-title ">New Arrivals</h2>
         <div className="home-page-products my-20">
           {loading ? (
             <Loader />
@@ -58,7 +56,6 @@ const Home = () => {
           )}
         </div>
       </div>
-      <Features />
       <Footer />
     </React.Fragment>
   );

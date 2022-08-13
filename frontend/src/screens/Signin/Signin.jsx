@@ -81,7 +81,7 @@ const Signin = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <span>
-                  {!showPass ? (
+                  {showPass ? (
                     <VisibilityIcon
                       onClick={() => setShowPass(!showPass)}
                       className="password-hide-show"

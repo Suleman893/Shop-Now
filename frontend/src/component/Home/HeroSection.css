@@ -1,5 +1,5 @@
 .hero-bg {
-  background-image: url(../../images//landingpage.jpg);
+  background-image: url(../../images/men-collection.jpg);
   background-position: revert;
   background-size: cover;
   width: 100%;
@@ -28,6 +28,8 @@
   align-items: center;
   justify-content: space-evenly;
   height: 100%;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .hero-img-content h2 {
@@ -40,13 +42,16 @@
   color: var(--whitecolor);
 }
 
+.hero-section-btn {
+  min-width: 30%;
+}
+
 .hero-section-btn a {
+  margin: 0 auto;
   cursor: pointer;
   height: 40px;
-  width: 100%;
   font-weight: 600;
   background: var(--themecolor);
-  /* border: 1px solid var(--themecolor); */
   border: none;
   outline: none;
   color: var(--whitecolor);
@@ -92,9 +97,8 @@
 
 @media screen and (max-width: 500px) {
   .hero-img-content h2 {
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
-
   .hero-img-content p {
     font-size: 0.8rem;
   }

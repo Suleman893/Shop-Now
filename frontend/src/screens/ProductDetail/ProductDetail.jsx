@@ -51,10 +51,19 @@ const ProductDetail = () => {
     setQty(updatedQty);
   };
 
+  const [loginCheck, setLoginCheck] = useState(true);
+
   const submitReview = (e) => {
-    e.preventDefault();
-    dispatch(addReviews(toSend, currentUser));
-    setComment("");
+    console.log("loginCheck", loginCheck);
+    if (!currentUser) {
+      alert.error("Please login");
+      setLoginCheck(false);
+    } else {
+      setLoginCheck(true);
+      e.preventDefault();
+      dispatch(addReviews(toSend, currentUser));
+      setComment("");
+    }
   };
 
   useEffect(() => {
@@ -86,16 +95,22 @@ const ProductDetail = () => {
 
   const images = [
     {
-      original: buy1,
-      thumbnail: buy1,
+      original:
+        "https://static-01.daraz.pk/p/4b8a12407bdaf4e478f2b45703ae5209.jpg",
+      thumbnail:
+        "https://static-01.daraz.pk/p/4b8a12407bdaf4e478f2b45703ae5209.jpg",
     },
     {
-      original: buy1,
-      thumbnail: buy1,
+      original:
+        "https://static-01.daraz.pk/p/6353ac5bff212225c0151d1fffafe8d8.jpg",
+      thumbnail:
+        "https://static-01.daraz.pk/p/6353ac5bff212225c0151d1fffafe8d8.jpg",
     },
     {
-      original: buy1,
-      thumbnail: buy1,
+      original:
+        "https://static-01.daraz.pk/p/75d5db586ddba2ffada40c7d156dd4b1.jpg",
+      thumbnail:
+        "https://static-01.daraz.pk/p/75d5db586ddba2ffada40c7d156dd4b1.jpg",
     },
   ];
   return (
@@ -167,11 +182,15 @@ const ProductDetail = () => {
                 </HeadShake>
               ))}
             <div className="leave-comment my-20">
-              <Rating
-                onChange={(e) => setRating(e.target.value)}
-                value={rating}
-                size="large"
-              />
+              <div className="give-rating">
+                <h4>Submit Rating:</h4>
+                <Rating
+                  onChange={(e) => setRating(e.target.value)}
+                  value={rating}
+                  isHalf={true}
+                  size="large"
+                />
+              </div>
               <textarea
                 cols="30"
                 rows="5"
@@ -181,9 +200,12 @@ const ProductDetail = () => {
                 className="mx-10"
               />
               <div className="leave-comment-btn">
-                <button onClick={submitReview} className="btn">
-                  {" "}
-                  Leave a comment
+                <button
+                  onClick={submitReview}
+                  className="btn"
+                  disable={loginCheck}
+                >
+                  Comment
                 </button>
               </div>
             </div>

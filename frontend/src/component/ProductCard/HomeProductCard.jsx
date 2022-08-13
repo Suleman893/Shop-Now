@@ -1,9 +1,8 @@
 import React from "react";
 import "./HomeProductCard.css";
 import buy1 from "../../images/product2.jpg";
-import buy2 from "../../images/product.jpg";
 import ReactStars from "react-rating-stars-component";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
   return (

@@ -238,7 +238,7 @@ const Products = () => {
       <Header />
       <div className="container">
         <h2 className="page-title">Products</h2>
-        <div className="row my-20">
+        <div className="row space my-20">
           <div className="left">
             <div className="filter-section">
               <input
