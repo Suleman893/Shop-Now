@@ -7,9 +7,10 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useDispatch, useSelector } from "react-redux";
 import { adminEditUser, clearErrors } from "../../redux/actions/userActions";
-import EditIcon from '@mui/icons-material/Edit';
+import EditIcon from "@mui/icons-material/Edit";
 import { useAlert } from "react-alert";
 import "./ModalStyling.css";
+import { Validate } from "../../validation/EditUserValidation";
 
 export const AdminEditUserModal = ({
   userId,
@@ -53,8 +54,17 @@ export const AdminEditUserModal = ({
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(adminEditUser(updatedUser, currentUser));
-    setOpen(false);
+    const errorsCount = Validate(updatedUser);
+    if (errorsCount.name) {
+      alert.error(errorsCount.name);
+    }
+    if (errorsCount.email) {
+      alert.error(errorsCount.email);
+    }
+    if (Object.keys(errorsCount).length === 0) {
+      dispatch(adminEditUser(updatedUser, currentUser));
+      setOpen(false);
+    }
   };
 
   useEffect(() => {
@@ -71,12 +81,12 @@ export const AdminEditUserModal = ({
   return (
     <React.Fragment>
       <EditIcon
-      style={{
-        cursor: "pointer",
-        fontSize: "1.2rem",
-        color: "blue",
-      }}
-      onClick={handleClickOpen}
+        style={{
+          cursor: "pointer",
+          fontSize: "1.2rem",
+          color: "blue",
+        }}
+        onClick={handleClickOpen}
       />
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Update User Profile</DialogTitle>

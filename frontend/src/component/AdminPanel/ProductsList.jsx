@@ -6,7 +6,7 @@ import {
   deleteProduct,
   clearErrors,
 } from "../../redux/actions/productAction";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import { AdminEditProductModal } from "../Modals/AdminEditProductModal";
 import Loader from "../Layout/Loader/Loader";
@@ -71,8 +71,9 @@ const ProductsList = () => {
                     <td data-label="Stock">{curr.stock}</td>
                     <td data-label="Price">{curr.price}</td>
                     <td data-label="Image">
-                      <input type="file" id="files" />
-                      <label htmlFor="files">Api image</label>
+                      <div className="product-list-img">
+                        <img src={curr.images[0].url} alt="productimg" />
+                      </div>
                     </td>
                     <td data-label="Edit">
                       <AdminEditProductModal
@@ -88,12 +89,12 @@ const ProductsList = () => {
                       />
                     </td>
                     <td data-label="Delete">
-                    <DeleteIcon
-                    style={{
-                      cursor: "pointer",
-                      fontSize: "1.2rem",
-                      color: "red",
-                    }}
+                      <DeleteIcon
+                        style={{
+                          cursor: "pointer",
+                          fontSize: "1.2rem",
+                          color: "red",
+                        }}
                         onClick={() =>
                           dispatch(deleteProduct(curr._id, currentUser))
                         }

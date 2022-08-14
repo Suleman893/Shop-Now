@@ -1,7 +1,6 @@
 export const Validate = (user) => {
   const errors = {};
   const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-
   if (!user.email) {
     errors.email = "Email is required";
   } else if (!regex.test(user.email)) {

@@ -23,6 +23,7 @@ export const placeOrder =
       );
 
       dispatch({ type: actionTypes.PLACE_ORDER_SUCCESS });
+     
     } catch (error) {
       dispatch({
         type: actionTypes.PLACE_ORDER_FAIL,

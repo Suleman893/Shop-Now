@@ -1,35 +1,42 @@
 export const Validate = (newProduct) => {
   const errors = {};
-
   if (!newProduct.productName) {
-    errors.productName = "Required field";
+    errors.productName = "Product name is required";
+    return errors;
   } else if (
-    newProduct.productName.length < 2 ||
-    newProduct.productName.length > 15
+    newProduct.productName.length < 30 ||
+    newProduct.productName.length > 40
   ) {
-    errors.productName = "Must be 10 - 15 length";
+    errors.productName = "Product name must be 30 - 40 length";
+    return errors;
   }
   if (!newProduct.description) {
-    errors.description = "Required Field";
+    errors.description = "Product description is required";
+    return errors;
   } else if (
     newProduct.description.length < 10 ||
-    newProduct.description.length > 40
+    newProduct.description.length > 400
   ) {
-    errors.description = "Must be 10 - 15 length";
+    errors.description = "Product description must be 20 - 400 length";
+    return errors;
   }
-
   if (!newProduct.price) {
-    errors.price = "Required Field";
-  } else if (newProduct.price.length < 0 || newProduct.price.length > 10) {
-    errors.price = "Must be 0 - 10 length";
+    errors.price = "Product price is required";
+    return errors;
+  } else if (newProduct.price.length < 0 || newProduct.price.length > 8) {
+    errors.price = "Product price must be 0-8 characters";
+    return errors;
   }
   if (!newProduct.category) {
-    errors.category = "Required Field";
+    errors.category = "Product category is required";
+    return errors;
   }
   if (!newProduct.stock) {
-    errors.stock = "Required Field";
+    errors.stock = "Product stock is required";
+    return errors;
   } else if (newProduct.stock.length < 0 || newProduct.stock.length > 3) {
-    errors.stock = "Must be 0 - 3 length";
+    errors.stock = "Product stock must be 0-3 characters";
+    return errors;
   }
   return errors;
 };

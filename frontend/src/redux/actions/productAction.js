@@ -22,6 +22,7 @@ export const getProduct = (query) => async (dispatch) => {
       type: actionTypes.ALL_PRODUCT_REQUEST,
     });
     const res = await axios.get(productUrl);
+    console.log("The product data", res);
     const { data } = res;
     dispatch({
       type: actionTypes.ALL_PRODUCT_SUCCESS,
@@ -82,6 +83,7 @@ export const getProductDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: actionTypes.PRODUCT_DETAIL_REQUEST });
     const { data } = await axios.get(`${getProductDetailApi}/${id}`);
+    
     dispatch({
       type: actionTypes.PRODUCT_DETAIL_SUCCESS,
       payload: data.product,

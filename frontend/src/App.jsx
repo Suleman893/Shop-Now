@@ -2,7 +2,6 @@ import "./App.css";
 import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import webfontloader from "webfontloader";
-import { useDispatch, useSelector } from "react-redux";
 //Screens
 import Home from "./screens/Home/Home";
 import Products from "./screens/Products/Products";
@@ -18,11 +17,12 @@ import AdminScreen from "./screens/AdminPanel/AdminScreen";
 import About from "./screens/About/About";
 //ProtectedRouteComponent
 import ProtectedRoute from "./ProtectedRoute";
-import store from "../src/redux/store";
-import { loadUser } from "./redux/actions/userActions";
+// import { useDispatch, useSelector } from "react-redux";
+// import store from "../src/redux/store";
+// import { loadUser } from "./redux/actions/userActions";
 
 function App() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   useEffect(() => {
     webfontloader.load({
       google: {
@@ -30,8 +30,8 @@ function App() {
       },
     });
 
-    store.dispatch(loadUser());
-  }, [dispatch]);
+    // store.dispatch(loadUser());
+  }, []);
 
   return (
     <Router>

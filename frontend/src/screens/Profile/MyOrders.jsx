@@ -8,6 +8,7 @@ import MetaData from "../../component/Layout/MetaData";
 import { Link } from "react-router-dom";
 import Header from "../../component/Layout/Header/Header";
 import Footer from "../../component/Layout/Footer/Footer";
+import { clearCart } from "../../redux/actions/cartActions";
 
 const MyOrders = () => {
   const alert = useAlert();
@@ -19,7 +20,6 @@ const MyOrders = () => {
   const { currentUser } = useSelector((state) => state.loginUser);
   useEffect(() => {
     dispatch(getUserOrders(currentUser));
-
     if (error) {
       alert.error(error);
       dispatch(clearErrors());
@@ -29,7 +29,7 @@ const MyOrders = () => {
   return (
     <div>
       <MetaData title="My Orders" />
-      <Header/>
+      <Header />
       <div className="container">
         <h2 className="page-title">My Orders</h2>
         {loading ? (
@@ -38,10 +38,12 @@ const MyOrders = () => {
           <table className="table my-20">
             <thead>
               <tr>
+                <tr>
+                  <th>Product Name</th>
+                  <th>Product Price</th>
+                  <th>Product Quantity</th>
+                </tr>
                 <th>Total Bill</th>
-                <th>Product Name</th>
-                <th>Product Price</th>
-                <th>Qty</th>
                 <th>City</th>
                 <th>Country</th>
               </tr>
@@ -50,16 +52,28 @@ const MyOrders = () => {
               {orders.length > 0 ? (
                 orders.map((curr) => (
                   <tr>
-                    <td data-label="Total Bill">{curr.orderAmount}</td>
                     {curr.orderItems.map((c) => (
-                      <Fragment>
-                        <td data-label="Product Name">{c.name}</td>
-                        <td data-label="Product Price">{c.price}</td>
-                        <td data-label="Qty">{c.qty}</td>
-                      </Fragment>
+                      <tr>
+                        <td key={c._id} data-label="Product Name">
+                          {c.name}
+                        </td>
+                        <td key={c._id} data-label="Product Price">
+                          {c.price}
+                        </td>
+                        <td key={c._id} data-label="Product Quantity">
+                          {c.qty}
+                        </td>
+                      </tr>
                     ))}
-                    <td data-label="City">{curr.shippingAddress.city}</td>
-                    <td data-label="Country">{curr.shippingAddress.country}</td>
+                    <td key={curr._id} data-label="Total Bill">
+                      {curr.orderAmount}
+                    </td>
+                    <td key={curr._id} data-label="City">
+                      {curr.shippingAddress.city}
+                    </td>
+                    <td key={curr._id} data-label="Country">
+                      {curr.shippingAddress.country}
+                    </td>
                   </tr>
                 ))
               ) : (
@@ -77,7 +91,7 @@ const MyOrders = () => {
           </table>
         )}
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

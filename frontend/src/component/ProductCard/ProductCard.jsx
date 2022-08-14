@@ -11,10 +11,7 @@ const ProductCard = ({ product }) => {
       <div className="product-card">
         <Link to={`/productdetail/${product._id}`}>
           <div className="product-card-img">
-            <img
-              src="https://static-01.daraz.pk/p/4b8a12407bdaf4e478f2b45703ae5209.jpg"
-              alt="product"
-            />
+            <img src={product.images[0].url} alt="product" />
           </div>
           <div className="product-card-content">
             <h3>{product.productName}</h3>

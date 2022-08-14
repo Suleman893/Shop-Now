@@ -8,6 +8,7 @@ const dotenv = require("dotenv");
 const userRoute = require("./routes/userRoute");
 const productRoute = require("./routes/productRoute");
 const orderRoute = require("./routes/orderRoute");
+const mailRoutes = require("./routes/mailRoute");
 dotenv.config();
 app.use(cors());
 app.use(morgan("dev"));
@@ -23,7 +24,7 @@ app.listen(process.env.PORT || 4000, () => {
 });
 
 // app.use(routes);
-
+app.use("/api/mail", mailRoutes);
 app.use("/api/user", userRoute);
 app.use("/api/product", productRoute);
 app.use("/api/order", orderRoute);

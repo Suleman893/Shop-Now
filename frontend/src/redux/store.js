@@ -18,11 +18,13 @@ import {
 import {
   registerUserReducer,
   loginUserReducer,
+  deleteUserReducer,
   getAllUsersReducers,
   deleteSpecificUserReducer,
   editMySelfReducer,
   editMyPasswordReducer,
   adminEditUserProfileReducer,
+  addAdminReducer,
 } from "./reducers/userReducer";
 import { cartReducer } from "./reducers/cartReducer";
 import {
@@ -31,17 +33,19 @@ import {
   deleteSpecificOrderReducer,
   adminGetAllOrderReducer,
 } from "./reducers/orderReducer";
-
+import { subscribeReducer } from "./reducers/subscribeReducer";
 //Combine Reducers
 const rootReducer = combineReducers({
   //Users
   registerUser: registerUserReducer,
   loginUser: loginUserReducer,
+  deleteUser: deleteUserReducer,
   getAllUsers: getAllUsersReducers,
   deleteSpecificUser: deleteSpecificUserReducer,
   editMySelf: editMySelfReducer,
   editMyPassword: editMyPasswordReducer,
   adminEditUserProfile: adminEditUserProfileReducer,
+  addAdmin: addAdminReducer,
 
   //Products
   products: productReducer,
@@ -64,6 +68,9 @@ const rootReducer = combineReducers({
 
   //Cart
   cart: cartReducer,
+
+  //Subscribe
+  subscribe: subscribeReducer,
 });
 
 //LocalStorage

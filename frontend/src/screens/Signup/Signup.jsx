@@ -53,7 +53,6 @@ const Signup = () => {
     if (formErrors.password) {
       alert.error(formErrors.password);
     }
-
     if (error) {
       alert.error(error);
       dispatch(clearErrors());

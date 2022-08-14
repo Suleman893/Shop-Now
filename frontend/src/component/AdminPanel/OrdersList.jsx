@@ -51,8 +51,10 @@ const OrderList = () => {
                 <td>OrderId</td>
                 <th>UserName</th>
                 <th>Total Bill</th>
-                <th>ProductName</th>
-                <th>Qty</th>
+                <tr>
+                  <th>ProductName</th>
+                  <th>Qty</th>
+                </tr>
                 <th>Delete</th>
               </tr>
             </thead>
@@ -64,10 +66,10 @@ const OrderList = () => {
                     <td data-label="UserName">{curr.name}</td>
                     <td data-label="Total Bill">{curr.orderAmount}</td>
                     {curr.orderItems.map((c) => (
-                      <React.Fragment>
+                      <tr>
                         <td data-label="ProductName">{c.name}</td>
                         <td data-label="Qty">{c.qty}</td>
-                      </React.Fragment>
+                      </tr>
                     ))}
 
                     {/*<td data-label="Edit">

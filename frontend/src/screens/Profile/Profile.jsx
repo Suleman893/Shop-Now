@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "./Profile.css";
 import { useSelector, useDispatch } from "react-redux";
 import EditProfileModal from "../../component/Modals/EditProfileModal";
-import { clearErrors } from "../../redux/actions/userActions";
+import { clearErrors, userDelete } from "../../redux/actions/userActions";
 import Loader from "../../component/Layout/Loader/Loader";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
@@ -16,26 +16,42 @@ const MyProfile = () => {
   const alert = useAlert();
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
-  const { loggedInUserInfo, error, loading } = useSelector(
+  const { loggedInUserInfo, currentUser, error, loading } = useSelector(
     (state) => state.loginUser
   );
-
+  const { delLoading, delSuccess, delError } = useSelector(
+    (state) => state.deleteUser
+  );
   const myOrderHandler = () => {
     navigate("/myOrders");
   };
+
+  const deleteMySelf = () => {
+    dispatch(userDelete(currentUser));
+  };
+
   useEffect(() => {
     if (error) {
       alert.error(error);
       dispatch(clearErrors());
     }
-  }, [error, alert]);
+    if (delSuccess) {
+      alert.success("Profile deleted");
+      navigate("/");
+      dispatch(clearErrors());
+    }
+    if (delError) {
+      alert.error(delError);
+      dispatch(clearErrors());
+    }
+  }, [error, alert, delSuccess, delError]);
 
   return (
     <React.Fragment>
       <MetaData title={`${loggedInUserInfo.name} Profile `} />
       <Header />
       <div className="container">
-        {loading ? (
+        {loading || delLoading ? (
           <Loader />
         ) : (
           <div>
@@ -77,6 +93,9 @@ const MyProfile = () => {
                 <div className="profile-btns-container">
                   <EditProfileModal setOpen={setOpen} open={open} />
                   <EditPasswordModal setOpen={setOpen} open={open} />
+                  <button className="btn" onClick={deleteMySelf}>
+                    Delete Profile
+                  </button>
                   <button className="btn" onClick={myOrderHandler}>
                     My Orders
                   </button>

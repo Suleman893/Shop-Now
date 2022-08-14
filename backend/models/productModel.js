@@ -5,8 +5,8 @@ const productSchema = mongoose.Schema(
     productName: {
       type: String,
       required: [true, "Enter product name"],
-      maxLength: [50, "Name shouldnt exceed 50 characters"],
-      minLength: [10, "Name should have more than 10 characters"],
+      maxLength: [40, "Name shouldnt exceed 40 characters"],
+      minLength: [30, "Name should have more than 30 characters"],
       trim: true,
     },
     description: {
@@ -51,6 +51,24 @@ const productSchema = mongoose.Schema(
       type: Number,
       default: 0,
     },
+    user: {
+      type: mongoose.Schema.ObjectId,
+      ref: "User",
+      // required: true,
+    },
+    images: [
+      {
+        public_id: {
+          type: String,
+          required: true,
+        },
+        url: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
+    //Reviews
     reviews: [
       {
         user: {
@@ -78,23 +96,6 @@ const productSchema = mongoose.Schema(
           required: true,
         },
         comment: {
-          type: String,
-          required: true,
-        },
-      },
-    ],
-    user: {
-      type: mongoose.Schema.ObjectId,
-      ref: "User",
-      // required: true,
-    },
-    images: [
-      {
-        public_id: {
-          type: String,
-          required: true,
-        },
-        url: {
           type: String,
           required: true,
         },

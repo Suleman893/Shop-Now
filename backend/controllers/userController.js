@@ -4,6 +4,7 @@ const jwtHelper = require("../middlewares/jwt");
 const { validationResult } = require("express-validator");
 const { cloudinary } = require("../utils/cloudinary");
 
+//User Routes
 const UserRegistration = async (req, res) => {
   const { email, password, confirmPassword, previewSource } = req.body;
   const errors = validationResult(req);
@@ -17,7 +18,6 @@ const UserRegistration = async (req, res) => {
     emailExist = await userSchema.findOne({
       email,
     });
-
     if (emailExist) {
       return res.status(409).send({
         message: "Email already exist",
@@ -29,7 +29,6 @@ const UserRegistration = async (req, res) => {
     } else {
       let salt = await bcrypt.genSalt(10); //round 10 out of total 12 round
       let encryptedPassword = await bcrypt.hash(password, salt);
-
       const uploadResponse = await cloudinary.uploader.upload(previewSource, {
         upload_preset: "Shop-Now",
       });
@@ -54,7 +53,6 @@ const UserRegistration = async (req, res) => {
 
 const UserLogin = async (req, res) => {
   const { email, password } = req.body;
-
   try {
     const user = await userSchema.findOne({
       email,
@@ -64,7 +62,6 @@ const UserLogin = async (req, res) => {
         message: "This email dont exist",
       });
     }
-
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(401).send({
@@ -113,9 +110,34 @@ const UserDetails = async (req, res) => {
   }
 };
 
+const UserDelete = async (req, res) => {
+  const specficUser = req.userId;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).send({
+      errors: errors.array(),
+    });
+  }
+  try {
+    const user = await userSchema.findOneAndDelete({ _id: specficUser });
+    if (!user) {
+      return res.status(400).send({
+        message: "User not found",
+      });
+    }
+    return res.status(200).send({
+      success: true,
+      message: "Profile deleted ",
+    });
+  } catch (error) {
+    return res.status(500).send({
+      message: error.message,
+    });
+  }
+};
+
 const UpdateDetails = async (req, res) => {
   const specficUser = req.userId;
-
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).send({
@@ -139,6 +161,84 @@ const UpdateDetails = async (req, res) => {
       message: "User updated successfully",
       user,
     });
+  } catch (error) {
+    return res.status(500).send({
+      message: error.message,
+    });
+  }
+};
+
+const UpdatePassword = async (req, res) => {
+  const { oldPassword, newPassword, confirmNewPassword } = req.body;
+  try {
+    const user = await userSchema.findById(req.userId);
+    const isPasswordMatched = await bcrypt.compare(oldPassword, user.password);
+    if (!isPasswordMatched) {
+      return res.status(400).send({
+        message: "Old password is incorrect",
+      });
+    }
+    if (newPassword !== confirmNewPassword) {
+      return res.status(400).send({
+        message: "Password does not match",
+      });
+    }
+    let salt = await bcrypt.genSalt(10); //round 10 out of total 12 round
+    let encryptedPassword = await bcrypt.hash(newPassword, salt);
+    user.password = encryptedPassword;
+    user.confirmNewPassword = encryptedPassword;
+    await user.save();
+    return res.status(200).send({
+      message: "Password updated successfully",
+    });
+  } catch (error) {
+    return res.status(500).send({
+      message: error.message,
+    });
+  }
+};
+
+//AdminRoutes
+const AddNewAdmin = async (req, res) => {
+  const { email, password, confirmPassword, previewSource } = req.body;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).send({
+      errors: errors.array(),
+    });
+  }
+  try {
+    let emailExist;
+    emailExist = await userSchema.findOne({
+      email,
+    });
+    if (emailExist) {
+      return res.status(409).send({
+        message: "Email already exist",
+      });
+    } else if (password !== confirmPassword) {
+      return res.status(409).send({
+        message: "Password and confirm password don't match",
+      });
+    } else {
+      let salt = await bcrypt.genSalt(10); //round 10 out of total 12 round
+      let encryptedPassword = await bcrypt.hash(password, salt);
+      const uploadResponse = await cloudinary.uploader.upload(previewSource, {
+        upload_preset: "Shop-Now",
+      });
+      const user = await userSchema.create({
+        ...req.body,
+        userPic: uploadResponse.url,
+        password: encryptedPassword,
+        confirmPassword: encryptedPassword,
+        role: "admin",
+      });
+      return res.status(201).send({
+        success: true,
+        message: "Admin registered successfully",
+        user,
+      });
+    }
   } catch (error) {
     return res.status(500).send({
       message: error.message,
@@ -225,44 +325,15 @@ const AdminUpdateUser = async (req, res) => {
   }
 };
 
-// update User password
-const UpdatePassword = async (req, res) => {
-  const { oldPassword, newPassword, confirmNewPassword } = req.body;
-  try {
-    const user = await userSchema.findById(req.userId);
-    const isPasswordMatched = await bcrypt.compare(oldPassword, user.password);
-    if (!isPasswordMatched) {
-      return res.status(400).send({
-        message: "Old password is incorrect",
-      });
-    }
-    if (newPassword !== confirmNewPassword) {
-      return res.status(400).send({
-        message: "Password does not match",
-      });
-    }
-    let salt = await bcrypt.genSalt(10); //round 10 out of total 12 round
-    let encryptedPassword = await bcrypt.hash(newPassword, salt);
-    user.password = encryptedPassword;
-    user.confirmNewPassword = encryptedPassword;
-    await user.save();
-    return res.status(200).send({
-      message: "Password updated successfully",
-    });
-  } catch (error) {
-    return res.status(500).send({
-      message: error.message,
-    });
-  }
-};
-
 module.exports = {
   UserRegistration,
   UserLogin,
+  UserDelete,
   UserDetails,
   UpdateDetails,
   GetAllUsers,
   RemoveUserById,
   AdminUpdateUser,
   UpdatePassword,
+  AddNewAdmin,
 };

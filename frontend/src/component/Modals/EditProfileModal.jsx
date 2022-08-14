@@ -10,6 +10,7 @@ import { updateMySelf, clearErrors } from "../../redux/actions/userActions";
 import Loader from "../Layout/Loader/Loader";
 import { useAlert } from "react-alert";
 import "./ModalStyling.css";
+import { Validate } from "../../validation/EditUserValidation";
 
 const EditProfileModal = () => {
   const alert = useAlert();
@@ -44,8 +45,17 @@ const EditProfileModal = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(updateMySelf(updatedUser, currentUser));
-    setOpen(false);
+    const errorsCount = Validate(updatedUser);
+    if (errorsCount.name) {
+      alert.error(errorsCount.name);
+    }
+    if (errorsCount.email) {
+      alert.error(errorsCount.email);
+    }
+    if (Object.keys(errorsCount).length === 0) {
+      dispatch(updateMySelf(updatedUser, currentUser));
+      setOpen(false);
+    }
   };
 
   useEffect(() => {

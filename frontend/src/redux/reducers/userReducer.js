@@ -25,6 +25,36 @@ export const registerUserReducer = (state = { user: {} }, action) => {
   }
 };
 
+export const deleteUserReducer = (state = { user: {} }, action) => {
+  switch (action.type) {
+    case actionTypes.USER_DELETE_REQUEST:
+      return {
+        ...state,
+        delLoading: true,
+      };
+    case actionTypes.USER_DELETE_SUCCESS:
+      return {
+        ...state,
+        delLoading: false,
+        delSuccess: true,
+      };
+    case actionTypes.USER_DELETE_FAIL:
+      return {
+        ...state,
+        delLoading: false,
+        delError: action.payload,
+      };
+    case actionTypes.CLEAR_ERRORS:
+      return {
+        ...state,
+        delSuccess: false,
+        delError: null,
+      };
+    default:
+      return state;
+  }
+};
+
 export const loginUserReducer = (state = { user: {} }, action) => {
   switch (action.type) {
     case actionTypes.USER_LOGIN_REQUEST:
@@ -197,6 +227,31 @@ export const adminEditUserProfileReducer = (state = { user: {} }, action) => {
         success: false,
       };
 
+    case actionTypes.CLEAR_ERRORS:
+      return { ...state, error: null, success: false };
+    default:
+      return state;
+  }
+};
+
+export const addAdminReducer = (state = { user: {} }, action) => {
+  switch (action.type) {
+    case actionTypes.ADD_ADMIN_REQUEST:
+      return { loading: true };
+    case actionTypes.ADD_ADMIN_SUCCESS:
+      return {
+        ...state,
+        user: action.payload,
+        loading: false,
+        success: true,
+      };
+    case actionTypes.ADD_ADMIN_FAIL:
+      return {
+        ...state,
+        loading: false,
+        user: null,
+        error: action.payload,
+      };
     case actionTypes.CLEAR_ERRORS:
       return { ...state, error: null, success: false };
     default:

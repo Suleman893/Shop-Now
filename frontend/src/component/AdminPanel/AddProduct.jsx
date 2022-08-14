@@ -25,7 +25,6 @@ const AddProduct = () => {
   const [stock, setStock] = useState(0);
   const [images, setImages] = useState([]);
 
-  const [formErrors, setFormErrors] = useState({});
   useEffect(() => {
     if (error) {
       alert.error(error);
@@ -37,52 +36,51 @@ const AddProduct = () => {
     }
   }, [dispatch, alert, error, success]);
 
-  let errorsCount;
-  const myForm = new FormData();
+  const handleImage = (e) => {
+    const files = Array.from(e.target.files);
+    files.forEach((file) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setImages((oldArray) => [...oldArray, reader.result]);
+      };
+    });
+  };
+  let newProduct;
+  newProduct = {
+    productName,
+    description,
+    price,
+    category,
+    stock,
+    images,
+  };
 
   const createProductSubmitHandler = (e) => {
     e.preventDefault();
-    const newProduct = {
-      productName,
-      description,
-      price,
-      category,
-      stock,
-    };
-    errorsCount = Validate(newProduct);
-    setFormErrors(errorsCount);
-
-    myForm.set("productName", productName);
-    myForm.set("description", description);
-    myForm.set("price", price);
-    myForm.set("category", category);
-    myForm.set("stock", stock);
-
-    images.forEach((image) => {
-      myForm.append("images", image);
-    });
-  };
-
-  if (Object.keys(errorsCount).length === 0) {
-    dispatch(adminAddProduct(myForm, currentUser));
-  }
-
-  const createProductImagesChange = (e) => {
-    const files = Array.from(e.target.files);
-
-    setImages([]);
-
-    files.forEach((file) => {
-      const reader = new FileReader();
-
-      reader.onload = () => {
-        if (reader.readyState === 2) {
-          setImages((old) => [...old, reader.result]);
-        }
-      };
-
-      reader.readAsDataURL(file);
-    });
+    const errorsCount = Validate(newProduct);
+    if (errorsCount.productName) {
+      alert.error(errorsCount.productName);
+    }
+    if (errorsCount.description) {
+      alert.error(errorsCount.description);
+    }
+    if (errorsCount.price) {
+      alert.error(errorsCount.price);
+    }
+    if (errorsCount.category) {
+      alert.error(errorsCount.category);
+    }
+    if (errorsCount.stock) {
+      alert.error(errorsCount.stock);
+    }
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+    if (Object.keys(errorsCount).length === 0) {
+      dispatch(adminAddProduct(newProduct, currentUser));
+    }
   };
 
   return (
@@ -91,24 +89,25 @@ const AddProduct = () => {
         {loading ? (
           <Loader />
         ) : (
-          <table className="table">
-            <thead>
-              <tr>
-                <th>ProductName</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Category</th>
-                <th>Stock</th>
-                <th>Image</th>
-                <th>Add</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <form
-                  encType="multipart/form-data"
-                  onSubmit={createProductSubmitHandler}
-                >
+          <form
+            id="createProductBtn"
+            encType="multipart/form-data"
+            onSubmit={createProductSubmitHandler}
+          >
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>ProductName</th>
+                  <th>Description</th>
+                  <th>Price</th>
+                  <th>Category</th>
+                  <th>Stock</th>
+                  <th>Image</th>
+                  <th>Add</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
                   <td data-label="ProductName">
                     {" "}
                     <input
@@ -117,9 +116,6 @@ const AddProduct = () => {
                       value={productName}
                       onChange={(e) => setProductName(e.target.value)}
                     />
-                    <p>
-                      {formErrors.productName ? formErrors.productName : " "}
-                    </p>
                   </td>
                   <td data-label="Description">
                     {" "}
@@ -129,9 +125,6 @@ const AddProduct = () => {
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
                     />
-                    <p>
-                      {formErrors.description ? formErrors.description : " "}
-                    </p>
                   </td>
                   <td data-label="Price">
                     <input
@@ -140,7 +133,6 @@ const AddProduct = () => {
                       value={price}
                       onChange={(e) => setPrice(e.target.value)}
                     />
-                    <p>{formErrors.price ? formErrors.price : " "}</p>
                   </td>
                   <td data-label="Category">
                     {" "}
@@ -150,7 +142,6 @@ const AddProduct = () => {
                       value={category}
                       onChange={(e) => setCategory(e.target.value)}
                     />
-                    <p>{formErrors.category ? formErrors.category : " "}</p>
                   </td>
                   <td data-label="Stock">
                     <input
@@ -159,28 +150,18 @@ const AddProduct = () => {
                       value={stock}
                       onChange={(e) => setStock(e.target.value)}
                     />
-                    <p>{formErrors.stock ? formErrors.stock : " "}</p>
                   </td>
                   <td data-label="Image">
-                    <label for="file-input">
-                      <InsertPhotoIcon
-                        style={{
-                          color: "blue",
-                          cursor: "pointer",
-                          fontSize: "1.2rem",
-                        }}
-                      />
-                    </label>
                     <input
                       type="file"
-                      name="avatar"
-                      accept="image/*"
-                      onChange={createProductImagesChange}
+                      id="formupload"
+                      name="image"
                       multiple
+                      onChange={handleImage}
                     />
                   </td>
                   <td>
-                    <AddIcon
+                    {/*  <AddIcon
                       style={{
                         color: "blue",
                         cursor: "pointer",
@@ -190,12 +171,13 @@ const AddProduct = () => {
                       id="createProductBtn"
                     >
                       Add the Product
-                    </AddIcon>
+                    </AddIcon> */}
+                    <input type="submit" />
                   </td>
-                </form>
-              </tr>
-            </tbody>
-          </table>
+                </tr>
+              </tbody>
+            </table>
+          </form>
         )}
       </div>
     </div>

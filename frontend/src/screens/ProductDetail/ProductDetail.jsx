@@ -39,7 +39,7 @@ const ProductDetail = () => {
   const [comment, setComment] = useState("");
   const toSend = { rating, comment, productId: product._id };
   const [qty, setQty] = useState(1);
-
+  let galleryImages;
   const increaseQuantity = () => {
     if (product.stock <= qty) return;
     const updatedQty = qty + 1;
@@ -52,9 +52,7 @@ const ProductDetail = () => {
   };
 
   const [loginCheck, setLoginCheck] = useState(true);
-
   const submitReview = (e) => {
-    console.log("loginCheck", loginCheck);
     if (!currentUser) {
       alert.error("Please login");
       setLoginCheck(false);
@@ -83,17 +81,14 @@ const ProductDetail = () => {
     scroll.scrollTo(1);
   }, [dispatch, error, alert, success, reviewerror]);
 
-  const addToCartHandler = () => {
-    if (product.stock > 0) {
-      dispatch(addToCart(product._id, qty));
-      alert.success(`${product.productName} added to card`);
-      navigate(`/cart/${param.id}?qty=${qty}`);
-    } else {
-      alert.error("Not added to cart");
-    }
-  };
+  // const galleryImagesFunc = () => {
+  //   galleryImages = product.images.map(({ url: original, url: thumbnail }) => ({
+  //     original,
+  //     thumbnail,
+  //   }));
+  // };
 
-  const images = [
+  galleryImages = [
     {
       original:
         "https://static-01.daraz.pk/p/4b8a12407bdaf4e478f2b45703ae5209.jpg",
@@ -113,6 +108,17 @@ const ProductDetail = () => {
         "https://static-01.daraz.pk/p/75d5db586ddba2ffada40c7d156dd4b1.jpg",
     },
   ];
+
+  const addToCartHandler = () => {
+    if (product.stock > 0) {
+      dispatch(addToCart(product._id, qty));
+      alert.success(`${product.productName} added to card`);
+      navigate(`/cart/${param.id}?qty=${qty}`);
+    } else {
+      alert.error("Not added to cart");
+    }
+  };
+
   return (
     <React.Fragment>
       <MetaData title={product.productName} />
@@ -124,7 +130,7 @@ const ProductDetail = () => {
           <div className="product-detail-container">
             <div className="product-detail-row">
               <div className="product-detail-left">
-                <ImageGallery items={images} />
+                <ImageGallery items={galleryImages} />
               </div>
               <div className="product-detail-right">
                 <div className="product-detail-content">
@@ -189,6 +195,8 @@ const ProductDetail = () => {
                   value={rating}
                   isHalf={true}
                   size="large"
+                  color="rgba(20,20,20,0.1)"
+                  activeColor="#ffd700"
                 />
               </div>
               <textarea

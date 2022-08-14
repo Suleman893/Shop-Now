@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import buy1 from "../../images/product2.jpg";
 import { addToCart, removeFromCart } from "../../redux/actions/cartActions";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -31,7 +30,6 @@ const Cart = () => {
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
-
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));
   };
@@ -71,7 +69,7 @@ const Cart = () => {
               <tr>
                 <td>
                   <div className="cart-img">
-                    <img src={buy1} alt="cart-item" />
+                    <img src={item.productImg} alt="cart-item" />
                   </div>
                 </td>
                 <td>

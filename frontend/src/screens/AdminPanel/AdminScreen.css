@@ -28,6 +28,7 @@
   height: auto;
   text-align: left;
   font-weight: 500;
+  cursor: pointer;
 }
 
 .admin-panel-sidebar button::after {
@@ -53,7 +54,6 @@
   .admin-panel-sidebar {
     flex-direction: row;
   }
-
   .admin-panel-sidebar li {
     margin-left: 6px;
   }
@@ -67,15 +67,12 @@
     justify-content: space-between;
     flex-direction: row;
   }
-
   .admin-left {
     width: 100%;
   }
-
   .admin-right {
     width: 90%;
   }
-
   .admin-panel-sidebar button:hover::after {
     width: 100%;
   }

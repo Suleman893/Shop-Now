@@ -19,17 +19,11 @@ const {
   LatestGetAllProducts,
 } = require("../controllers/productController");
 
-//LatestGetAllProducts
+//LatestGetAllProductsDELETE
 router.get("/latestGetProduct/:category", LatestGetAllProducts);
 
-//GetAllProducts
-router.get("/products", GetAllProducts);
-
-//NewGetAllProducts
+//NewGetAllProductsDELETE
 router.get("/newProducts", NewGetAllProducts);
-
-//SearchProduct
-router.get("/searchProduct/:productName", SearchProduct);
 
 //GetLatestProduct
 router.get("/latestProduct", GetLatestProducts);
@@ -37,11 +31,17 @@ router.get("/latestProduct", GetLatestProducts);
 //GetFeaturedProduct
 router.get("/featuredProduct", GetFeaturedProduct);
 
-//GetSpecificProduct
-router.get("/product/:id", ProductDetails);
+//GetAllProducts
+router.get("/products", GetAllProducts);
 
 //GetProductByCategory
 router.get("/productbycategory/:category", GetProductByCategory);
+
+//SearchProduct
+router.get("/searchProduct/:productName", SearchProduct);
+
+//GetSpecificProduct
+router.get("/product/:id", ProductDetails);
 
 // Create New Review or Update the review
 router.put("/productreview", checkToken, CreateProductReview);

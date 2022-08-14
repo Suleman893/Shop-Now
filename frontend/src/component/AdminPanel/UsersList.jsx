@@ -6,8 +6,8 @@ import {
   clearErrors,
 } from "../../redux/actions/userActions";
 import "./AdminPanel.css";
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import { AdminEditUserModal } from "../Modals/AdminEditUserModal";
 import Loader from "../Layout/Loader/Loader";
 import { useAlert } from "react-alert";
@@ -72,8 +72,9 @@ const UsersList = () => {
                     <td data-label="Name">{curr.name}</td>
                     <td data-label="Role">{curr.role}</td>
                     <td data-label="Image">
-                      <input type="file" id="files" />
-                      <label htmlFor="files">Api image</label>
+                      <div className="user-list-img">
+                        <img src={curr.userPic} alt="productimg" />
+                      </div>
                     </td>
                     <td data-label="Edit">
                       <AdminEditUserModal
@@ -86,12 +87,12 @@ const UsersList = () => {
                       />
                     </td>
                     <td data-label="Delete">
-                    <DeleteIcon
-                    style={{
-                      cursor: "pointer",
-                      fontSize: "1.2rem",
-                      color: "red",
-                    }}
+                      <DeleteIcon
+                        style={{
+                          cursor: "pointer",
+                          fontSize: "1.2rem",
+                          color: "red",
+                        }}
                         onClick={() =>
                           dispatch(deleteUser(curr._id, currentUser))
                         }

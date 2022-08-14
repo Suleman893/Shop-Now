@@ -24,13 +24,17 @@ const ReviewCard = ({ review }) => {
               edit={false}
               color="rgba(20,20,20,0.1)"
               activeColor="#ffd700"
-              isHalf={true}
+              isHalf={false}
               size={window.innerWidth < 600 ? 20 : 25}
               value={review.rating}
             />
           </div>
-          <h5 className="mx-10"> Comment by {review.name} : </h5>
-          <span>{review.comment} </span>
+          {review.comment.length > 1 && (
+            <>
+              <h5 className="mx-10"> Comment by {review.name} </h5>
+              <span>{review.comment} </span>
+            </>
+          )}
         </div>
       </div>
     </React.Fragment>

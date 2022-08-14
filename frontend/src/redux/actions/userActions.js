@@ -7,9 +7,10 @@ import {
   deleteSpecificUserApi,
   adminCanUpdateUser,
   userCanUpdateItsPassword,
+  deleteUserApi,
+  addAdminApi,
 } from "../../api/Apis";
 import axios from "axios";
-import { useSelector } from "react-redux";
 
 export const registerUser = (user) => async (dispatch) => {
   dispatch({ type: actionTypes.USER_REGISTER_REQUEST });
@@ -40,24 +41,39 @@ export const loginUser = (userinfo) => async (dispatch) => {
   }
 };
 
-export const loadUser = () => async (dispatch) => {
-  const { currentUser } = useSelector((state) => state.loginUser);
+export const userDelete = (currentUser) => async (dispatch) => {
   const headers = { authorization: currentUser };
   try {
-    dispatch({ type: actionTypes.LOAD_USER_REQUEST });
-    const { data } = await axios.get(
-      "http://localhost:2000/api/user/userInfo",
-      { headers }
-    );
-    localStorage.setItem("loggedInUserInfo", JSON.stringify(data.user));
-    dispatch({ type: actionTypes.LOAD_USER_SUCCESS, payload: data.user });
+    dispatch({ type: actionTypes.USER_DELETE_REQUEST });
+    const res = await axios.delete(deleteUserApi, { headers });
+    dispatch({ type: actionTypes.USER_DELETE_SUCCESS, payload: res.message });
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem("loggedInUserInfo");
   } catch (error) {
     dispatch({
-      type: actionTypes.LOAD_USER_FAIL,
+      type: actionTypes.USER_DELETE_FAIL,
       payload: error.response.data.message,
     });
   }
 };
+
+// export const loadUser = (currentUser) => async (dispatch) => {
+//   const headers = { authorization: currentUser };
+//   try {
+//     dispatch({ type: actionTypes.LOAD_USER_REQUEST });
+//     const { data } = await axios.get(
+//       "http://localhost:2000/api/user/userInfo",
+//       { headers }
+//     );
+//     localStorage.setItem("loggedInUserInfo", JSON.stringify(data.user));
+//     dispatch({ type: actionTypes.LOAD_USER_SUCCESS, payload: data.user });
+//   } catch (error) {
+//     dispatch({
+//       type: actionTypes.LOAD_USER_FAIL,
+//       payload: error.response.data.message,
+//     });
+//   }
+// };
 
 export const logoutUser = () => () => {
   localStorage.removeItem("currentUser");
@@ -158,6 +174,22 @@ export const adminEditUser = (updatedUser, currentUser) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: actionTypes.ADMIN_EDIT_PROFILE_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const addAdmin = (user, currentUser) => async (dispatch) => {
+  const headers = { authorization: currentUser };
+  dispatch({ type: actionTypes.ADD_ADMIN_REQUEST });
+  try {
+    const { data } = await axios.post(addAdminApi, user, {
+      headers,
+    });
+    dispatch({ type: actionTypes.ADD_ADMIN_SUCCESS, payload: data.user });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.ADD_ADMIN_FAIL,
       payload: error.response.data.message,
     });
   }

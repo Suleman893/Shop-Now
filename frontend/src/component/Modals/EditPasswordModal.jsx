@@ -50,8 +50,19 @@ const EditPasswordModal = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(updateMyPassword(updatedPassword, currentUser));
-    setOpen(false);
+    if (
+      updatedPassword.oldPassword.length < 5 ||
+      updatedPassword.oldPassword.length > 15 ||
+      updatedPassword.newPassword.length < 5 ||
+      updatedPassword.newPassword.length > 15 ||
+      updatedPassword.confirmNewPassword.length < 5 ||
+      updatedPassword.confirmNewPassword.length > 15
+    ) {
+      alert.error("Password length must be 5-15");
+    } else {
+      dispatch(updateMyPassword(updatedPassword, currentUser));
+      setOpen(false);
+    }
   };
 
   useEffect(() => {
@@ -67,7 +78,9 @@ const EditPasswordModal = () => {
 
   return (
     <div>
-      <button onClick={handleClickOpen}  className="btn">Edit Password</button>
+      <button onClick={handleClickOpen} className="btn">
+        Edit Password
+      </button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Update Passowrd</DialogTitle>
         <DialogContent>

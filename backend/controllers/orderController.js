@@ -6,13 +6,11 @@ const stripe = require("stripe")(
 
 const PlaceOrder = async (req, res) => {
   const { token, subTotal, cartItems } = req.body;
-
   try {
     const customer = await stripe.customers.create({
       email: token.email,
       source: token.id,
     });
-
     const payment = await stripe.charges.create(
       {
         amount: subTotal * 100,

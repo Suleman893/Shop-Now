@@ -12,6 +12,7 @@ import HomeProductCard from "../../component/ProductCard/HomeProductCard";
 import HeroSection from "../../component/Home/HeroSection";
 import Header from "../../component/Layout/Header/Header";
 import Footer from "../../component/Layout/Footer/Footer";
+import NewsLetter from "../../component/Home/NewsLetter";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -56,6 +57,7 @@ const Home = () => {
           )}
         </div>
       </div>
+      <NewsLetter/>
       <Footer />
     </React.Fragment>
   );

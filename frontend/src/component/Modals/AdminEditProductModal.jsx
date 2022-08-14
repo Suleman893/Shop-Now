@@ -10,6 +10,7 @@ import { editProduct, clearErrors } from "../../redux/actions/productAction";
 import EditIcon from "@mui/icons-material/Edit";
 import { useAlert } from "react-alert";
 import "./ModalStyling.css";
+import { Validate } from "../../validation/AddProductValidation";
 
 export const AdminEditProductModal = ({
   productId,
@@ -17,7 +18,6 @@ export const AdminEditProductModal = ({
   productDesc,
   productStock,
   productPrice,
-  productRatings,
   productCategory,
 }) => {
   const alert = useAlert();
@@ -44,13 +44,12 @@ export const AdminEditProductModal = ({
     productName: productName,
     description: productDesc,
     price: productPrice,
-    ratings: productRatings,
     category: productCategory,
     stock: productStock,
   };
   const [updateProduct, setUpdatedProduct] = useState(initialValues);
 
-  const editonChangeHandler = (e) => {
+  const editOnChangeHandler = (e) => {
     const { name, value } = e.target;
     setUpdatedProduct({
       ...updateProduct,
@@ -60,8 +59,26 @@ export const AdminEditProductModal = ({
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(editProduct(updateProduct, currentUser));
-    setOpen(false);
+    const errorsCount = Validate(updateProduct);
+    if (errorsCount.productName) {
+      alert.error(errorsCount.productName);
+    }
+    if (errorsCount.description) {
+      alert.error(errorsCount.description);
+    }
+    if (errorsCount.price) {
+      alert.error(errorsCount.price);
+    }
+    if (errorsCount.category) {
+      alert.error(errorsCount.category);
+    }
+    if (errorsCount.stock) {
+      alert.error(errorsCount.stock);
+    }
+    if (Object.keys(errorsCount).length === 0) {
+      dispatch(editProduct(updateProduct, currentUser));
+      setOpen(false);
+    }
   };
 
   useEffect(() => {
@@ -70,7 +87,7 @@ export const AdminEditProductModal = ({
       dispatch(clearErrors());
     }
     if (success) {
-      alert.success("Profile updated");
+      alert.success("Product Updated");
       dispatch(clearErrors());
     }
   }, [dispatch, error, success, alert]);
@@ -97,7 +114,7 @@ export const AdminEditProductModal = ({
             fullWidth
             variant="standard"
             value={updateProduct.productName}
-            onChange={editonChangeHandler}
+            onChange={editOnChangeHandler}
           />
           <TextField
             autoFocus
@@ -108,7 +125,7 @@ export const AdminEditProductModal = ({
             fullWidth
             variant="standard"
             value={updateProduct.description}
-            onChange={editonChangeHandler}
+            onChange={editOnChangeHandler}
           />
           <TextField
             autoFocus
@@ -119,18 +136,7 @@ export const AdminEditProductModal = ({
             fullWidth
             variant="standard"
             value={updateProduct.price}
-            onChange={editonChangeHandler}
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            name="ratings"
-            label="Ratings"
-            type="number"
-            fullWidth
-            variant="standard"
-            value={updateProduct.ratings}
-            onChange={editonChangeHandler}
+            onChange={editOnChangeHandler}
           />
           <TextField
             autoFocus
@@ -141,7 +147,7 @@ export const AdminEditProductModal = ({
             fullWidth
             variant="standard"
             value={updateProduct.category}
-            onChange={editonChangeHandler}
+            onChange={editOnChangeHandler}
           />
           <TextField
             autoFocus
@@ -152,7 +158,7 @@ export const AdminEditProductModal = ({
             fullWidth
             variant="standard"
             value={updateProduct.stock}
-            onChange={editonChangeHandler}
+            onChange={editOnChangeHandler}
           />
         </DialogContent>
         <DialogActions>

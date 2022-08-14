@@ -58,8 +58,12 @@ td select {
   max-width: 400px;
 }
 
+.cart-img {
+  max-width: 35%;
+}
+
 .cart-img img {
-  width: 35%;
+  width: 100%;
   object-fit: cover;
   object-position: center;
 }

@@ -31,7 +31,7 @@ const Checkout = ({ subTotal }) => {
     if (success) {
       alert.success("Order placed");
       dispatch(clearErrors());
-
+      dispatch(clearCart());
       navigate("/myOrders");
     }
   }, [dispatch, error, alert, success]);
@@ -46,7 +46,7 @@ const Checkout = ({ subTotal }) => {
         currency="PKR"
       >
         <div style={{ width: "15%" }}>
-          <button disabled={cartItems.length === 0} className="btn">
+          <button disabled={cartItems.length == 0} className="btn">
             Checkout <ShoppingCartCheckoutIcon style={{ fontSize: "17px" }} />
           </button>
         </div>
